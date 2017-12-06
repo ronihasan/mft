@@ -151,20 +151,39 @@
                         dataType: 'json',
                         success: function (vals) {
                             console.log(vals);
-                            if (vals.flash_data !== undefined || vals.flash_data !== null) {
-                                if (vals.flash_data.success === 1) {
-
+                            /*
+                             if (vals.flash_data !== undefined || vals.flash_data !== null) {
+                             if (vals.flash_data.success === 1) {
+                             
+                             // Setting value
+                             localStorage.setItem('user', JSON.stringify(vals.user_data));
+                             // Setting value
+                             localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
+                             
+                             $("body").cftoaster({content: vals.flash_data.msg});
+                             setTimeout(function () {
+                             window.location.href = 'home.html';
+                             }, 2000);
+                             } else {
+                             $("body").cftoaster({content: vals.flash_data.msg});
+                             }
+                             } else {
+                             $("body").cftoaster({content: 'Cannot read properly.'});
+                             }
+                             */
+                            if (vals.status !== undefined || vals.status !== null) {
+                                if (vals.status === '1') {
                                     // Setting value
-                                    localStorage.setItem('user', JSON.stringify(vals.user_data));
+                                    localStorage.setItem('user', JSON.stringify(vals.user));
                                     // Setting value
-                                    localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
+                                    localStorage.setItem('sess_data', JSON.stringify(vals.session));
 
-                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                    $("body").cftoaster({content: vals.msg});
                                     setTimeout(function () {
                                         window.location.href = 'home.html';
                                     }, 2000);
                                 } else {
-                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                    $("body").cftoaster({content: vals.msg});
                                 }
                             } else {
                                 $("body").cftoaster({content: 'Cannot read properly.'});
@@ -179,14 +198,14 @@
                     }, 2000);
                 })
             });
-        
+
             /*
-            window.addEventListener('offline', function(e) { console.log('offline'); });
-            window.addEventListener('online', function(e) { console.log('online'); });
-            online = window.navigator.onLine;
-            console.log(online);
-            alert(online);
-            */
+             window.addEventListener('offline', function(e) { console.log('offline'); });
+             window.addEventListener('online', function(e) { console.log('online'); });
+             online = window.navigator.onLine;
+             console.log(online);
+             alert(online);
+             */
         </script>
         <script type="text/javascript" src="template/js/modernizr.js"></script>
         <script type="text/javascript" src="template/js/framework.js"></script>
