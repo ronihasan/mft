@@ -27,16 +27,16 @@
         <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
         <link rel="apple-touch-icon" href="template/images/logo.ico">
         <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-        
+
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
 
         <script type="text/javascript" src="template/js/modernizr.js"></script>
         <script type="text/javascript" src="template/js/framework.js"></script>
         <script type="text/javascript" src="template/js/scripts.js"></script>
         <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
-        
+
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-<!--        <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>-->
+        <!--        <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>-->
 
         <!-- jQuery cftoaster plugin -->
         <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
@@ -45,10 +45,10 @@
         <!-- custom & common scripts -->
         <!--<script src="js/custom.js"></script>-->
         <script type="text/javascript" src="confs.json"></script>
-        
+
         <style>
             .w-form input[type=text],select,textarea{
-               color: #FFF !important;
+                color: #FFF !important;
             }
         </style>
 
@@ -63,31 +63,31 @@
                     <!--<h6 class="header-h1">My Future Thoughts</h6>-->
 
                     <div class="bottom-section padding">
-<!--                        <div class="w-form-body">-->
-<!--                            <div class="w-form">-->
-                                <form id="submit-form" name="email-form" action="#" data-redirect="home.html">
-                                    <div>
-                                        <label class="label-form light" for="email-field">USERNAME</label>
-                                        <input class="w-input input-form light" id="email-field" type="text" value="ronihasan.ph@gmail.com" name="data[User][username]" data-name="email" required="required">
-                                        <div class="separator-fields"></div>
-                                    </div>
-                                    <div>
-                                        <label class="label-form light" for="email">PASSWORD</label>
-                                        <div class="block-input-combined">
-                                            <input class="w-input input-form light left" id="password-field" type="password" value="123456" name="data[User][password]" data-name="password" required="required">
-                                            <a class="right-input-link" href="forgot.html" data-load="1">Forgot Password</a>
-                                        </div>
-                                        <div class="separator-button-input"></div>
-                                    </div>
-                                    <input class="w-button action-button sign_in_button" type="submit" value="Sign In" data-wait="Please wait...">
-                                    <div class="separator-button"></div>
-                                    <!--<a class="link-upper" href="signup.html" data-load="1">Don't have an account? <strong class="b-link">Sign Up</strong></a>-->
-                                </form>
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="w-form-body">-->
+                        <!--                            <div class="w-form">-->
+                        <form id="submit-form" name="email-form" action="#" data-redirect="home.html">
+                            <div>
+                                <label class="label-form light" for="email-field">USERNAME</label>
+                                <input class="w-input input-form light" id="email-field" type="text" value="ronihasan.ph@gmail.com" name="data[User][username]" data-name="email" required="required">
+                                <div class="separator-fields"></div>
+                            </div>
+                            <div>
+                                <label class="label-form light" for="email">PASSWORD</label>
+                                <div class="block-input-combined">
+                                    <input class="w-input input-form light left" id="password-field" type="password" value="123456" name="data[User][password]" data-name="password" required="required">
+                                    <a class="right-input-link" href="forgot.html" data-load="1">Forgot Password</a>
+                                </div>
+                                <div class="separator-button-input"></div>
+                            </div>
+                            <input class="w-button action-button sign_in_button" type="submit" value="Sign In" data-wait="Please wait...">
+                            <div class="separator-button"></div>
+                            <!--<a class="link-upper" href="signup.html" data-load="1">Don't have an account? <strong class="b-link">Sign Up</strong></a>-->
+                        </form>
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
-                
+
                 <div style="height:10px;">
                     <a class="link-upper" href="signup.html" data-load="1">Don't have an account? <strong class="b-link">Sign Up</strong></a>
                     <div class="separator-fields"></div>
@@ -117,7 +117,7 @@
             $(document).ready(function () {
                 // loading confs value
                 confs = JSON.parse(app_confs);
-                
+
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
@@ -136,28 +136,28 @@
                         data: pdata,
                         dataType: 'json',
                         success: function (vals) {
-                            console.log(vals);
+                            console.log(vals.user);
                             /*
-                            if (vals.flash_data !== undefined || vals.flash_data !== null) {
-                                if (vals.flash_data.success === 1) {
+                             if (vals.flash_data !== undefined || vals.flash_data !== null) {
+                             if (vals.flash_data.success === 1) {
+                             
+                             // Setting value
+                             localStorage.setItem('user', JSON.stringify(vals.user_data));
+                             // Setting value
+                             localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
+                             
+                             $("body").cftoaster({content: vals.flash_data.msg});
+                             setTimeout(function () {
+                             window.location.href = 'home.html';
+                             }, 2000);
+                             } else {
+                             $("body").cftoaster({content: vals.flash_data.msg});
+                             }
+                             } else {
+                             $("body").cftoaster({content: 'Cannot read properly.'});
+                             }
+                             */
 
-                                    // Setting value
-                                    localStorage.setItem('user', JSON.stringify(vals.user_data));
-                                    // Setting value
-                                    localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
-
-                                    $("body").cftoaster({content: vals.flash_data.msg});
-                                    setTimeout(function () {
-                                        window.location.href = 'home.html';
-                                    }, 2000);
-                                } else {
-                                    $("body").cftoaster({content: vals.flash_data.msg});
-                                }
-                            } else {
-                                $("body").cftoaster({content: 'Cannot read properly.'});
-                            }
-                            */
-                           
                             if (vals.status !== undefined || vals.status !== null) {
                                 if (vals.status === '1') {
                                     // Setting value
@@ -178,44 +178,44 @@
                         }
                     });
                 });
-                
+
                 /*
-                $('input[type="text"],select,textarea').on('click', function (e) {
-                    //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
-                    slide_auto_pos = $('.slide-auto').offset().top;
-                    slide_vw_pos = $('.slide-vw').offset().top;
-                    child_curr_pos = $(this).offset().top;
-                    extra_top = 100;
-                    newtop = child_curr_pos - slide_auto_pos - extra_top;
-                    console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
-                    $('.slide-vw').css({'top':'-'+newtop+'px'});
-                });
-                $('input[type="text"],input[type="password"],select,textarea').on('focusout', function (e) {
-                    slide_auto_pos = $('.slide-auto').offset().top;
-                    $('.slide-vw').css({'top':'0px'});
-                });
-                */
-                
+                 $('input[type="text"],select,textarea').on('click', function (e) {
+                 //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
+                 slide_auto_pos = $('.slide-auto').offset().top;
+                 slide_vw_pos = $('.slide-vw').offset().top;
+                 child_curr_pos = $(this).offset().top;
+                 extra_top = 100;
+                 newtop = child_curr_pos - slide_auto_pos - extra_top;
+                 console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
+                 $('.slide-vw').css({'top':'-'+newtop+'px'});
+                 });
+                 $('input[type="text"],input[type="password"],select,textarea').on('focusout', function (e) {
+                 slide_auto_pos = $('.slide-auto').offset().top;
+                 $('.slide-vw').css({'top':'0px'});
+                 });
+                 */
+
                 $('input[type="text"],input[type="password"],select,textarea').on('click', function (e) {
                     $('.body').scrollTop($(this).offset().top);
                 });
-                function onSoftKeyUp(body_height){
-                    $('.body').css({'overflow-y':'scroll', 'height':body_height+'px'}); 
+                function onSoftKeyUp(body_height) {
+                    $('.body').css({'overflow-y': 'scroll', 'height': body_height + 'px'});
                 }
                 //onSoftKeyUp(400);
-                function onSoftKeyDown(){
-                    $('.body').css({'overflow-y':'auto', 'height':'auto'}); 
+                function onSoftKeyDown() {
+                    $('.body').css({'overflow-y': 'auto', 'height': 'auto'});
                 }
                 //setTimeout(onSoftKeyDown, 10000);
-                
-                function keyboardShowHandler(e){
+
+                function keyboardShowHandler(e) {
                     wHeight = window.innerHeight;
-                    kHeight = e.keyboardHeight; 
+                    kHeight = e.keyboardHeight;
                     extraHeight = 0; //header + inputbox
                     //alert('IONIC Keyboard height is: ' + e.keyboardHeight);
                     onSoftKeyUp(wHeight - kHeight - extraHeight);
                 }
-                function keyboardHideHandler(e){
+                function keyboardHideHandler(e) {
                     //alert('Goodnight, sweet prince');
                     onSoftKeyDown();
                 }
