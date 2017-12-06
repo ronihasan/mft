@@ -137,6 +137,7 @@
                         dataType: 'json',
                         success: function (vals) {
                             console.log(vals);
+                            /*
                             if (vals.flash_data !== undefined || vals.flash_data !== null) {
                                 if (vals.flash_data.success === 1) {
 
@@ -151,6 +152,25 @@
                                     }, 2000);
                                 } else {
                                     $("body").cftoaster({content: vals.flash_data.msg});
+                                }
+                            } else {
+                                $("body").cftoaster({content: 'Cannot read properly.'});
+                            }
+                            */
+                           
+                            if (vals.status !== undefined || vals.status !== null) {
+                                if (vals.status === '1') {
+                                    // Setting value
+                                    localStorage.setItem('user', JSON.stringify(vals.user));
+                                    // Setting value
+                                    localStorage.setItem('sess_data', JSON.stringify(vals.session));
+
+                                    $("body").cftoaster({content: vals.msg});
+                                    setTimeout(function () {
+                                        window.location.href = 'home.html';
+                                    }, 2000);
+                                } else {
+                                    $("body").cftoaster({content: vals.msg});
                                 }
                             } else {
                                 $("body").cftoaster({content: 'Cannot read properly.'});
