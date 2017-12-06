@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Create Event</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+            @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+            @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        </style>
+
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+        <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+        <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+
+        <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="template/css/framework.css">
+        <link rel="stylesheet" type="text/css" href="template/css/styles.css">
+        <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
+        <link rel="apple-touch-icon" href="template/images/logo.ico">
+        <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="template/js/jquery.min.js"></script>
+        
+        <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+<!--        <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>-->
+
+        <!-- jQuery cftoaster plugin -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
+        <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
+
+        <!-- jQuery datepicker -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/datepicker/datepicker3.css"/>
+        <script type="text/javascript" src="plugins/datepicker/bootstrap-datepicker.js"></script>
+
+        <!-- jQuery timepicker -->
+        <!--<link rel="stylesheet" title="default" type="text/css" href="plugins/timepicker/bootstrap-timepicker.min.css"/>-->
+        <!--<script type="text/javascript" src="plugins/timepicker/bootstrap-timepicker.min.js"></script>-->
+
+        <!-- jQuery timepicker -->
+        <script src="plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+        <!-- custom & common scripts -->
+        <!--<script src="js/custom.js"></script>-->
+        <script type="text/javascript" src="confs.json"></script>
+        
+        <style>
+            .bg-body{
+                background-repeat: no-repeat;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+                background-size: contain;
+                background-color: #4c68b1;
+                background-position:center;
+            }
+            .label-form{
+                color: #FFF;
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 1.4;
+            }
+            .w-form input[type=text], select, textarea{
+                color: #FFF !important;
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 1.5;
+            }
+        </style>
+    </head>
+    <body class="bg-body">
+        <section class="w-section mobile-wrapper slide-auto">
+            <div class="page-content slide-vw" id="main-stack">
+
+                <div class="w-nav navbar" data-collapse="all" data-animation="over-left" data-duration="400" data-contain="1" data-easing="ease-out-quint" data-no-scroll="1">
+                    <div class="w-container">
+                        <nav class="w-nav-menu nav-menu bg-gradient" id="lmenu" role="navigation">
+                            <!-- left menu -->
+
+
+                            <!-- end menu-->
+                        </nav>
+                        <div class="wrapper-mask" data-ix="menu-mask"></div>
+                        <div class="navbar-title">Add Event or Special Date</div>
+                        <div class="w-nav-button navbar-button left" id="menu-button" data-ix="hide-navbar-icons">
+                            <div class="navbar-button-icon home-icon">
+                                <div class="bar-home-icon top"></div>
+                                <div class="bar-home-icon middle"></div>
+                                <div class="bar-home-icon bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="body" style="padding-top: 0px;">
+                        <div class="w-clearfix grey-header" style="height:60px;">
+                            <div class="top-icon-block">
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="home.html" style="background-color:#00A6AF;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-ios-home-outline"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="friends.html" style="background-color:#F37522;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-ios-people"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="ft_create.html" style="background-color:#EF4248;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-chatbubbles"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="event_create.html" style="background-color:#72BA44;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-calendar"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body padding slide-body" style="margin-top: 60px;">
+                    <div class="w-form-body">
+                        <div class="w-form m-window">
+                            <form id="submit-form" name="email-form" action="#">
+                                <div class="separator-button-input"></div>
+                                <div id="form_body">
+                                    <!--
+                                    <div>
+                                        <input class="w-input input-form datepicker datemask" placeholder="Send On" type="text" name="send_on" data-name="full-name" required="required">
+                                        <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                        <input class="w-input input-form timepicker timemask" placeholder="Send At" type="text" name="send_at" data-name="full-name" required="required">
+                                        <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                        <input class="w-input input-form" id="myAutocomplete" placeholder="Send To ..." type="text" name="send_to" data-name="full-name" required="required">
+                                        <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                        <textarea class="w-input input-form textarea" placeholder="Your Message ..." id="message" name="message" data-name="message"></textarea>
+                                        <div class="separator-fields"></div>
+                                    </div>
+                                    -->
+                                </div>
+                                <input class="w-button action-button msg_button" type="submit" value="Submit" data-wait="Please wait...">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="page-content loading-mask" id="new-stack">
+                <div class="loading-icon">
+                    <div class="navbar-button-icon icon ion-load-d"></div>
+                </div>
+            </div>
+        </section>
+        <script src="template/js/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ["Montserrat:400,700"]
+                }
+            });
+            //$('.mobile-wrapper').height(window.innerHeight);
+                        
+            var confs = [];
+            var sess_data = [];
+            var user = [];
+            var selected = [];
+            var nameArr = [];
+            var idsArr = [];
+
+            $(document).ready(function () {
+                $('select').click(function () {
+                    $(this).focus();
+                });
+
+                // loading confs value
+                confs = JSON.parse(app_confs);
+                // Getting value
+                sess_data = JSON.parse(localStorage.getItem('sess_data'));
+                user = JSON.parse(localStorage.getItem('user'));
+                //console.log(sess_data);
+                //console.log(user);
+
+                var queries = {};
+                $.each(document.location.search.substr(1).split('&'), function (c, q) {
+                    var i = q.split('=');
+                    if (i[0] !== undefined && i[1] !== undefined) {
+                        queries[i[0].toString()] = i[1].toString();
+                    }
+                });
+
+                if (user === undefined || user === null || sess_data === undefined || sess_data === null) {
+                    window.location.href = 'login.html';
+                }
+
+                // Load left menu
+                if ($('.navbar').find('#lmenu')) {
+                    $('#lmenu').load('menu.html');
+                }
+
+                
+                //Short-Link Menu
+                top_icon_block_a_num = $('.top-icon-block a').length;
+                top_icon_block = $('.top-icon-block').width();
+                top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
+                top_icon_block_a = $('.top-icon-block a').innerWidth();
+                top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
+                top_icon_block_margin = (top_icon_block_margins / 2);
+                top_icon_block_padding = 7;
+                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                $('.top-icon-block a:first').css({'margin-left': '0px'});
+                $('.top-icon-block a:last').css({'margin-right': '0px'});
+                $('.top-icon-block').css({'text-align': 'center'});
+                $('.icon-button').css({'font-size': '18px !important'});
+
+                curr_link = window.location.href;
+                curr_link = curr_link.split("/").pop();
+                $('.top-icon-block a').each(function(i, e){
+                    link = $(e).attr('href');
+                    console.log(link);
+                    if(curr_link === link){
+                        $(this).children('.icon-button').css({'color': '#4c68b1'});
+                    }
+                });
+                //End Short-Link Menu
+        
+
+                $('.msg_button').on('click', function (e) {
+                    e.preventDefault();
+                    fields = {};
+                    $('.input-form').each(function (i, f) {
+                        val = f.value;
+                        if (f.type === 'select-one') {
+                            val = $('select[name="' + f.name + '"]').val();
+                        }
+                        if(f.name === 'q[invite_as_user_profile]'){ //custom
+                            val = idsArr;
+                        }
+                        fields[f.name] = val;
+                    });
+                    fields['auth_id'] = user.auth_id;
+                    fields['auth_type'] = '2';
+                    console.log(fields);
+
+                    $.ajax({
+                        url: 'http://' + confs.site_addr + '/admin.php/events/create?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                        method: 'post',
+                        //data: 'auth_id=' + user.auth_id + '&auth_type=2&' + pdata,
+                        data: fields,
+                        dataType: 'json',
+                        success: function (vals) {
+                            //console.log(vals);
+                            if (vals.flash_data !== undefined || vals.flash_data !== null) {
+                                if (vals.flash_data.success === 1) {
+
+                                    // Setting value
+                                    //localStorage.setItem('user', JSON.stringify(vals.user_data));
+                                    // Setting value
+                                    //localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
+
+                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                    setTimeout(function () {
+                                        window.location.href = 'events.html';
+                                    }, 2000);
+                                } else {
+                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                }
+                            } else {
+                                $("body").cftoaster({content: 'Cannot read properly.'});
+                            }
+                        }
+                    });
+                });
+
+                $.ajax({
+                    url: 'http://' + confs.site_addr + '/admin.php/events/create?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                    method: 'post',
+                    data: 'auth_id=' + user.auth_id + '&auth_type=2',
+                    dataType: 'json',
+                    success: function (vals) {
+                        console.log(JSON.stringify(vals.questions));
+                        questions = vals.questions;
+                        if (questions !== undefined || questions !== null) {
+                            hide = 'show';
+                            $(questions).each(function (serial, row) {
+                                field_name = 'q[' + row.key_name + ']';
+                                serial_id = serial;
+                                if (!serial_id) {
+                                    serial_id = 'start_id';
+                                }
+                                if (row.type === 'select') {
+                                    if (row.cond_ans !== undefined || row.cond_ans !== null) {
+                                        html = '<div>';
+                                        html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                        //html += '<input class="w-input input-form" placeholder="Answer.." type="text" name="send_on" data-name="full-name" required="required">';
+                                        html += '<select class="w-select input-form select" name="' + field_name + '">';
+                                        //html += '<option value="">Select one...</option>';
+                                        html += '</select>';
+                                        html += '<div class="separator-fields"></div>';
+                                        html += '</div>';
+                                        $('#form_body').append(html);
+                                        toAppend = '';
+                                        $.each(row.options, function (i, o) {
+                                            toAppend += '<option value="' + i + '">' + o + '</option>';
+                                        });
+                                        $('select[name="' + field_name + '"]').append(toAppend);
+                                        $('select[name="' + field_name + '"]').val(row.cond_ans);
+                                    } else {
+                                        html = '<div>';
+                                        html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                        //html += '<input class="w-input input-form" placeholder="Answer.." type="text" name="send_on" data-name="full-name" required="required">';
+                                        html += '<select class="w-select input-form select" name="' + field_name + '">';
+                                        html += '<option value="">Select one...</option>';
+                                        html += '</select>';
+                                        html += '<div class="separator-fields"></div>';
+                                        html += '</div>';
+                                        $('#form_body').append(html);
+                                        toAppend = '';
+                                        $.each(row.options, function (i, o) {
+                                            toAppend += '<option value="' + i + '">' + o + '</option>';
+                                        });
+                                        $('select[name="' + field_name + '"]').append(toAppend);
+                                    }
+                                } else if (row.type === 'multiple') {
+                                    html = '<div>';
+                                    html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                    //html += '<input class="w-input input-form" id="ac_' + row.key_name + '" placeholder="Answer.." type="text" name="' + field_name + '" data-name="full-name" required="required">';
+                                    html += '<textarea class="w-input input-form textarea multi_in" placeholder="Send To ..." name="' + field_name + '" data-name="full-name" required="required"></textarea>';
+                                    html += '<div class="separator-fields"></div>';
+                                    html += '</div>';
+                                    $('#form_body').append(html);
+                                } else if (row.type === 'textarea') {
+                                    html = '<div>';
+                                    html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                    placeholder = 'Your Message ...';
+                                    if (row.placeholder !== undefined || row.placeholder !== null) {
+                                        placeholder = row.placeholder;
+                                    }
+                                    html += '<textarea class="w-input input-form textarea" placeholder="' + placeholder + '" id="message1" name="' + field_name + '" data-name="message"></textarea>';
+                                    html += '<div class="separator-fields"></div>';
+                                    html += '</div>';
+                                    $('#form_body').append(html);
+                                } else if (row.type === 'texteditor') {
+                                    html = '<div>';
+                                    html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                    placeholder = 'Your Message ...';
+                                    if (row.placeholder !== undefined || row.placeholder !== null) {
+                                        placeholder = row.placeholder;
+                                    }
+                                    html += '<textarea class="w-input input-form textarea" placeholder="' + placeholder + '" id="message2" name="' + field_name + '" data-name="message"></textarea>';
+                                    html += '<div class="separator-fields"></div>';
+                                    html += '</div>';
+                                    $('#form_body').append(html);
+                                } else if (row.type === 'date') {
+                                    html = '<div>';
+                                    html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                    html += '<input class="w-input input-form datepicker datemask" type="text" placeholder="Date..." name="' + field_name + '[date]" data-name="full-name" required="required">';
+                                    html += '<div class="separator-fields"></div>';
+                                    html += '<input class="w-input input-form timepicker timemask" placeholder="Time..." type="text" name="' + field_name + '[time]" data-name="full-name" required="required">';
+                                    html += '<div class="separator-fields"></div>';
+                                    html += '</div>';
+                                    $('#form_body').append(html);
+                                } else if (row.type === 'image') {
+                                    html = '<div>';
+                                    html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                    html += '<input class="w-input input-form" type="file" name="' + field_name + '" data-name="full-name" required="required">';
+                                    html += '<div class="separator-fields"></div>';
+                                    html += '</div>';
+                                    $('#form_body').append(html);
+                                } else if (row.type === 'audio') {
+                                    html = '<div>';
+                                    html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                    html += '<input class="w-input input-form" type="file" name="' + field_name + '" data-name="full-name" required="required">';
+                                    html += '<div class="separator-fields"></div>';
+                                    html += '</div>';
+                                    $('#form_body').append(html);
+                                } else {
+                                    html = '<div>';
+                                    html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+                                    html += '<input class="w-input input-form" placeholder="Answer.." type="text" name="' + field_name + '" data-name="full-name" required="required">';
+                                    html += '<div class="separator-fields"></div>';
+                                    html += '</div>';
+                                    $('#form_body').append(html);
+                                }
+                            });
+                        }
+                        //$('.m-window').width($(window).width() - 30);
+                        $('iframe').width($('iframe').parent().width());
+                        $('iframe').height('auto');
+                        $('iframe').css({'padding': '0px', 'margin': '0px'});
+                        //console.log($('iframe').parent().width());
+
+                        //datepicker
+                        $.fn.datepicker.defaults.format = "mm/dd/yyyy";
+                        /*
+                        $('.datepicker').datepicker({
+                            //startDate: '-3d',
+                            autoclose: true
+                        });
+                        */
+                        //Datemask2 mm/dd/yyyy
+                        $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                        $(".timemask").inputmask("hh:mm:ss", {
+                            placeholder: "HH:MM:SS",
+                            insertMode: false,
+                            showMaskOnHover: true,
+                            hourFormat: 12
+                        });
+
+                        $('.multi_in').on('click', function (e) {
+                            e.preventDefault();
+                            if ($.isArray(selected)) {
+                                selected = encodeURIComponent(JSON.stringify(selected));
+                            }
+                            //pdata = null;
+                            //fields = encodeURIComponent(JSON.stringify(pdata));
+                            fields = [];
+                            $('.input-form').each(function (i, f) {
+                                val = f.value;
+                                if (f.type === 'select-one') {
+                                    val = $('select[name="' + f.name + '"]').val();
+                                }
+                                pdata = {name: f.name, type: f.type, value: val};
+                                //console.log(pdata);
+                                fields.push(pdata);
+                            });
+                            fields = encodeURIComponent(JSON.stringify(fields));
+                            window.location.href = 'friends_select_combo.html?back_to=event_create.html&selected=' + selected + '&fields=' + fields;
+                        });
+
+                        //previously selected other fields
+                        if (queries.fields !== undefined) {
+                            fields = JSON.parse(decodeURIComponent(queries.fields));
+                            if ($.isArray(fields)) {
+                                $.each(fields, function (i, f) {
+                                    if (f.type === 'text') {
+                                        $('input[name="' + f.name + '"]').val(f.value);
+                                    } else if (f.type === 'select-one') {
+                                        $('select[name="' + f.name + '"]').val(f.value);
+                                    } else if (f.type === 'textarea') {
+                                        $('textarea[name="' + f.name + '"]').val(f.value);
+                                    } else if (f.type === 'texteditor') {
+                                        $('textarea[name="' + f.name + '"]').val(f.value);
+                                    } else if (f.type === 'file') {
+                                        $('input[name="' + f.name + '"]').val(f.value);
+                                    } else {
+                                        //$('textarea[name="'+f.name+'"]').val(f.value);
+                                    }
+                                });
+                            }
+                        }
+
+                        //selected items
+                        if (queries.selected !== undefined) {
+                            selected = queries.selected;
+                            selected_frnd = JSON.parse(decodeURIComponent(selected));
+                            if ($.isArray(selected_frnd)) {
+                                $.each(selected_frnd, function (i, f) {
+                                    nameArr.push(f.name);
+                                    idsArr.push(f.friend_user_id);
+                                });
+                                nameS = nameArr.join(', ');
+                                idS = idsArr.join(',');
+                                $('.multi_in').val(nameS);
+                            }
+                        }
+                        
+                        /*
+                        $('input[type="text"],select,textarea').on('click', function (e) {
+                            //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
+                            slide_auto_pos = $('.slide-auto').offset().top;
+                            slide_vw_pos = $('.slide-vw').offset().top;
+                            child_curr_pos = $(this).offset().top;
+                            extra_top = 160;
+                            newtop = child_curr_pos - slide_auto_pos - extra_top;
+                            //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
+                            $('.slide-vw').css({'top':'-'+newtop+'px'});
+                        });
+                        $('input[type="text"],select,textarea').on('focusout', function (e) {
+                            slide_auto_pos = $('.slide-auto').offset().top;
+                            $('.slide-vw').css({'top':'0px'});
+                        });
+                        */
+                        
+                        $('input[type="text"],input[type="password"],select,textarea').on('click', function (e) {
+                            $('.body').scrollTop($(this).offset().top);
+                        });
+                
+                        function onSoftKeyUp(body_height){
+                            $('.slide-body').css({'overflow-y':'scroll', 'height':body_height+'px'}); 
+                        }
+                        //onSoftKeyUp(400);
+                        function onSoftKeyDown(){
+                            $('.slide-body').css({'overflow-y':'auto', 'height':'auto'}); 
+                        }
+                        //setTimeout(onSoftKeyDown, 10000);
+
+                        function keyboardShowHandler(e){
+                            wHeight = window.innerHeight;
+                            kHeight = e.keyboardHeight; 
+                            extraHeight = 0; //header + inputbox
+                            //alert('IONIC Keyboard height is: ' + e.keyboardHeight);
+                            onSoftKeyUp(wHeight - kHeight - extraHeight);
+                        }
+                        function keyboardHideHandler(e){
+                            //alert('Goodnight, sweet prince');
+                            onSoftKeyDown();
+                        }
+
+                        document.addEventListener("deviceready", onDeviceReady, false);
+
+                        function onDeviceReady() {
+                            window.addEventListener('native.keyboardshow', keyboardShowHandler);
+                            window.addEventListener('native.keyboardhide', keyboardHideHandler);
+                        }
+                        
+                        
+                    }
+                });
+            
+            });</script>
+        <script type="text/javascript" src="template/js/modernizr.js"></script>
+        <script type="text/javascript" src="template/js/framework.js"></script>
+        <script type="text/javascript" src="template/js/scripts.js"></script>
+        <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
+    </body>
+</html>

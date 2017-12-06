@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Send Future Thought</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+            @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+            @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        </style>
+
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+        <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+        <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+        
+        <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet"> <!-- should always be placed before style.css -->
+        
+        <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="template/css/framework.css">
+        <link rel="stylesheet" type="text/css" href="template/css/styles.css">
+        <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
+        <link rel="apple-touch-icon" href="template/images/logo.ico">
+        <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="template/js/jquery.min.js"></script>
+        <script type="text/javascript" src="template/js/jquery-ui.min.js"></script>
+        
+        <script src="plugins/bootstrap/bootstrap.js"></script> 
+
+        <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+
+        <!-- jQuery cftoaster plugin -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
+        <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
+
+        <!-- jQuery datepicker -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/datepicker/datepicker3.css"/>
+        <script type="text/javascript" src="plugins/datepicker/bootstrap-datepicker.js"></script>
+
+        <!-- jQuery timepicker -->
+        <!--<link rel="stylesheet" title="default" type="text/css" href="plugins/timepicker/bootstrap-timepicker.min.css"/>-->
+        <!--<script type="text/javascript" src="plugins/timepicker/bootstrap-timepicker.min.js"></script>-->
+
+        <!-- jQuery timepicker -->
+        <script src="plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
+        <!-- jQuery summernote -->
+        <link rel="stylesheet" href="plugins/summernote/summernote.css" />
+        <script src="plugins/summernote/summernote.min.js"></script>
+        
+        <!-- custom & common scripts -->
+        <!--<script src="js/custom.js"></script>-->
+        <script type="text/javascript" src="confs.json"></script>
+        
+        <style>
+            .bg-body{
+                background-repeat: no-repeat;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+                background-size: contain;
+                background-color: #4c68b1;
+                background-position:center;
+            }
+            .label-form{
+                color: #FFF;
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 1.4;
+            }
+            .w-form input[type=text], select, textarea{
+                color: #FFF !important;
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 1.5;
+            }
+        </style>
+    </head>
+    <body class="bg-body">
+        <div id="popup-view"></div>
+        <section class="w-section mobile-wrapper slide-auto" id="main-view">
+            <div class="page-content slide-vw" id="main-stack">
+
+                <div class="w-nav navbar" data-collapse="all" data-animation="over-left" data-duration="400" data-contain="1" data-easing="ease-out-quint" data-no-scroll="1">
+                    <div class="w-container">
+                        <nav class="w-nav-menu nav-menu bg-gradient" id="lmenu" role="navigation">
+                            <!-- left menu -->
+
+
+                            <!-- end menu-->
+                        </nav>
+                        <div class="wrapper-mask" data-ix="menu-mask"></div>
+                        <div class="navbar-title">Set Reminder</div>
+                        <a class="w-inline-block navbar-button back_to_link" href="friends.html" data-load="1">
+                            <div class="navbar-button-icon icon ion-ios-close-empty"></div>
+                        </a>
+                    </div>
+                    
+                    <!--
+                    <div class="body" style="padding-top: 0px;">
+                        <div class="w-clearfix grey-header" style="height:60px;">
+                            <div class="top-icon-block">
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="home.html" style="background-color:#00A6AF;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-ios-home-outline"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="friends.html" style="background-color:#F37522;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-ios-people"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="ft_create.html" style="background-color:#EF4248;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-chatbubbles"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="event_create.html" style="background-color:#72BA44;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-calendar"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                </div>
+
+                <div class="body padding" style="margin-top:60px">
+                    
+                    <div class="w-form-body">
+                        <div class="w-form">
+                            <form id="submit-form" name="email-form" action="#">
+                                <div class="separator-button-input"></div>
+                                <div>
+                                    <input class="w-input input-form datepicker datemask" placeholder="Remind On" type="text" name="remind_on" data-name="full-name" required="required">
+                                    <div class="separator-fields"></div>
+                                </div>
+                                <!--<div class="bootstrap-timepicker">-->
+                                <div>
+                                    <input class="w-input input-form timepicker timemask" placeholder="Remind At" type="text" name="remind_at" data-name="full-name" required="required">
+                                    <div class="separator-fields"></div>
+                                </div>
+                                <!--</div>-->
+                                <input class="w-button action-button msg_button" type="submit" value="Save" data-wait="Please wait...">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="page-content loading-mask" id="new-stack">
+                <div class="loading-icon">
+                    <div class="navbar-button-icon icon ion-load-d"></div>
+                </div>
+            </div>
+        </section>
+        <script src="template/js/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ["Montserrat:400,700"]
+                }
+            });
+            //$('.mobile-wrapper').height(window.innerHeight);
+
+            var confs = [];
+            var sess_data = [];
+            var user = [];
+            var selected = [];
+            var nameArr = [];
+            var idsArr = [];
+
+            $(document).ready(function () {
+                // loading confs value
+                confs = JSON.parse(app_confs);
+
+                // Getting value
+                sess_data = JSON.parse(localStorage.getItem('sess_data'));
+                user = JSON.parse(localStorage.getItem('user'));
+                //console.log(sess_data);
+                //console.log(user);
+                
+                //Short-Link Menu
+                /*
+                top_icon_block_a_num = $('.top-icon-block a').length;
+                top_icon_block = $('.top-icon-block').width();
+                top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
+                top_icon_block_a = $('.top-icon-block a').innerWidth();
+                top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
+                top_icon_block_margin = (top_icon_block_margins / 2);
+                top_icon_block_padding = 7;
+                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                $('.top-icon-block a:first').css({'margin-left': '0px'});
+                $('.top-icon-block a:last').css({'margin-right': '0px'});
+                $('.top-icon-block').css({'text-align': 'center'});
+                $('.icon-button').css({'font-size': '18px !important'});
+
+                curr_link = window.location.href;
+                curr_link = curr_link.split("/").pop();
+                $('.top-icon-block a').each(function(i, e){
+                    link = $(e).attr('href');
+                    console.log(link);
+                    if(curr_link === link){
+                        $(this).children('.icon-button').css({'color': '#4c68b1'});
+                    }
+                });
+                */
+                //End Short-Link Menu
+
+                var queries = {};
+                $.each(document.location.search.substr(1).split('&'), function (c, q) {
+                    var i = q.split('=');
+                    if (i[0] !== undefined && i[1] !== undefined) {
+                        queries[i[0].toString()] = i[1].toString();
+                    }
+                });
+                
+                if (queries.back_to !== undefined && queries.back_to !== null) {
+                    if(queries.event_friend_id !== undefined){
+                        $('.back_to_link').attr('href', queries.back_to+'#event_'+queries.event_friend_id);
+                    }else{
+                        $('.back_to_link').attr('href', queries.back_to+'#event_'+queries.event_id);
+                    }
+                }
+                
+                if (queries.selected !== undefined) {
+                    selected = queries.selected;
+                    selected_frnd = JSON.parse(decodeURIComponent(selected));
+                    if ($.isArray(selected_frnd)) {
+                        $.each(selected_frnd, function (i, f) {
+                            nameArr.push(f.name);
+                            idsArr.push(f.email);
+                        });
+                        nameS = nameArr.join(', ');
+                        idS = idsArr.join(',');
+                        $('textarea[name=send_to]').val(nameS);
+                    }
+                }
+                if (queries.fields !== undefined) {
+                    fields = JSON.parse(decodeURIComponent(queries.fields));
+                    if ($.isPlainObject(fields)) {
+                        message = $('textarea[name="message"]').val(fields.txt_msg);
+                        send_on = $('input[name="send_on"]').val(fields.send_at.date);
+                        send_at = $('input[name="send_at"]').val(fields.send_at.time);
+                    }
+                }
+
+                if (user === undefined || user === null || sess_data === undefined || sess_data === null) {
+                    window.location.href = 'login.html';
+                }
+
+                // Load left menu
+                if ($('.navbar').find('#lmenu')) {
+                    $('#lmenu').load('menu.html');
+                }
+
+                //datepicker
+                $.fn.datepicker.defaults.format = "mm/dd/yyyy";
+                /*
+                $('.datepicker').datepicker({
+                    //startDate: '-3d',
+                    autoclose: true
+                });
+                */
+
+                //Datemask2 mm/dd/yyyy
+                $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                $(".timemask").inputmask("hh:mm:ss", {
+                    placeholder: "HH:MM:SS",
+                    insertMode: false,
+                    showMaskOnHover: true,
+                    hourFormat: 12
+                });
+
+                
+                $('.msg_button').on('click', function (e) {
+                    e.preventDefault();
+                    remind_on = $('input[name="remind_on"]').val();
+                    remind_at = $('input[name="remind_at"]').val();
+                    var pData = {auth_id: user.auth_id, auth_type: '2', remind_on: remind_on, remind_at: remind_at, event_id: queries.event_id};
+                    if(queries.event_friend_id !== undefined){
+                        pData.event_friend_id = queries.event_friend_id;
+                    }
+                    
+                    $.ajax({
+                        url: 'http://' + confs.site_addr + '/admin.php/events/set_reminder?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                        method: 'post',
+                        data: pData,
+                        dataType: 'json',
+                        success: function (vals) {
+                            //console.log(vals);
+                            if (vals.status !== undefined && vals.status === '1') {
+                                $("body").cftoaster({content: 'Reminder is saved.'});
+                                setTimeout(function () {
+                                    if(queries.back_to != undefined){
+                                        if(queries.event_friend_id !== undefined){
+                                            window.location.href = queries.back_to+'#event_'+queries.event_friend_id;
+                                        }else{
+                                            window.location.href = queries.back_to+'#event_'+queries.event_id;
+                                        }
+                                    }else{
+                                        window.location.href = 'future_thoughts.html';
+                                    }
+                                }, 2000);
+                                
+                            } else {
+                                $("body").cftoaster({content: 'Error in submission.'});
+                            }
+                        }
+                    });
+                });
+
+                /*
+                $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
+                            //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
+                            slide_auto_pos = $('.slide-auto').offset().top;
+                            slide_vw_pos = $('.slide-vw').offset().top;
+                            child_curr_pos = $(this).offset().top;
+                            extra_top = 120;
+                            newtop = child_curr_pos - slide_auto_pos - extra_top;
+                            //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
+                            $('.slide-vw').css({'top':'-'+newtop+'px'});
+                        });
+                $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
+                            slide_auto_pos = $('.slide-auto').offset().top;
+                            $('.slide-vw').css({'top':'0px'});
+                        });
+                */
+                                
+                $('body').find('#message').summernote({
+                    height: 200,
+                    toolbar: [
+                        // [groupName, [list of button]]
+                        ['style', ['bold', 'italic', 'underline']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['fontsize', ['fontsize']],
+                        //['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        //['height', ['height']],
+                        ['insert', ['link', 'picture', 'video']]
+                    ],
+                    placeholder: 'Write your text...',
+                    callbacks: {
+                        onImageUpload: function (image) {
+                            sendFile(image[0]);
+                        }
+                    }
+                });
+                
+                function sendFile(file, editor, welEditable) {
+                    data = new FormData();
+                    data.append("file", file);//You can append as many data as you want. Check mozilla docs for this
+                    $.ajax({
+                        data: data,
+                        type: "POST",
+                        url: 'http://' + confs.site_addr + '/admin.php/messages/upload_file?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (url) {
+                            $('#message').summernote("insertImage", url);
+                        }
+                    });
+                }
+                
+            });
+        </script>
+        <script type="text/javascript" src="template/js/modernizr.js"></script>
+        <script type="text/javascript" src="template/js/framework.js"></script>
+        <script type="text/javascript" src="template/js/scripts.js"></script>
+        <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
+    </body>
+</html>

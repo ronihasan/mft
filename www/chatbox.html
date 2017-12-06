@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chatbox</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+            @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+            @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        </style>
+
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+        <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+        <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+
+        <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="template/css/framework.css">
+        <link rel="stylesheet" type="text/css" href="template/css/styles.css">
+        <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
+        <link rel="apple-touch-icon" href="template/images/logo.ico">
+        <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="template/js/jquery.min.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+        
+        <!-- jQuery cftoaster plugin -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
+        <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
+
+        <!-- custom & common scripts -->
+        <script type="text/javascript" src="confs.json"></script>
+        <!--<script src="js/custom.js"></script>-->
+        <style>
+            .list-messages{
+                padding: 10px 5px;
+            }
+            .list-message{
+                padding: 0px;
+            }
+            .column-right{
+                margin-top: 5px;
+            }
+            .message-title{
+                color:rgba(114, 186, 68, 1);
+            }
+            .last-chat{
+                float:right;
+                font-size: 13px;
+                margin-top: 10px;
+                color: darkorange;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="w-section mobile-wrapper">
+            <div class="page-content" id="main-stack">
+
+                <div class="w-nav navbar" data-collapse="all" data-animation="over-left" data-duration="400" data-contain="1" data-easing="ease-out-quint" data-no-scroll="1">
+                    <div class="w-container">
+                        <nav class="w-nav-menu nav-menu bg-gradient" id="lmenu" role="navigation">
+                            <!-- left menu -->
+
+
+                            <!-- end menu-->
+                        </nav>
+                        <div class="wrapper-mask" data-ix="menu-mask"></div>
+                        <div class="navbar-title">Chatbox</div>
+                        <div class="w-nav-button navbar-button left" id="menu-button" data-ix="hide-navbar-icons">
+                            <div class="navbar-button-icon home-icon">
+                                <div class="bar-home-icon top"></div>
+                                <div class="bar-home-icon middle"></div>
+                                <div class="bar-home-icon bottom"></div>
+                            </div>
+                        </div>
+                        <!--
+                        <a class="w-inline-block navbar-button right" href="msg_form.html">
+                            <div class="navbar-button-icon icon ion-ios-plus-empty"></div>
+                        </a>
+                        -->
+                    </div>
+                    
+                    <div class="body" style="padding-top: 0px;">
+                        <div class="w-clearfix grey-header" style="height:60px;">
+                            <div class="top-icon-block">
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="home.html" style="background-color:#00A6AF;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-ios-home-outline"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="chatbox.html" style="background-color:#F37522;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-clock"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="chat_friends.html" style="background-color:#EF4248;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-android-people"></i>
+                                    </div>
+                                </a>
+                                <a class="w-clearfix w-inline-block small-button icon-only grey social-squared" href="messages.html" style="background-color:#72BA44;">
+                                    <div class="icon-button">
+                                        <i class="icon ion-email-unread"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body" style="margin-top: 60px;">
+                    <ul class="list list-messages">
+                        <!--
+                        <li class="list-message">
+                            <a class="w-clearfix w-inline-block" href="chat.html" data-load="1">
+                                <div class="w-clearfix column-left">
+                                    <div class="image-message">
+                                        <img src="template/images/blank_user.png" alt="Profile Picture" />
+                                    </div>
+                                </div>
+                                <div class="column-right">
+                                    <div class="message-title">Test Name</div>
+                                    <span class="last-chat">5 May</span>
+                                    <div class="message-text">You have sent a message</div>
+                                </div>
+                            </a>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+                <!--
+                <div class="w-clearfix options-new less-padding-sides-blog border-top">
+                    <a class="w-clearfix w-inline-block small-button icon-only grey" href="#">
+                        <div class="icon-button">
+                            <div class="icon ion-ios-arrow-left bigger"></div>
+                        </div>
+                    </a>
+                    <a class="w-clearfix w-inline-block small-button grey last right" href="#">
+                        <div class="icon-button bigger">
+                            <div class="icon ion-ios-arrow-right"></div>
+                        </div>
+                        <div class="text-button">NEXT</div>
+                    </a>
+                </div>
+                -->
+
+            </div>
+            <div class="page-content loading-mask" id="new-stack">
+                <div class="loading-icon">
+                    <div class="navbar-button-icon icon ion-load-d"></div>
+                </div>
+            </div>
+        </section>
+        <script src="template/js/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ["Montserrat:400,700"]
+                }
+            });
+            $('.mobile-wrapper').height(window.innerHeight);
+            var confs = [];
+            var sess_data = [];
+            var user = [];
+            var month_names = [
+                            'January',
+                            'February',
+                            'March',
+                            'April',
+                            'May',
+                            'June',
+                            'July',
+                            'August',
+                            'September',
+                            'October',
+                            'November',
+                            'December'
+                        ];
+
+            $(document).ready(function () {
+                // loading confs value
+                confs = JSON.parse(app_confs);
+                // Getting value
+                sess_data = JSON.parse(localStorage.getItem('sess_data'));
+                user = JSON.parse(localStorage.getItem('user'));
+                //console.log(sess_data);
+                //console.log(user);
+
+                //checking session
+                if (user === undefined || user === null || sess_data === undefined || sess_data === null) {
+                    window.location.href = 'login.html';
+                }
+
+                // Load left menu
+                if ($('.navbar').find('#lmenu')) {
+                    $('#lmenu').load('menu.html');
+                }
+                
+                //Short-Link Menu
+                top_icon_block_a_num = $('.top-icon-block a').length;
+                top_icon_block = $('.top-icon-block').width();
+                top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
+                top_icon_block_a = $('.top-icon-block a').innerWidth();
+                top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
+                top_icon_block_margin = (top_icon_block_margins / 2);
+                top_icon_block_padding = 7;
+                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                $('.top-icon-block a:first').css({'margin-left': '0px'});
+                $('.top-icon-block a:last').css({'margin-right': '0px'});
+                $('.top-icon-block').css({'text-align': 'center'});
+                $('.icon-button').css({'font-size': '18px !important'});
+
+                curr_link = window.location.href;
+                curr_link = curr_link.split("/").pop();
+                $('.top-icon-block a').each(function(i, e){
+                    link = $(e).attr('href');
+                    console.log(link);
+                    if(curr_link === link){
+                        $(this).children('.icon-button').css({'color': '#4c68b1'});
+                    }
+                });
+                //End Short-Link Menu
+
+                var chat = null;
+                var formatted_date = currentTime = chatTime = null;
+                function all_chat_history(){
+                    $.ajax({
+                        url: 'http://' + confs.site_addr + '/admin.php/chats/all_chat_history?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                        method: 'post',
+                        data: 'auth_id=' + user.auth_id + '&auth_type=2',
+                        dataType: 'json',
+                        success: function (vals) {
+                            if($('.list-messages').html() === undefined || $('.list-messages').html() === null){
+                                clearInterval(chat);
+                            }
+                            $('.list-messages').html('');
+                            if(vals.status == '1'){
+                                chats = $.parseJSON(vals.chats);
+                                if (chats !== undefined && chats !== null) {
+                                    $.each(chats, function(friend_id, event) {
+                                        html = '<li class="list-message">';
+                                        html += '<a class="w-clearfix w-inline-block" href="chat.html?back_to=chatbox.html&friend_id=' + friend_id + '&friend_name=' + event.chat_with + '" data-load="1">';
+                                        html += '<div class="w-clearfix column-left">';
+                                        html += '<div class="image-message"><img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/images/profiles/' + friend_id + '/default.jpg" alt="Profile Picture" />';
+                                        html += '</div>';
+                                        html += '</div>';
+                                        html += '<div class="column-right">';
+                                        html += '<div class="message-title">' + event.chat_with + '</div>';
+                                        
+                                        currentTime = new Date();
+                                        chatTime = new Date(event.chat_date);
+                                        if(chatTime.getDate() === currentTime.getDate() && chatTime.getMonth() === currentTime.getMonth() && chatTime.getFullYear() === currentTime.getFullYear()){
+                                            formatted_date = ("0" + chatTime.getHours()).slice(-2) + ":" + ("0" + chatTime.getMinutes()).slice(-2);
+                                        }else{
+                                            formatted_date = ("0" + chatTime.getDate()).slice(-2) + " " + month_names[chatTime.getMonth()+1];
+                                        }
+                                    
+                                        html += '<span class="last-chat">' + formatted_date + '</span>';
+                                        html += '<div class="message-text">' + event.message + '</div>';
+                                        html += '</div>';
+                                        html += '</a>';
+                                        html += '</li>';
+                                        $('.list-messages').append(html);
+                                    });
+                                }
+                                //$('.list-news').width($(window).width() - 30);
+                                $('iframe').width($('iframe').parent().width());
+                                $('iframe').height('auto');
+                                $('iframe').css({'padding': '0px', 'margin': '0px'});
+                                //console.log($('iframe').parent().width());
+                            }
+                        }
+                    });
+                }
+                all_chat_history();
+                chat = setInterval(all_chat_history, 10000);
+                
+            });</script>
+        <script type="text/javascript" src="template/js/modernizr.js"></script>
+        <script type="text/javascript" src="template/js/framework.js"></script>
+        <script type="text/javascript" src="template/js/scripts.js"></script>
+        <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
+    </body>
+</html>

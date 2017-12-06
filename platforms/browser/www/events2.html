@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Events</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+            @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+            @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        </style>
+
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+        <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+        <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+
+        <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="template/css/framework.css">
+        <link rel="stylesheet" type="text/css" href="template/css/styles.css">
+        <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
+        <link rel="apple-touch-icon" href="template/images/logo.ico">
+        <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="template/js/jquery.min.js"></script>
+        
+        <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+
+        <!-- jQuery cftoaster plugin -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
+        <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
+
+        <!-- custom & common scripts -->
+        <script type="text/javascript" src="confs.json"></script>
+        <!--<script src="js/custom.js"></script>-->
+        <style>
+            .list-item-new h6{
+                margin: 0px;
+                font-weight: 500;
+            }
+            .title-new > a{
+                color: #4099ff;
+                display: inline;
+            }
+            .description-new > a{
+                color: #4099ff;
+                display: inline;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="w-section mobile-wrapper">
+            <div class="page-content" id="main-stack">
+
+                <div class="w-nav navbar" data-collapse="all" data-animation="over-left" data-duration="400" data-contain="1" data-easing="ease-out-quint" data-no-scroll="1">
+                    <div class="w-container">
+                        <nav class="w-nav-menu nav-menu bg-gradient" id="lmenu" role="navigation">
+                            <!-- left menu -->
+
+
+                            <!-- end menu-->
+                        </nav>
+                        <div class="wrapper-mask" data-ix="menu-mask"></div>
+                        <div class="navbar-title">Event & Special Dates</div>
+                        <div class="w-nav-button navbar-button left" id="menu-button" data-ix="hide-navbar-icons">
+                            <div class="navbar-button-icon home-icon">
+                                <div class="bar-home-icon top"></div>
+                                <div class="bar-home-icon middle"></div>
+                                <div class="bar-home-icon bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body">
+                    <div class="calendar">
+                      <div class="calendar-header">
+                        <ul class="w-clearfix calendar-days">
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event header">Sun</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event header">Mon</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event header">Tue</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event header">Wed</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event header">Thu</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event header">Fri</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event header">Sat</div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="calendar-body">
+                        <ul class="w-clearfix calendar-days">
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event semitrans">31</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">1</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">2</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">3</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">4</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">5</div>
+                            <div class="event-bullet"></div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">6</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">7</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">8</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">9</div>
+                            <div class="event-bullet"></div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">10</div>
+                            <div class="event-bullet"></div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">11</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">12</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">13</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">14</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">15</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">16</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">17</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">18</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">19</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">20</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">21</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">22</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">23</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">24</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">25</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">26</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">27</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">28</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">29</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">30</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event">31</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event semitrans">1</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event semitrans">2</div>
+                          </li>
+                          <li class="calendar-cell-day">
+                            <div class="text-calendar-event semitrans">3</div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <ul class="list list-events">
+          <li class="list-calendar-events" data-ix="list-item">
+            <a class="w-clearfix w-inline-block" href="addnew.html" data-load="1">
+              <div class="calendar-col-left">
+                <div class="event-title">Meeting with Andrew</div>
+                <div class="w-clearfix text-event-wrap">
+                  <div class="left-text-icon icon ion-ios-clock-outline"></div>
+                  <div class="event-text">8 - 10am</div>
+                  <div class="left-text-icon icon ion-ios-location-outline"></div>
+                  <div class="event-text">Manhattan</div>
+                </div>
+              </div>
+              <div class="w-clearfix calendar-col-right">
+                <div class="image-calendar-event"><img width="28" src="images/placeholder.png">
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="list-calendar-events" data-ix="list-item">
+            <a class="w-clearfix w-inline-block" href="addnew.html" data-load="1">
+              <div class="calendar-col-left">
+                <div class="event-title">Meeting with Ana</div>
+                <div class="w-clearfix text-event-wrap">
+                  <div class="left-text-icon icon ion-ios-clock-outline"></div>
+                  <div class="event-text">1 - 2am</div>
+                  <div class="left-text-icon icon ion-ios-location-outline"></div>
+                  <div class="event-text">Restaurant</div>
+                </div>
+              </div>
+              <div class="w-clearfix calendar-col-right">
+                <div class="image-calendar-event"><img width="28" src="images/placeholder.png">
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="list-calendar-events" data-ix="list-item">
+            <a class="w-clearfix w-inline-block" href="addnew.html" data-load="1">
+              <div class="calendar-col-left">
+                <div class="event-title">Meeting with Sophie</div>
+                <div class="w-clearfix text-event-wrap">
+                  <div class="left-text-icon icon ion-ios-clock-outline"></div>
+                  <div class="event-text">10 - 11am</div>
+                  <div class="left-text-icon icon ion-ios-location-outline"></div>
+                  <div class="event-text">Office</div>
+                </div>
+              </div>
+              <div class="w-clearfix calendar-col-right">
+                <div class="image-calendar-event"><img width="28" src="images/placeholder.png">
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="list-calendar-events" data-ix="list-item">
+            <a class="w-clearfix w-inline-block" href="addnew.html" data-load="1">
+              <div class="calendar-col-left">
+                <div class="event-title">Meeting with David</div>
+                <div class="w-clearfix text-event-wrap">
+                  <div class="left-text-icon icon ion-ios-clock-outline"></div>
+                  <div class="event-text">4 - 6pm</div>
+                  <div class="left-text-icon icon ion-ios-location-outline"></div>
+                  <div class="event-text">Headquarters</div>
+                </div>
+              </div>
+              <div class="w-clearfix calendar-col-right">
+                <div class="image-calendar-event"><img width="28" src="images/placeholder.png">
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+                </div>
+                <!--
+                <div class="w-clearfix options-new less-padding-sides-blog border-top">
+                    <a class="w-clearfix w-inline-block small-button icon-only grey" href="#">
+                        <div class="icon-button">
+                            <div class="icon ion-ios-arrow-left bigger"></div>
+                        </div>
+                    </a>
+                    <a class="w-clearfix w-inline-block small-button grey last right" href="#">
+                        <div class="icon-button bigger">
+                            <div class="icon ion-ios-arrow-right"></div>
+                        </div>
+                        <div class="text-button">NEXT</div>
+                    </a>
+                </div>
+                -->
+
+            </div>
+            <div class="page-content loading-mask" id="new-stack">
+                <div class="loading-icon">
+                    <div class="navbar-button-icon icon ion-load-d"></div>
+                </div>
+            </div>
+        </section>
+        <script src="template/js/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ["Montserrat:400,700"]
+                }
+            });
+            $('.mobile-wrapper').height(window.innerHeight);
+
+            var confs = [];
+            var sess_data = [];
+            var user = [];
+
+            $(document).ready(function () {
+                // loading confs value
+                confs = JSON.parse(app_confs);
+
+                // Getting value
+                sess_data = JSON.parse(localStorage.getItem('sess_data'));
+                user = JSON.parse(localStorage.getItem('user'));
+                //console.log(sess_data);
+                //console.log(user);
+
+                //checking session
+                if (user === undefined || user === null || sess_data === undefined || sess_data === null) {
+                    window.location.href = 'login.html';
+                }
+
+                // Load left menu
+                if ($('.navbar').find('#lmenu')) {
+                    $('#lmenu').load('menu.html');
+                }
+
+                $.ajax({
+                    url: 'http://' + confs.site_addr + '/admin.php/events/timeline?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                    method: 'post',
+                    data: 'auth_id=' + user.auth_id + '&auth_type=2',
+                    dataType: 'json',
+                    success: function (vals) {
+                        //console.log(JSON.stringify(vals));
+                        events = vals.events;
+                        if (events !== undefined || events !== null) {
+                            $(events).each(function (i, event) {
+                                html = '<li class="list-item-new">';
+                                html += '<a class="w-inline-block link-blog-list" href="blog-post.html" data-load="1">';
+                                //html += '<div class="image-new"></div>';
+                                html += '<div class="text-new">';
+                                html += '<h6 class="title-new">' + event.event_title + '</h6>';
+                                html += '<p class="description-new">You have invited peoples in the Event of ' + event.event_title + '</p>';
+                                html += '<a class="category-link" href="friends_in_event.html?back_to=events.html&event_id=' + event.id + '">See Invites</a><a class="category-link" href="#">Send a Future Thought</a><a class="category-link" href="#">Set Reminder</a>';
+                                html += '</div>';
+                                html += '</a>';
+                                html += '</li>';
+                                $('.list-news').append(html);
+                            });
+                        }
+                        $('.list-news').width($(window).width() - 30);
+                        $('iframe').width($('iframe').parent().width());
+                        $('iframe').height('auto');
+                        $('iframe').css({'padding': '0px', 'margin': '0px'});
+                        //console.log($('iframe').parent().width());
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript" src="template/js/modernizr.js"></script>
+        <script type="text/javascript" src="template/js/framework.js"></script>
+        <script type="text/javascript" src="template/js/scripts.js"></script>
+        <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
+    </body>
+</html>

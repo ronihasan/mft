@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sign Up</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+            @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+            @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        </style>
+
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+        <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+        <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+
+        <!--  <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />-->
+        <!--  <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />-->
+
+        <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="template/css/framework.css">
+        <link rel="stylesheet" type="text/css" href="template/css/styles.css">
+        <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
+        <link rel="apple-touch-icon" href="template/images/logo.ico">
+        <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" src="template/js/jquery.min.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+        <!--  <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>-->
+
+        <!--<script type="text/javascript" src="template/js/jquery.nicescroll.js"></script>-->
+        
+        <!-- jQuery cftoaster plugin -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
+        <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
+
+        <!-- custom & common scripts -->
+        <!--<script src="js/custom.js"></script>-->
+        <script type="text/javascript" src="confs.json"></script>
+        
+        <style>
+            html{
+                height: 100%;
+            }
+            .navbar-title{
+                font-size: 22px;
+                color: #fd4c58;
+            }
+            .w-form input[type=text],select,textarea{
+               color: #FFF !important;
+            }
+            .navbar{
+                background-image: none;
+/*                background-color: transparent;*/
+                background-color: black;
+                position: fixed;
+/*                left:0px;*/
+                top:0px;
+            }
+            .body{
+/*                padding-top:20px;*/
+            }
+            
+            .slide-auto{
+/*                overflow: scroll;*/
+/*                border: 1px solid yellow;*/
+/*                margin-top:0px;*/
+            }
+            
+        </style>
+
+    </head>
+    <body class="bg-gradient">
+        <div style="height:10px;">&nbsp;</div>
+        <section class="w-section mobile-wrapper" id="main-stack" data-scroll="1">
+            <div class="page-content">
+                <div class="w-nav navbar -transparent" data-collapse="all" data-animation="over-left" data-duration="400" data-contain="1" data-easing="ease-out-quint" data-no-scroll="1">
+                    <div class="w-container">
+                        <div class="wrapper-mask" data-ix="menu-mask"></div>
+                        <div class="navbar-title">Sign Up</div>
+                        <a class="w-inline-block navbar-button" href="login.html" data-load="1">
+                            <div class="navbar-button-icon icon ion-ios-close-empty"></div>
+                        </a>
+                    </div>
+                </div>
+                <div style="height:20px;">&nbsp;</div>
+                <div class="body padding slide-auto">
+                    <div class="bottom-section padding slide-vw">
+                        <div class="w-form-body">
+                            <div class="w-form">
+                                <form id="email-form" name="email-form" action="#">
+                                    <div class="separator-button-input"></div>
+                                    <div class="w-clearfix">
+                                            <div class="row-input-list w50 left">
+                                                <label class="label-form" for="birthday-field">FIRSTs NAME</label>
+                                                <input class="w-input input-form" id="birthday-field" type="text" name="fdata[firstname]" data-name="birthday" required="required">
+                                                <div class="separator-fields"></div>
+                                            </div>
+                                            <div class="row-input-list w50">
+                                                <label class="label-form" for="birthday-field">LAST NAME</label>
+                                                <input class="w-input input-form" id="birthday-field" type="text" name="fdata[lastname]" data-name="birthday" required="required">
+                                                <div class="separator-fields"></div>
+                                            </div>
+                                    </div>
+                                    <div>
+                                            <label class="label-form" for="email-field">MOBILE</label>
+                                            <input class="w-input input-form" id="email-field" type="text" name="fdata[mobile]" data-name="email" required="required">
+                                            <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                            <label class="label-form" for="email-field">EMAIL</label>
+                                            <input class="w-input input-form" id="email-field" type="text" name="fdata[email]" data-name="email" required="required">
+                                            <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                            <label class="label-form" for="password-ield">PASSWORD</label>
+                                            <input class="w-input input-form" id="password-ield" type="password" name="fdata[password]" data-name="password" required="required">
+                                            <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                            <label class="label-form" for="birthday-field">BIRTHDAY</label>
+                                            <input class="w-input input-form" id="birthday-field" type="text" name="fdata[dob]" data-name="birthday" required="required">
+                                            <div class="separator-fields"></div>
+
+                                    </div>
+                                    <div>
+                                            <div class="w-clearfix input-form light one-line" style="border:none !important;">
+                                                <label class="label-form middle" for="email">GENDER</label>
+                                                <div class="w-clearfix radios-container">
+                                                    <div class="w-radio w-clearfix radio-button">
+                                                        <div class="radio-bullet-replacement"></div>
+                                                        <input class="w-radio-input radio-bullet" id="node" type="radio" name="fdata[gender]" value="female" data-name="Radio1">
+                                                        <label class="w-form-label" for="node">Female</label>
+                                                    </div>
+                                                    <div class="w-radio w-clearfix radio-button">
+                                                        <div class="radio-bullet-replacement checked"></div>
+                                                        <input class="w-radio-input radio-bullet" id="node-2" type="radio" name="fdata[gender]" value="male" data-name="Radio1">
+                                                        <label class="w-form-label" for="node-2">Male</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    <div class="separator-fields"></div>
+                                    <input class="w-button action-button sign_up_button" type="submit" value="Sign Up" data-wait="Please wait...">
+                                    <div class="separator-button"></div>
+                                </form>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div style="height:10px;">
+                    <a class="link-upper" href="login.html" data-load="1">Already have an account? <strong class="b-link">Sign in</strong></a>
+                    <div class="separator-fields"></div>
+                </div>
+            </div>
+            <div class="page-content loading-mask" id="new-stack">
+                <div class="loading-icon">
+                    <div class="navbar-button-icon icon ion-load-d"></div>
+                </div>
+            </div>
+        </section>
+        <script src="template/js/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ["Montserrat:400,700"]
+                }
+            });
+            //$('.mobile-wrapper').css({'min-height':$(window).outerHeight()});
+
+            var confs = [];
+            var sess_data = [];
+            var user = [];
+
+            $(document).ready(function () {
+                // loading confs value
+                confs = JSON.parse(app_confs);
+
+                $('.sign_up_button').on('click', function (e) {
+                    e.preventDefault();
+                    pdata = $('#email-form').serialize();
+                    $.ajax({
+                        url: 'http://' + confs.site_addr + '/admin.php/users/signup?ma=1',
+                        method: 'post',
+                        data: pdata,
+                        dataType: 'json',
+                        success: function (vals) {
+                            console.log(vals);
+                            if (vals.flash_data !== undefined || vals.flash_data !== null) {
+                                if (vals.flash_data.success === 1) {
+                                    // Setting value
+                                    //localStorage.setItem('user', JSON.stringify(vals.user_data));
+                                    // Setting value
+                                    //localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
+                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                    setTimeout(function () {
+                                        window.location.href = 'login.html';
+                                    }, 2000);
+                                } else {
+                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                }
+                            } else {
+                                $("body").cftoaster({content: 'Cannot read properly.'});
+                            }
+                        }
+                    });
+                });
+
+                /*
+                $('input[type="text"],select,textarea').on('click', function (e) {
+                    //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
+                    slide_auto_pos = $('.slide-auto').offset().top;
+                    slide_vw_pos = $('.slide-vw').offset().top;
+                    child_curr_pos = $(this).offset().top;
+                    extra_top = 100;
+                    newtop = child_curr_pos - slide_auto_pos - extra_top;
+                    //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
+                    $('.slide-vw').css({'top':'-'+newtop+'px'});
+                });
+                $('input[type="text"],select,textarea').on('focusout', function (e) {
+                    slide_auto_pos = $('.slide-auto').offset().top;
+                    $('.slide-vw').css({'top':'0px'});
+                });
+                */
+                
+                
+                $('input[type="text"],input[type="password"],select,textarea').on('click', function (e) {
+                    $('.body').scrollTop($(this).offset().top);
+                });
+                
+                function onSoftKeyUp(body_height){
+                    $('.body').css({'overflow-y':'scroll', 'height':body_height+'px'}); 
+                }
+                //onSoftKeyUp(400);
+                function onSoftKeyDown(){
+                    $('.body').css({'overflow-y':'auto', 'height':'auto'}); 
+                }
+                //setTimeout(onSoftKeyDown, 10000);
+                
+                function keyboardShowHandler(e){
+                    //alert(JSON.stringify(e));
+                    wHeight = window.innerHeight;
+                    kHeight = e.keyboardHeight; 
+                    extraHeight = 0; //header + inputbox
+                    //alert('IONIC Keyboard height is: ' + e.keyboardHeight);
+                    onSoftKeyUp(wHeight - kHeight - extraHeight);
+                }
+                function keyboardHideHandler(e){
+                    //alert('Goodnight, sweet prince');
+                    onSoftKeyDown();
+                }
+
+                document.addEventListener("deviceready", onDeviceReady, false);
+
+                function onDeviceReady() {
+                    window.addEventListener('native.keyboardshow', keyboardShowHandler);
+                    window.addEventListener('native.keyboardhide', keyboardHideHandler);
+                }
+            });
+        </script>
+        <script type="text/javascript" src="template/js/modernizr.js"></script>
+        <script type="text/javascript" src="template/js/framework.js"></script>
+        <script type="text/javascript" src="template/js/scripts.js"></script>
+        <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
+    </body>
+</html>

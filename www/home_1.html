@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Home</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+            @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+            @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        </style>
+
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+        <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+        <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+
+        <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="template/css/framework.css">
+        <link rel="stylesheet" type="text/css" href="template/css/styles.css">
+        <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
+        <link rel="apple-touch-icon" href="template/images/logo.ico">
+        <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="template/js/jquery.min.js"></script>
+
+        <!-- jQuery cftoaster plugin -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
+        <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
+
+        <!-- custom & common scripts -->
+        <script type="text/javascript" src="confs.json"></script>
+        <!--<script src="js/custom.js"></script>-->
+        <style>
+            .list-item-new h6{
+                margin: 0px;
+                font-weight: 500;
+            }
+            .title-new > a{
+                color: #4099ff;
+                display: inline;
+            }
+            .description-new > a{
+                color: #4099ff;
+                display: inline;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="w-section mobile-wrapper">
+            <div class="page-content" id="main-stack">
+
+                <div class="w-nav navbar" data-collapse="all" data-animation="over-left" data-duration="400" data-contain="1" data-easing="ease-out-quint" data-no-scroll="1">
+                    <div class="w-container">
+                        <nav class="w-nav-menu nav-menu bg-gradient" id="lmenu" role="navigation">
+                            <!-- left menu -->
+
+
+                            <!-- end menu-->
+                        </nav>
+                        <div class="wrapper-mask" data-ix="menu-mask"></div>
+                        <div class="navbar-title">Home</div>
+                        <div class="w-nav-button navbar-button left" id="menu-button" data-ix="hide-navbar-icons">
+                            <div class="navbar-button-icon home-icon">
+                                <div class="bar-home-icon top"></div>
+                                <div class="bar-home-icon middle"></div>
+                                <div class="bar-home-icon bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body">
+                    <div class="w-clearfix grey-header">
+                        <h2 class="grey-heading-title">Adaptive</h2>
+                        <div class="options-new tighter">
+                            <a class="w-clearfix w-inline-block small-button icon-only grey p-r" href="#" id="grid-1-column">
+                                <div class="icon-button">
+                                    <div class="w-clearfix icon-grid-cols">
+                                        <div class="icon-grid-item _1-col"></div>
+                                        <div class="icon-grid-item _1-col"></div>
+                                        <div class="icon-grid-item _1-col"></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="w-clearfix w-inline-block small-button icon-only grey p-r selected" href="#" id="grid-2-columns">
+                                <div class="icon-button">
+                                    <div class="w-clearfix icon-grid-cols">
+                                        <div class="icon-grid-item _2-cols"></div>
+                                        <div class="icon-grid-item last _2-cols"></div>
+                                        <div class="icon-grid-item _2-cols"></div>
+                                        <div class="icon-grid-item last _2-cols"></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="w-clearfix w-inline-block small-button icon-only grey" href="#" id="grid-3-columns">
+                                <div class="icon-button">
+                                    <div class="w-clearfix icon-grid-cols p-l">
+                                        <div class="icon-grid-item"></div>
+                                        <div class="icon-grid-item"></div>
+                                        <div class="icon-grid-item"></div>
+                                        <div class="icon-grid-item"></div>
+                                        <div class="icon-grid-item"></div>
+                                        <div class="icon-grid-item"></div>
+                                        <div class="icon-grid-item"></div>
+                                        <div class="icon-grid-item"></div>
+                                        <div class="icon-grid-item last"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-container">
+
+                    <div class="w-form" style="border:1px solid #cccccc;padding: 5px;border-radius: 5px;">
+                        <form id="email-form" name="email-form" action="#">
+                            <textarea class="w-input input-form textarea" placeholder="Share your thoughts ..." id="message" name="message" data-name="message"></textarea>
+                            <!--<div class="separator-button-input"></div>-->
+                            <input style="width:60px;height: 30px;padding: 3px 2px;float: right;clear: left;" class="w-button action-button" type="submit" value="Send" data-wait="Please wait...">
+                            <div style="height: 30px;">&nbsp;</div>
+                        </form>
+                    </div>
+                    <ul class="w-clearfix list-news">
+                        <!--
+                        <li class="list-item-new">
+                            <a class="w-inline-block link-blog-list" href="blog-post.html" data-load="1">
+                                <div class="image-new"></div>
+                                <div class="text-new">
+                                    <h2 class="title-new">We have built this for you</h2>
+                                    <p class="description-new">Access all news easily and instantaneously by taking advantage of this template. It is simple and easy to use and has a slider with an automatic sliding feature. It’s never been easier
+                                        <br> to access all the latest news!</p><a class="category-link" href="#">PRODUCTIVITY</a><a class="category-link" href="#">BUSINESS</a>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item-new">
+                            <a class="w-inline-block link-blog-list" href="blog-post.html" data-load="1">
+                                <div class="image-new bg1"></div>
+                                <div class="text-new">
+                                    <h2 class="title-new">Manhattan has a pixel perfect design and is easy to use</h2>
+                                    <p class="description-new">Access all news easily and instantaneously by taking advantage of this template. It is simple and easy to use and has a slider with an automatic sliding feature. It’s never been easier
+                                        <br> to access all the latest news!</p><a class="category-link" href="#">PRODUCTIVITY</a><a class="category-link" href="#">BUSINESS</a>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item-new">
+                            <a class="w-inline-block link-blog-list" href="blog-post.html" data-load="1">
+                                <div class="image-new bg2"></div>
+                                <div class="text-new">
+                                    <h2 class="title-new">The template has a modern design and an ergonomic navigation</h2>
+                                    <p class="description-new">Access all news easily and instantaneously by taking advantage of this template. It is simple and easy to use and has a slider with an automatic sliding feature. It’s never been easier
+                                        <br>to access all the latest news!</p><a class="category-link" href="#">PRODUCTIVITY</a><a class="category-link" href="#">BUSINESS</a>
+                                </div>
+                            </a>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+                <!--
+                <div class="w-clearfix options-new less-padding-sides-blog border-top">
+                    <a class="w-clearfix w-inline-block small-button icon-only grey" href="#">
+                        <div class="icon-button">
+                            <div class="icon ion-ios-arrow-left bigger"></div>
+                        </div>
+                    </a>
+                    <a class="w-clearfix w-inline-block small-button grey last right" href="#">
+                        <div class="icon-button bigger">
+                            <div class="icon ion-ios-arrow-right"></div>
+                        </div>
+                        <div class="text-button">NEXT</div>
+                    </a>
+                </div>
+                -->
+
+            </div>
+            <div class="page-content loading-mask" id="new-stack">
+                <div class="loading-icon">
+                    <div class="navbar-button-icon icon ion-load-d"></div>
+                </div>
+            </div>
+        </section>
+        <script src="template/js/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ["Montserrat:400,700"]
+                }
+            });
+            $('.mobile-wrapper').height(window.innerHeight);
+
+            var confs = [];
+            var sess_data = [];
+            var user = [];
+
+            $(document).ready(function () {
+                // loading confs value
+                confs = JSON.parse(app_confs);
+
+                // Getting value
+                sess_data = JSON.parse(localStorage.getItem('sess_data'));
+                user = JSON.parse(localStorage.getItem('user'));
+                //console.log(sess_data);
+                //console.log(user);
+
+                //checking session
+                if (user === undefined || user === null || sess_data === undefined || sess_data === null) {
+                    window.location.href = 'login.html';
+                }
+
+                // Load left menu
+                if ($('.navbar').find('#lmenu')) {
+                    $('#lmenu').load('menu.html');
+                }
+
+                //console.log(user);
+                //console.log(sess_data);
+                //console.log('http://' + confs.site_addr + '/admin.php/users/my_account?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent + '*auth_id=' + user.auth_id + '&auth_type=2');
+
+                $.ajax({
+                    url: 'http://' + confs.site_addr + '/admin.php/users/my_account?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                    method: 'post',
+                    data: 'auth_id=' + user.auth_id + '&auth_type=2',
+                    dataType: 'json',
+                    success: function (vals) {
+                        //if login session is out-of-date or deleted
+                        if (vals.user_data === undefined || vals.user_data === null) {
+                            // Setting value
+                            localStorage.setItem('user', null);
+                            // Setting value
+                            localStorage.setItem('sess_data', null);
+                            window.location.href = 'login.html';
+                        }
+
+                        console.log(JSON.stringify(vals.events));
+                        events = vals.events;
+                        if (events !== undefined || events !== null) {
+                            $(events).each(function (i, event) {
+                                if (event.tl_type === 'f') {
+                                    html = '<li class="list-item-new">';
+                                    html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
+                                    //html += '<div class="image-new"></div>';
+                                    html += '<div class="text-new">';
+                                    html += '<h6 class="title-new">You have shared a Future Thought</h6>';
+                                    html += '<p class="description-new">' + event.tl_desc + '</p>';
+                                    html += '<a class="category-link" href="friends_in_ft.html?back_to=home.html&ft_id=' + event.tl_id + '">See Invites</a><a class="category-link" href="#">Send a Message</a>';
+                                    html += '</div>';
+                                    html += '</a>';
+                                    html += '</li>';
+                                    $('.list-news').append(html);
+                                } else if (event.tl_type === 'rf') {
+                                    html = '<li class="list-item-new">';
+                                    html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
+                                    //html += '<div class="image-new"></div>';
+                                    html += '<div class="text-new">';
+                                    html += '<h6 class="title-new"><a class="w-inline-block" href="profile.html?person=' + event.sender_id + '" data-load="1">' + event.sender_name + '</a> shared a thoughts to you</h6>';
+                                    html += '<p class="description-new">' + event.tl_desc + '</p>';
+                                    html += '<a class="category-link" href="#">Share</a>';
+                                    html += '</div>';
+                                    html += '</a>';
+                                    html += '</li>';
+                                    $('.list-news').append(html);
+                                } else if (event.tl_type === 'e') {
+                                    html = '<li class="list-item-new">';
+                                    html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
+                                    //html += '<div class="image-new"></div>';
+                                    html += '<div class="text-new">';
+                                    html += '<h6 class="title-new"><span>' + event.tl_title + '</span></h6>';
+                                    html += '<p class="description-new">You have invited peoples in the Event of "' + event.tl_title + '".</p>';
+                                    html += '<a class="category-link" href="friends_in_event.html?back_to=home.html&event_id=' + event.tl_id + '">See Invites</a><a class="category-link" href="#">Send a Thought</a><a class="category-link" href="#">Set Reminder</a>';
+                                    html += '</div>';
+                                    html += '</a>';
+                                    html += '</li>';
+                                    $('.list-news').append(html);
+                                } else if (event.tl_type === 're') {
+                                    html = '<li class="list-item-new">';
+                                    html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
+                                    //html += '<div class="image-new"></div>';
+                                    html += '<div class="text-new">';
+                                    html += '<h6 class="title-new"><span style="color:#CCC;">' + event.tl_title + '</span></h6>';
+                                    html += '<p class="description-new"><a class="w-inline-block" href="profile.html?person=' + event.sender_id + '" data-load="1">' + event.sender_name + '</a> invited you in the event "' + event.tl_title + '"</p>';
+                                    html += '<a class="category-link" href="#">Set Reminder</a>';
+                                    html += '</div>';
+                                    html += '</a>';
+                                    html += '</li>';
+                                    $('.list-news').append(html);
+                                }
+                            });
+                        }
+                        $('.list-news').width($(window).width() - 30);
+                        $('iframe').width($('iframe').parent().width());
+                        $('iframe').height('auto');
+                        $('iframe').css({'padding': '0px', 'margin': '0px'});
+                        //console.log($('iframe').parent().width());
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript" src="template/js/modernizr.js"></script>
+        <script type="text/javascript" src="template/js/framework.js"></script>
+        <script type="text/javascript" src="template/js/scripts.js"></script>
+        <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
+    </body>
+</html>

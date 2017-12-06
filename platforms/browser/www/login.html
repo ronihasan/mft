@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+            @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+            @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        </style>
+
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+        <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+        <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+
+        <!--  <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />-->
+        <!--  <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />-->
+
+        <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="template/css/framework.css">
+        <link rel="stylesheet" type="text/css" href="template/css/styles.css">
+        <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
+        <link rel="apple-touch-icon" href="template/images/logo.ico">
+        <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" src="template/js/jquery.min.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+        <!--  <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>-->
+
+        <!-- jQuery cftoaster plugin -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
+        <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
+
+        <!-- custom & common scripts -->
+        <!--<script src="js/custom.js"></script>-->
+        <script type="text/javascript" src="confs.json"></script>
+        <style>
+            .a-facebook{
+                background-color: #3b5998 !important;
+                border: 1px solid #777;
+            }
+            .a-instagram{
+                background-color: #3f729b !important;
+                border: 1px solid #777;
+            }
+            .a-google{
+                background-color: #dd4b39 !important;
+                border: 1px solid #777;
+            }
+            .a-signin{
+                background-color: #c92228 !important;
+                border: 1px solid #777;
+            }
+            .w-button > .icon-button {
+                /*border-right: 1px solid #CCC;*/
+                /*padding-right: 15px;*/
+                margin-right: 5px;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body class="bg-gradient">
+        <section class="w-section mobile-wrapper">
+            <div class="page-content" id="main-stack" data-scroll="0">
+                <div class="body padding" style="margin-top: 15px;">
+                    <div class="logo-login"></div>
+                    <!--<h6 class="header-h1">My Future Thoughts</h6>-->
+
+                    <!--<div class="bottom-section padding">-->
+                    <div style="margin-top:25px;">
+                        <a class="w-clearfix w-inline-block w-button social facebook a-facebook" href="#">
+                            <div class="icon-button">
+                                <div class="icon ion-social-facebook"></div>
+                            </div>
+                            <div class="text-button">Sign in using FACEBOOK</div>
+                        </a>
+                        <a class="w-clearfix w-inline-block w-button social last a-google" href="#">
+                            <div class="icon-button">
+                                <div class="icon ion-social-googleplus"></div>
+                            </div>
+                            <div class="text-button">Sign in using GOOGLE+</div>
+                        </a>
+                        <a class="w-clearfix w-inline-block w-button social twitter a-instagram" href="#">
+                            <div class="icon-button">
+                                <div class="icon ion-social-instagram"></div>
+                            </div>
+                            <div class="text-button">Sign in using INSTAGRAM</div>
+                        </a>
+                        <a class="w-clearfix w-inline-block w-button a-signin" href="login_form.html">
+                            <div class="icon-button">
+                                <div class="icon ion-log-in"></div>
+                            </div>
+                            <div class="text-button">Sign in</div>
+                        </a>
+
+                    </div>
+                    <div class="separator-fields"></div>
+                    <a class="link-upper" href="signup.html" data-load="1">Dont have an account? <strong class="b-link">Sign up now!</strong></a>
+
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="page-content loading-mask" id="new-stack">
+                <div class="loading-icon">
+                    <div class="navbar-button-icon icon ion-load-d"></div>
+                </div>
+            </div>
+        </section>
+        <script src="template/js/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ["Montserrat:400,700"]
+                }
+            });
+            //$('.mobile-wrapper').height(window.innerHeight);
+
+            var confs = [];
+            var sess_data = [];
+            var user = [];
+
+            $(document).ready(function () {
+                // loading confs value
+                confs = JSON.parse(app_confs);
+
+                //localStorage.user = null;
+                //localStorage.sess_data = null;
+
+                // Getting value
+                sess_data = JSON.parse(localStorage.getItem('sess_data'));
+                user = JSON.parse(localStorage.getItem('user'));
+                //console.log(sess_data);
+                //console.log(user);
+                if (user !== undefined && user !== null && sess_data !== undefined && sess_data !== null) {
+                    window.location.href = 'home.html';
+                }
+
+                $('.sign_in_button').on('click', function (e) {
+                    e.preventDefault();
+                    pdata = $('#submit-form').serialize();
+                    $.ajax({
+                        url: 'http://' + confs.site_addr + '/admin.php/auths/login?ma=1',
+                        method: 'post',
+                        data: pdata,
+                        dataType: 'json',
+                        success: function (vals) {
+                            console.log(vals);
+                            if (vals.flash_data !== undefined || vals.flash_data !== null) {
+                                if (vals.flash_data.success === 1) {
+
+                                    // Setting value
+                                    localStorage.setItem('user', JSON.stringify(vals.user_data));
+                                    // Setting value
+                                    localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
+
+                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                    setTimeout(function () {
+                                        window.location.href = 'home.html';
+                                    }, 2000);
+                                } else {
+                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                }
+                            } else {
+                                $("body").cftoaster({content: 'Cannot read properly.'});
+                            }
+                        }
+                    });
+                });
+
+                $('input').on('click', function () {
+                    $('html, body').animate({
+                        scrollTop: $("input").offset().top
+                    }, 2000);
+                })
+            });
+        
+            /*
+            window.addEventListener('offline', function(e) { console.log('offline'); });
+            window.addEventListener('online', function(e) { console.log('online'); });
+            online = window.navigator.onLine;
+            console.log(online);
+            alert(online);
+            */
+        </script>
+        <script type="text/javascript" src="template/js/modernizr.js"></script>
+        <script type="text/javascript" src="template/js/framework.js"></script>
+        <script type="text/javascript" src="template/js/scripts.js"></script>
+        <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
+    </body>
+</html>

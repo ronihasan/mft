@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sign Up</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!-- see http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <style>
+            /* following two viewport lines are equivalent to the meta viewport statement above, needed for Windows */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html and http://dev.w3.org/csswg/css-device-adapt/ */
+            @-ms-viewport { width: 100vw ; zoom: 100% ; }  @viewport { width: 100vw ; zoom: 100% ; }
+            @-ms-viewport { user-zoom: fixed ; }           @viewport { user-zoom: fixed ; }
+        </style>
+
+        <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
+        <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
+        <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
+
+        <!--  <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />-->
+        <!--  <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />-->
+
+        <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="template/css/framework.css">
+        <link rel="stylesheet" type="text/css" href="template/css/styles.css">
+        <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
+        <link rel="apple-touch-icon" href="template/images/logo.ico">
+        <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" src="template/js/jquery.min.js"></script>
+
+        <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
+        <!--  <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>-->
+
+        <!--<script type="text/javascript" src="template/js/jquery.nicescroll.js"></script>-->
+        
+        <!-- jQuery cftoaster plugin -->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
+        <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
+
+        <!-- custom & common scripts -->
+        <!--<script src="js/custom.js"></script>-->
+        <script type="text/javascript" src="confs.json"></script>
+        
+        <style>
+            .navbar-title{
+                font-size: 22px;
+                color: #fd4c58;
+            }
+            .w-form input[type=text],select,textarea{
+               color: #FFF !important;
+            }
+            .navbar{
+                background-image: none;
+                background-color: transparent;
+            }
+        </style>
+
+    </head>
+    <body class="bg-gradient">
+        <div style="height:10px;">&nbsp;</div>
+        <section class="w-section mobile-wrapper" id="main-stack" data-scroll="1">
+            <div class="page-content">
+                <div class="w-nav navbar transparent" data-collapse="all" data-animation="over-left" data-duration="400" data-contain="1" data-easing="ease-out-quint" data-no-scroll="1">
+                    <div class="w-container">
+                        <div class="wrapper-mask" data-ix="menu-mask"></div>
+                        <div class="navbar-title">Sign Up</div>
+                        <a class="w-inline-block navbar-button" href="login.html" data-load="1">
+                            <div class="navbar-button-icon icon ion-ios-close-empty"></div>
+                        </a>
+                    </div>
+                </div>
+                <div style="height:30px;">&nbsp;</div>
+                <div class="body padding">
+                    <div class="bottom-section padding">
+                        <div class="w-form-body" style="overflow-y:scroll;">
+                            <div class="w-form">
+                                <form id="email-form" name="email-form" action="#">
+                                    <div class="separator-button-input"></div>
+                                    <div class="w-clearfix">
+                                            <div class="row-input-list w50 left">
+                                                <label class="label-form" for="birthday-field">FIRST NAME</label>
+                                                <input class="w-input input-form" id="birthday-field" type="text" name="fdata[firstname]" data-name="birthday" required="required">
+                                                <div class="separator-fields"></div>
+                                            </div>
+                                            <div class="row-input-list w50">
+                                                <label class="label-form" for="birthday-field">LAST NAME</label>
+                                                <input class="w-input input-form" id="birthday-field" type="text" name="fdata[lastname]" data-name="birthday" required="required">
+                                                <div class="separator-fields"></div>
+                                            </div>
+                                    </div>
+                                    <div>
+                                            <label class="label-form" for="email-field">MOBILE</label>
+                                            <input class="w-input input-form" id="email-field" type="text" name="fdata[mobile]" data-name="email" required="required">
+                                            <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                            <label class="label-form" for="email-field">EMAIL</label>
+                                            <input class="w-input input-form" id="email-field" type="text" name="fdata[email]" data-name="email" required="required">
+                                            <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                            <label class="label-form" for="password-ield">PASSWORD</label>
+                                            <input class="w-input input-form" id="password-ield" type="password" name="fdata[password]" data-name="password" required="required">
+                                            <div class="separator-fields"></div>
+                                    </div>
+                                    <div>
+                                            <label class="label-form" for="birthday-field">BIRTHDAY</label>
+                                            <input class="w-input input-form" id="birthday-field" type="text" name="fdata[dob]" data-name="birthday" required="required">
+                                            <div class="separator-fields"></div>
+
+                                    </div>
+                                    <div>
+                                            <div class="w-clearfix input-form light one-line" style="border:none !important;">
+                                                <label class="label-form middle" for="email">GENDER</label>
+                                                <div class="w-clearfix radios-container">
+                                                    <div class="w-radio w-clearfix radio-button">
+                                                        <div class="radio-bullet-replacement"></div>
+                                                        <input class="w-radio-input radio-bullet" id="node" type="radio" name="fdata[gender]" value="female" data-name="Radio1">
+                                                        <label class="w-form-label" for="node">Female</label>
+                                                    </div>
+                                                    <div class="w-radio w-clearfix radio-button">
+                                                        <div class="radio-bullet-replacement checked"></div>
+                                                        <input class="w-radio-input radio-bullet" id="node-2" type="radio" name="fdata[gender]" value="male" data-name="Radio1">
+                                                        <label class="w-form-label" for="node-2">Male</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    <div class="separator-fields"></div>
+                                    <input class="w-button action-button sign_up_button" type="submit" value="Sign Up" data-wait="Please wait...">
+                                    <div class="separator-button"></div>
+
+<!--                                    <a class="link-upper" href="login.html" data-load="1">Already have an account? <strong class="b-link">Sign in</strong></a>-->
+<!--                                    <div class="separator-fields"></div>-->
+                                </form>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div style="height:10px;">
+                    <a class="link-upper" href="login.html" data-load="1">Already have an account? <strong class="b-link">Sign in</strong></a>
+                    <div class="separator-fields"></div>
+                </div>
+            </div>
+            <div class="page-content loading-mask" id="new-stack">
+                <div class="loading-icon">
+                    <div class="navbar-button-icon icon ion-load-d"></div>
+                </div>
+            </div>
+        </section>
+        <script src="template/js/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {
+                    families: ["Montserrat:400,700"]
+                }
+            });
+            //$('.mobile-wrapper').height(window.innerHeight);
+            //$('body').height(window.innerHeight);
+            
+            $('.w-form-body').height(window.innerHeight - ($('.w-nav').outerHeight() + 100));
+            $('.w-form').height($('.w-form').height() + (($('.w-form-body').height()*50)/100));
+
+            var confs = [];
+            var sess_data = [];
+            var user = [];
+
+            $(document).ready(function () {
+                // loading confs value
+                confs = JSON.parse(app_confs);
+
+                $('.sign_up_button').on('click', function (e) {
+                    e.preventDefault();
+                    pdata = $('#submit-form').serialize();
+                    $.ajax({
+                        url: 'http://' + confs.site_addr + '/admin.php/users/signup?ma=1',
+                        method: 'post',
+                        data: pdata,
+                        dataType: 'json',
+                        success: function (vals) {
+                            console.log(vals);
+                            if (vals.flash_data !== undefined || vals.flash_data !== null) {
+                                if (vals.flash_data.success === 1) {
+                                    // Setting value
+                                    //localStorage.setItem('user', JSON.stringify(vals.user_data));
+                                    // Setting value
+                                    //localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
+                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                    setTimeout(function () {
+                                        window.location.href = 'login.html';
+                                    }, 2000);
+                                } else {
+                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                }
+                            } else {
+                                $("body").cftoaster({content: 'Cannot read properly.'});
+                            }
+                        }
+                    });
+                });
+                
+                $('input,select,textarea').on('click', function (e) {
+                    child_curr_pos = $(this).parent().position().top;
+                    form_curr_pos = $('.w-form').position().top;
+                    $(this).css({ "color": "#FFF"});
+                    $('.w-form-body').animate({
+                        scrollTop: child_curr_pos - form_curr_pos
+                    }, 200);
+                });
+                $('input,select,textarea').on('focusout', function (e) {
+                    $('.w-form-body').animate({
+                        scrollTop: 0
+                    }, 100);
+                });
+            });
+        </script>
+        <script type="text/javascript" src="template/js/modernizr.js"></script>
+        <script type="text/javascript" src="template/js/framework.js"></script>
+        <script type="text/javascript" src="template/js/scripts.js"></script>
+        <!--[if lte IE 9]><script src="template/js/placeholders.min.js"></script><![endif]-->
+    </body>
+</html>
