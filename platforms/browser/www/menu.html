@@ -205,20 +205,20 @@
         sess_data = JSON.parse(localStorage.getItem('sess_data'));
         user = JSON.parse(localStorage.getItem('user'));
         //console.log(user);
-        
+
         prof = '<div style="border-radius:50px;border:3px solid darkorange;width: 100px;height:100px;overflow:hidden;margin:auto;background-color:#fff;">';
         prof += '<img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/images/profiles/' + user.id + '/default.jpg" alt="logo" style="width: 100px;height:100px;" />';
         //prof += '<img class="profile-img" src="template/images/blank_user.png" alt="logo" style="width: 100px;height:100px;" />';
         prof += '</div>';
         prof += '<div>';
-        prof += '<h6 style="margin-bottom:0px;">'+user.firstname+' '+user.lastname+'</h6>';
-        prof += '<p>'+user.addr1+'</p>';
+        prof += '<h6 style="margin-bottom:0px;">' + user.firstname + ' ' + user.lastname + '</h6>';
+        prof += '<p>' + user.addr1 + '</p>';
         prof += '</div>';
-        $('.user-profile').html(prof);  
-        
+        $('.user-profile').html(prof);
+
         //profilr_img = 'http://' + confs.site_addr + '/images/profiles/' + user.id + '/default.jpg';
         //$('.profile-img').load(profilr_img);
-        
+
         $('.signout_link').on('click', function (e) {
             e.preventDefault();
             $.ajax({
@@ -227,12 +227,29 @@
                 data: 'auth_id=' + user.auth_id + '&auth_type=2',
                 dataType: 'json',
                 success: function (vals) {
-                    //console.log(vals.flash_data.msg);
+                    console.log(vals);
+                    /*
                     if (vals.flash_data !== undefined || vals.flash_data !== null) {
                         if (vals.flash_data.success === 1) {
                             localStorage.user = null;
                             localStorage.sess_data = null;
                             $("body").cftoaster({content: vals.flash_data.msg});
+                            setTimeout(function () {
+                                window.location.href = 'login.html';
+                            }, 2000);
+                        } else {
+                            $("body").cftoaster({content: 'Not successful.'});
+                        }
+                    } else {
+                        $("body").cftoaster({content: 'Something unexpected happend.'});
+                    }
+                    */
+
+                    if (vals.status !== undefined || vals.status !== null) {
+                        if (vals.status === '1') {
+                            localStorage.user = null;
+                            localStorage.sess_data = null;
+                            $("body").cftoaster({content: vals.msg});
                             setTimeout(function () {
                                 window.location.href = 'login.html';
                             }, 2000);

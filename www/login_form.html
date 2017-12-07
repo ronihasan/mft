@@ -117,7 +117,8 @@
             $(document).ready(function () {
                 // loading confs value
                 confs = JSON.parse(app_confs);
-
+                var secret_key = Math.random().toString(36).replace(/[^a-z]+/g, '') + Date.now();
+                console.log('deviceID = ' + secret_key);
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
@@ -130,13 +131,14 @@
                 $('.sign_in_button').on('click', function (e) {
                     e.preventDefault();
                     pdata = $('#submit-form').serialize();
+                    console.log(pdata + '&secret_key=' + secret_key);
                     $.ajax({
                         url: 'http://revsupit.com/admin/demo/mft/admin.php/auths/login?ma=1',
                         method: 'post',
-                        data: pdata,
+                        data: pdata + '&secret_key=' + secret_key,
                         dataType: 'json',
                         success: function (vals) {
-                            console.log(vals.user);
+                            console.log(vals);
                             /*
                              if (vals.flash_data !== undefined || vals.flash_data !== null) {
                              if (vals.flash_data.success === 1) {
@@ -160,6 +162,8 @@
 
                             if (vals.status !== undefined || vals.status !== null) {
                                 if (vals.status === '1') {
+                                    // Setting value
+                                    localStorage.setItem('secret_key', secret_key);
                                     // Setting value
                                     localStorage.setItem('user', JSON.stringify(vals.user));
                                     // Setting value
