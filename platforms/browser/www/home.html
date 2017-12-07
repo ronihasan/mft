@@ -235,22 +235,6 @@
                     <ul class="w-clearfix list-news">
                         <!--
                         <li class="list-item-new">
-                        <a class="w-inline-block link-blog-list" href="#" data-load="1">
-                        <div class="text-new">
-                        <h6 class="title-new" style="background-color:#17A8AB;color:#FFF;">You have shared a Future Thought</h6>
-                        <p class="description-new">
-                            <div style="width:52px;padding:5px;border:0.1em solid #777;border-radius:50%;overflow:hidden;margin:0px;display:inline-block;"><img src="http://www.mft.gomyitguy.com/images/profiles/1/default.jpg"></div>
-                            <div style="display:inline-block;position:absolute;">You have shared a Future Thought</div>
-                        </p>
-                        <div style="padding:5px 10px;border-top:0.1em solid #CCC;text-align:right;">
-                        <a class="category-link" href="friends_in_ft.html?back_to=home.html&ft_id=' + event.tl_id + '"><i class="icon ion-ios-people"></i></a>
-                        <a class="category-link" href="#"><i class="icon ion-ios-email-outline"></i></a>
-                        </div>
-                        </div>
-                        </a>
-                        </li>
-                        -->
-                        <li class="list-item-new">
                             <a class="w-inline-block link-blog-list" href="#" data-load="1">
                                 <div class="text-new">
                                     <div class="description-new" style="margin:2px;min-height: 50px;">
@@ -274,6 +258,7 @@
                                 </div>
                             </a>
                         </li>
+                        -->
                     </ul>
                 </div>
                 <!--
@@ -351,7 +336,7 @@
                 'November',
                 'December'
             ];
-
+            
             var navigationFn = {
                 goToSection: function (id) {
                     $('html, body').animate({
@@ -449,7 +434,7 @@
                                     html += '<p style="margin:0px;padding:0px;color: #003399;">You have shared a Future Thought</p>';
                                     
                                     var d = new Date(event.tl_date);
-                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
+                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth()] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
                                     
                                     html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
@@ -480,7 +465,7 @@
                                     html += '<p style="margin:0px;padding:0px;color: #003399;">' + event.sender_name + '</a> shared a thoughts to you</p>';
                                     
                                     var d = new Date(event.tl_date);
-                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
+                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth()] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
                                     
                                     html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
@@ -510,7 +495,7 @@
                                     html += '<p style="margin:0px;padding:0px;color: #003399;">My Event</p>';
                                     
                                     var d = new Date(event.tl_date);
-                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
+                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth()] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
                                     
                                     html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
@@ -542,7 +527,7 @@
                                     html += '<p style="margin:0px;padding:0px;color: #003399;">' + event.sender_name + ' invited you</p>';
                                     
                                     var d = new Date(event.tl_date);
-                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
+                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth()] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
                                     
                                     html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
