@@ -158,13 +158,6 @@
                 border-top-right-radius: 0px;
             }
 
-            .img-frame{
-                width:42px;padding:1px;border:0.1em solid #EEE;overflow:hidden;margin:5px;display:inline-block;
-            }
-            .box-head{
-                display:inline-block;position:absolute;margin: 3px;
-            }
-
         </style>
     </head>
     <body>
@@ -254,10 +247,10 @@
                             <a class="w-inline-block link-blog-list" href="#" data-load="1">
                                 <div class="text-new">
                                     <div class="description-new" style="margin:2px;min-height: 50px;">
-                                        <div class="img-frame">
+                                        <div style="width:42px;padding:1px;border:0.1em solid #EEE;overflow:hidden;margin:5px;display:inline-block;">
                                             <img src="http://revsupit.com/admin/demo/mft/images/profiles/1/default.jpg">
                                         </div>
-                                        <div class="box-head">
+                                        <div style="display:inline-block;position:absolute;margin: 3px;">
                                             <p style="margin:0px;padding:0px;color: #003399;">You have shared a Future Thought</p>
                                             <p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">2017-05-04 12:10:11</p>
                                         </div>
@@ -439,61 +432,59 @@
                                      html += '</li>';
                                      */
                                     html = '<li class="list-item-new" id="ft_' + event.tl_id + '">';
-                                    html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
+                                    //html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
                                     html += '<div class="text-new">';
-                                    html += '<div class="description-new" style="margin:2px;min-height: 50px;">';
-                                    html += '<div class="img-frame">';
+                                    html += '<h6 class="title-new" style="background-color:#17A8AB;color:#FFF;">You have shared a Future Thought</h6>';
+                                    //html += '<p class="description-new">' + event.tl_desc + '</p>';
+                                    html += '<div class="description-new">';
+                                    html += '<div style="width:20%;border:0.1em solid #c6c6c6;border-radius:50%;overflow:hidden;margin:0px;display:block;float:left;">';
                                     html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/images/profiles/' + event.user_id + '/default.jpg" alt="Profile Picture" />';
                                     html += '</div>';
-                                    html += '<div class="box-head">';
-                                    html += '<p style="margin:0px;padding:0px;color: #003399;">You have shared a Future Thought</p>';
-                                    
+                                    html += '<div style="width:78%;display:block;margin-left:2%;float:left;clear:right;">' + event.tl_desc + '</div>';
+                                    html += '</div>';
+                                    html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin-top:5px;">';
+
                                     var d = new Date(event.tl_date);
                                     formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                                    
-                                    html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
-                                    html += '</div>';
-                                    html += '</div>';
-                                    html += '<div class="description-new" style="margin:5px;min-height: 30px;">';
-                                    html += event.tl_desc;
-                                    html += '</div>';
-                                    html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin:10px;">';
-                                    html += '<div style="text-align:right;display:block;">';
+
+                                    html += '<div style="float:left;padding:10px 5px;text-align:left;display:block;color:#c6c6c6;font-size:10px;">' + formatted_date + '</div>';
+                                    html += '<div style="float:right;text-align:right;display:block;">';
                                     html += '<a class="category-link" href="friends_in_ft.html?back_to=home.html&ft_id=' + event.tl_id + '"><i class="icon ion-ios-people"></i></a>';
                                     html += '<a class="category-link mail" href="ft_direct_form.html?back_to=home.html&msg_type=1&ft_id=' + event.tl_id + '"><i class="icon ion-android-mail"></i></a>';
                                     html += '</div>';
                                     html += '</div>';
                                     html += '</div>';
-                                    html += '</a>';
+                                    //html += '</a>';
                                     html += '</li>';
                                     $('.list-news').append(html);
-                                } else if (event.tl_type === 'rf') {                                                                   
+                                } else if (event.tl_type === 'rf') {
                                     html = '<li class="list-item-new">';
                                     html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
                                     html += '<div class="text-new">';
-                                    html += '<div class="description-new" style="margin:2px;min-height: 50px;">';
-                                    html += '<div class="img-frame">';
+                                    html += '<h6 class="title-new" style="background-color:#17A8AB;color:#FFF;"><a class="w-inline-block" href="profile.html?person=' + event.sender_id + '" data-load="1">' + event.sender_name + '</a> shared a thoughts to you</h6>';
+                                    //html += '<p class="description-new">' + event.tl_desc + '</p>';
+                                    html += '<div class="description-new">';
+                                    html += '<div style="width:20%;border:0.1em solid #c6c6c6;border-radius:50%;overflow:hidden;margin:0px;display:block;float:left;">';
                                     html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/images/profiles/' + event.sender_id + '/default.jpg" alt="Profile Picture" />';
                                     html += '</div>';
-                                    html += '<div class="box-head">';
-                                    html += '<p style="margin:0px;padding:0px;color: #003399;">' + event.sender_name + '</a> shared a thoughts to you</p>';
-                                    
+                                    html += '<div style="width:78%;display:block;margin-left:2%;float:left;clear:right;">' + event.tl_desc + '</div>';
+                                    html += '</div>';
+                                    //html += '<div style="padding:5px 10px;text-align:right;">';
+                                    //html += '<a class="category-link share" href="#"><i class="icon ion-android-share-alt"></i></a>';
+                                    //html += '</div>';
+                                    html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin-top:5px;">';
+
                                     var d = new Date(event.tl_date);
                                     formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                                    
-                                    html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
-                                    html += '</div>';
-                                    html += '</div>';
-                                    html += '<div class="description-new" style="margin:5px;min-height: 30px;">';
-                                    html += event.tl_desc;
-                                    html += '</div>';
-                                    html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin:10px;">';
-                                    html += '<div style="text-align:right;display:block;">';
+
+                                    html += '<div style="float:left;padding:10px 5px;text-align:left;display:block;color:#c6c6c6;font-size:10px;">' + formatted_date + '</div>';
+                                    html += '<div style="float:right;text-align:right;display:block;">';
                                     html += '<a class="category-link share" href="#"><i class="icon ion-android-share-alt"></i></a>';
                                     html += '</div>';
                                     html += '</div>';
+
                                     html += '</div>';
                                     html += '</a>';
                                     html += '</li>';
@@ -502,60 +493,104 @@
                                     html = '<li class="list-item-new" id="event_' + event.tl_id + '">';
                                     html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
                                     html += '<div class="text-new">';
-                                    html += '<div class="description-new" style="margin:2px;min-height: 50px;">';
-                                    html += '<div class="img-frame">';
+                                    html += '<h6 class="title-new" style="background-color:#17A8AB;color:#FFF;"><span>My Event</span></h6>';
+                                    //html += '<p class="description-new">You have invited peoples in the Event of "' + event.tl_title + '".</p>';
+                                    html += '<div class="description-new">';
+                                    html += '<div style="width:20%;border:0.1em solid #c6c6c6;border-radius:50%;overflow:hidden;margin:0px;display:block;float:left;">';
                                     html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/images/profiles/' + event.user_id + '/default.jpg" alt="Profile Picture" />';
                                     html += '</div>';
-                                    html += '<div class="box-head">';
-                                    html += '<p style="margin:0px;padding:0px;color: #003399;">My Event</p>';
-                                    
+                                    html += '<div style="width:78%;display:block;margin-left:2%;float:left;clear:right;">' + event.tl_title + '</div>';
+                                    html += '</div>';
+
+                                    /*
+                                     html += '<div style="padding:5px 10px;text-align:right;">';
+                                     html += '<a class="category-link" href="friends_in_event.html?back_to=home.html&event_id=' + event.tl_id + '"><i class="icon ion-ios-people"></i></a>';
+                                     html += '<a class="category-link mail" href="#"><i class="icon ion-android-mail"></i></a>';
+                                     html += '<a class="category-link alarm" href="#"><i class="icon ion-ios-alarm"></i></a>';
+                                     html += '</div>';
+                                     */
+                                    html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin-top:5px;">';
+
                                     var d = new Date(event.tl_date);
                                     formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                                    
-                                    html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
-                                    html += '</div>';
-                                    html += '</div>';
-                                    html += '<div class="description-new" style="margin:5px;min-height: 30px;">';
-                                    html += event.tl_title;
-                                    html += '</div>';
-                                    html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin:10px;">';
-                                    html += '<div style="text-align:right;display:block;">';
+
+                                    html += '<div style="float:left;padding:10px 5px;text-align:left;display:block;color:#c6c6c6;font-size:10px;">' + formatted_date + '</div>';
+                                    html += '<div style="float:right;text-align:right;display:block;">';
                                     html += '<a class="category-link" href="friends_in_event.html?back_to=home.html&event_id=' + event.tl_id + '"><i class="icon ion-ios-people"></i></a>';
                                     html += '<a class="category-link mail" href="ft_direct_form.html?back_to=home.html&msg_type=2&event_id=' + event.tl_id + '"><i class="icon ion-chatbubbles"></i></a>';
                                     html += '<a class="category-link alarm" href="set_reminder.html?back_to=home.html&event_id=' + event.tl_id + '"><i class="icon ion-ios-alarm"></i></a>';
                                     html += '</div>';
                                     html += '</div>';
+
                                     html += '</div>';
                                     html += '</a>';
                                     html += '</li>';
                                     $('.list-news').append(html);
                                 } else if (event.tl_type === 're') {
+                                    console.log(event);
+                                    d = new Date(event.tl_date);
+                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
+                                            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+
                                     html = '<li class="list-item-new" id="event_' + event.tl_id + '">';
                                     html += '<a class="w-inline-block link-blog-list" href="#" data-load="1">';
                                     html += '<div class="text-new">';
-                                    html += '<div class="description-new" style="margin:2px;min-height: 50px;">';
-                                    html += '<div class="img-frame">';
+                                    html += '<h6 class="title-new" style="background-color:#17A8AB;color:#FFF;"><span style="color:#fff;">' + event.sender_name + ' invited you</span></h6>';
+                                    //html += '<p class="description-new"><a class="w-inline-block" href="profile.html?person=' + event.sender_id + '" data-load="1">' + event.sender_name + '</a> invited you in the event "' + event.tl_title + '"</p>';
+
+                                    html += '<div class="description-new">';
+                                    html += '<div style="width:20%;border:0.1em solid #c6c6c6;border-radius:50%;overflow:hidden;margin:0px;display:block;float:left;">';
                                     html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/images/profiles/' + event.sender_id + '/default.jpg" alt="Profile Picture" />';
                                     html += '</div>';
-                                    html += '<div class="box-head">';
-                                    html += '<p style="margin:0px;padding:0px;color: #003399;">' + event.sender_name + ' invited you</p>';
-                                    
-                                    var d = new Date(event.tl_date);
-                                    formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth() + 1] + ", " +
-                                            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                                    
-                                    html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
+                                    html += '<div style="width:78%;display:block;margin-left:2%;float:left;clear:right;"><a class="w-inline-block" href="profile.html?person=' + event.sender_id + '" data-load="1">' + event.sender_name + '</a> invited you in the event "' + event.tl_title + '"</div>';
+
+                                    html += '<p>Joining At : ' + formatted_date + '</p>';
+                                    html += '</div>';
+
+                                    html += '<div style="width:100%;overflow:hidden;margin-top:5px;">';
+                                    html += '<h4 style="color:#666;font-weight:500;font-size:14px;padding-left:15px;margin-bottom:2px;">Event Members</h4>';
+                                    html += '<div class="invited-outer">';
+                                    html += '<div class="invited-inner">';
+                                    //html += '<div style="margin:5px 15px;display:inline;overflow-x:scroll;">';
+                                    html += '<div class="invited-member">';
+                                    html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/images/profiles/' + event.sender_id + '/default.jpg" alt="Profile Picture" />';
+                                    html += '</div>';
+                                    html += '<div class="invited-member">';
+                                    html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="template/images/users/avatar-7.jpg" alt="Profile Picture" />';
+                                    html += '</div>';
+                                    html += '<div class="invited-member">';
+                                    html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="template/images/users/avatar-8.jpg" alt="Profile Picture" />';
+                                    html += '</div>';
+                                    html += '<div class="invited-member">';
+                                    html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="template/images/users/avatar-9.jpg" alt="Profile Picture" />';
+                                    html += '</div>';
+                                    html += '<div class="invited-member">';
+                                    html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="template/images/users/avatar-8.jpg" alt="Profile Picture" />';
+                                    html += '</div>';
+                                    html += '<div class="invited-member">';
+                                    html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="template/images/users/avatar-7.jpg" alt="Profile Picture" />';
+                                    html += '</div>';
+                                    html += '<div class="invited-member">';
+                                    html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="template/images/users/avatar-9.jpg" alt="Profile Picture" />';
+                                    html += '</div>';
+
                                     html += '</div>';
                                     html += '</div>';
-                                    html += '<div class="description-new" style="margin:5px;min-height: 30px;">';
-                                    html += '<a class="w-inline-block" href="profile.html?person=' + event.sender_id + '" data-load="1">' + event.sender_name + '</a> invited you in the event "' + event.tl_title;
                                     html += '</div>';
-                                    html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin:10px;">';
-                                    html += '<div style="text-align:right;display:block;">';
+                                    /*
+                                     html += '<div style="padding:5px 10px;text-align:right;">';
+                                     html += '<a class="category-link alarm" href="#"><i class="icon ion-ios-alarm"></i></a>';
+                                     html += '</div>';
+                                     */
+                                    html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin-top:5px;">';
+
+                                    html += '<div style="float:left;padding:10px 5px;text-align:left;display:block;color:#c6c6c6;font-size:10px;">' + formatted_date + '</div>';
+                                    html += '<div style="float:right;text-align:right;display:block;">';
                                     html += '<a class="category-link alarm" href="set_reminder.html?back_to=home.html&event_id=re&event_friend_id=' + event.tl_id + '"><i class="icon ion-ios-alarm"></i></a>';
                                     html += '</div>';
                                     html += '</div>';
+
                                     html += '</div>';
                                     html += '</a>';
                                     html += '</li>';
