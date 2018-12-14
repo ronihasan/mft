@@ -19,21 +19,21 @@
         <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
 
         <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet"> <!-- should always be placed before style.css -->
-        
+
         <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
         <link rel="stylesheet" type="text/css" href="template/css/framework.css">
         <link rel="stylesheet" type="text/css" href="template/css/styles.css">
         <link rel="shortcut icon" type="image/x-icon" href="template/images/logo.ico">
         <link rel="apple-touch-icon" href="template/images/logo.ico">
         <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-        
+
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
         <script type="text/javascript" src="template/js/jquery-ui.min.js"></script>
-        
+
         <script src="plugins/bootstrap/bootstrap.js"></script> 
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-        
+
         <!-- jQuery cftoaster plugin -->
         <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
         <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
@@ -50,15 +50,15 @@
         <script src="plugins/input-mask/jquery.inputmask.js"></script>
         <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
         <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-        
+
         <!-- jQuery summernote -->
         <link rel="stylesheet" href="plugins/summernote/summernote.css" />
         <script src="plugins/summernote/summernote.min.js"></script>
-        
+
         <!-- custom & common scripts -->
         <!--<script src="js/custom.js"></script>-->
         <script type="text/javascript" src="confs.json"></script>
-        
+
         <style>
             .bg-body{
                 background-repeat: no-repeat;
@@ -81,6 +81,17 @@
                 font-weight: 500;
                 line-height: 1.5;
             }
+            
+            .img-frame{
+                width:42px;padding:1px;border:0.1em solid #EEE;overflow:hidden;margin:5px;display:inline-block;
+            }
+            .box-head{
+                display:inline-block;position:absolute;margin: 3px;
+            }
+            .note-video-clip{
+                width:90%;height:40px;overflow:hidden;margin:5px;display:inline-block;
+            }
+
         </style>
     </head>
     <body class="bg-body">
@@ -106,7 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
                     <div class="body" style="padding-top: 0px;">
                         <div class="w-clearfix grey-header" style="height:60px;">
@@ -179,7 +190,7 @@
             var selected = [];
             var nameArr = [];
             var idsArr = [];
-            
+
             //$.noConflict();
             $(document).ready(function () {
                 // loading confs value
@@ -188,9 +199,10 @@
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
+                secret_key = localStorage.getItem('secret_key');
                 //console.log(sess_data);
                 //console.log(user);
-                
+
                 //Short-Link Menu
                 top_icon_block_a_num = $('.top-icon-block a').length;
                 top_icon_block = $('.top-icon-block').width();
@@ -199,7 +211,7 @@
                 top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
                 top_icon_block_margin = (top_icon_block_margins / 2);
                 top_icon_block_padding = 7;
-                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius': '25px'});
                 $('.top-icon-block a:first').css({'margin-left': '0px'});
                 $('.top-icon-block a:last').css({'margin-right': '0px'});
                 $('.top-icon-block').css({'text-align': 'center'});
@@ -207,10 +219,10 @@
 
                 curr_link = window.location.href;
                 curr_link = curr_link.split("/").pop();
-                $('.top-icon-block a').each(function(i, e){
+                $('.top-icon-block a').each(function (i, e) {
                     link = $(e).attr('href');
                     console.log(link);
-                    if(curr_link === link){
+                    if (curr_link === link) {
                         $(this).children('.icon-button').css({'color': '#4c68b1'});
                     }
                 });
@@ -244,12 +256,14 @@
                         //send_at = $('input[name="send_at"]').val(fields.send_at.time);
                     }
                 }
-                
+
                 function friend_search(surl) {
                     pData = {};
                     pData['auth_id'] = user.auth_id;
                     pData['auth_type'] = 2;
                     pData['user_id'] = user.id;
+                    pData['secret_key'] = secret_key;
+
                     if (queries.ft_id !== undefined && queries.ft_id !== null) {
                         pData['ft_id'] = queries.ft_id;
                     }
@@ -265,14 +279,14 @@
                         dataType: 'json',
                         success: function (vals) {
                             //console.log(vals.list);
-                            if(vals.list !== undefined && vals.list != null){
+                            if (vals.list !== undefined && vals.list != null) {
                                 rows = vals.list;
                                 if (rows !== undefined && rows !== null) {
                                     $(rows).each(function (i, row) {
                                         //console.log(row.email);
                                         email_ids = email_ids + row.email + ',';
                                     });
-                                    $('textarea[name="send_to"]').val(email_ids.slice(0, (email_ids.length-1)));
+                                    $('textarea[name="send_to"]').val(email_ids.slice(0, (email_ids.length - 1)));
                                 }
                             }
                         }
@@ -283,7 +297,7 @@
                     search_url = 'http://' + confs.site_addr + '/admin.php/future_thoughts/ajax_get_invited_friends?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent;
                     friend_search(search_url);
                 }
-                
+
                 if (queries.event_id !== undefined && queries.event_id !== null) {
                     search_url = 'http://' + confs.site_addr + '/admin.php/events/ajax_get_invited_friends?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent;
                     friend_search(search_url);
@@ -301,11 +315,11 @@
                 //datepicker
                 $.fn.datepicker.defaults.format = "mm/dd/yyyy";
                 /*
-                $('.datepicker').datepicker({
-                    //startDate: '-3d',
-                    autoclose: true
-                });
-                */
+                 $('.datepicker').datepicker({
+                 //startDate: '-3d',
+                 autoclose: true
+                 });
+                 */
 
                 //Datemask2 mm/dd/yyyy
                 $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
@@ -348,7 +362,7 @@
                         url: 'http://' + confs.site_addr + '/admin.php/messages/compose?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
                         //data: 'auth_id=' + user.auth_id + '&auth_type=2&' + pdata,
-                        data: {auth_id: user.auth_id, auth_type: '2', msg: pdata},
+                        data: {auth_id: user.auth_id, auth_type: '2', secret_key: secret_key, msg: pdata},
                         dataType: 'json',
                         success: function (vals) {
                             //console.log(vals);
@@ -373,45 +387,45 @@
                         }
                     });
                 });
-                
+
                 /*
-                $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
-                            //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
-                            slide_auto_pos = $('.slide-auto').offset().top;
-                            slide_vw_pos = $('.slide-vw').offset().top;
-                            child_curr_pos = $(this).offset().top;
-                            extra_top = 160;
-                            newtop = child_curr_pos - slide_auto_pos - extra_top;
-                            //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
-                            $('.slide-vw').css({'top':'-'+newtop+'px'});
-                        });
-                        $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
-                            slide_auto_pos = $('.slide-auto').offset().top;
-                            $('.slide-vw').css({'top':'0px'});
-                        });
-                */
-                
+                 $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
+                 //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
+                 slide_auto_pos = $('.slide-auto').offset().top;
+                 slide_vw_pos = $('.slide-vw').offset().top;
+                 child_curr_pos = $(this).offset().top;
+                 extra_top = 160;
+                 newtop = child_curr_pos - slide_auto_pos - extra_top;
+                 //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
+                 $('.slide-vw').css({'top':'-'+newtop+'px'});
+                 });
+                 $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
+                 slide_auto_pos = $('.slide-auto').offset().top;
+                 $('.slide-vw').css({'top':'0px'});
+                 });
+                 */
+
                 $('input[type="text"],input[type="password"],select,textarea').on('click', function (e) {
                     $('.slide-body').scrollTop($(this).offset().top);
                 });
 
-                function onSoftKeyUp(body_height){
-                    $('.slide-body').css({'overflow-y':'scroll', 'height':body_height+'px'}); 
+                function onSoftKeyUp(body_height) {
+                    $('.slide-body').css({'overflow-y': 'scroll', 'height': body_height + 'px'});
                 }
                 //onSoftKeyUp(400);
-                function onSoftKeyDown(){
-                    $('.slide-body').css({'overflow-y':'auto', 'height':'auto'}); 
+                function onSoftKeyDown() {
+                    $('.slide-body').css({'overflow-y': 'auto', 'height': 'auto'});
                 }
                 //setTimeout(onSoftKeyDown, 10000);
 
-                function keyboardShowHandler(e){
+                function keyboardShowHandler(e) {
                     wHeight = window.innerHeight;
-                    kHeight = e.keyboardHeight; 
+                    kHeight = e.keyboardHeight;
                     extraHeight = 0; //header + inputbox
                     //alert('IONIC Keyboard height is: ' + e.keyboardHeight);
                     onSoftKeyUp(wHeight - kHeight - extraHeight);
                 }
-                function keyboardHideHandler(e){
+                function keyboardHideHandler(e) {
                     //alert('Goodnight, sweet prince');
                     onSoftKeyDown();
                 }
@@ -422,17 +436,17 @@
                     window.addEventListener('native.keyboardshow', keyboardShowHandler);
                     window.addEventListener('native.keyboardhide', keyboardHideHandler);
                 }
-                
+
                 /*
-                $('#message').summernote({
-                    height: 200,
-                    callbacks: {
-                        onImageUpload: function (image) {
-                            sendFile(image[0]);
-                        }
-                    }
-                });
-                */
+                 $('#message').summernote({
+                 height: 200,
+                 callbacks: {
+                 onImageUpload: function (image) {
+                 sendFile(image[0]);
+                 }
+                 }
+                 });
+                 */
                 $('body').find('#message').summernote({
                     height: 200,
                     toolbar: [
@@ -443,7 +457,7 @@
                         //['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         //['height', ['height']],
-                        ['insert', ['link', 'picture', 'video']]
+                        ['insert', ['link', 'unlink','picture', 'video', 'hr']]
                     ],
                     placeholder: 'Write your text...',
                     callbacks: {
@@ -452,10 +466,13 @@
                         }
                     }
                 });
-                
+
                 function sendFile(file, editor, welEditable) {
                     data = new FormData();
                     data.append("file", file);//You can append as many data as you want. Check mozilla docs for this
+                    data.append('auth_id=', user.auth_id);
+                    data.append("auth_type", "2");
+                    data.append("secret_key", secret_key);
                     $.ajax({
                         data: data,
                         type: "POST",
@@ -463,8 +480,12 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function (url) {
-                            $('#message').summernote("insertImage", url);
+                        dataType: 'json',
+                        success: function (result) {
+                            console.log(result);
+                            if (result.status == '1') {
+                                $('#message').summernote("insertImage", result.url);
+                            }
                         }
                     });
                 }

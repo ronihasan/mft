@@ -27,7 +27,7 @@
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-        
+
         <!-- jQuery cftoaster plugin -->
         <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
         <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
@@ -106,7 +106,7 @@
                         </a>
                         -->
                     </div>
-                    
+
                     <div class="body" style="padding-top: 0px;">
                         <div class="w-clearfix grey-header" style="height:60px;">
                             <div class="top-icon-block">
@@ -195,6 +195,7 @@
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
+                secret_key = localStorage.getItem('secret_key');
                 //console.log(sess_data);
                 //console.log(user);
 
@@ -207,7 +208,7 @@
                 if ($('.navbar').find('#lmenu')) {
                     $('#lmenu').load('menu.html');
                 }
-                
+
                 //Short-Link Menu
                 top_icon_block_a_num = $('.top-icon-block a').length;
                 top_icon_block = $('.top-icon-block').width();
@@ -216,7 +217,7 @@
                 top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
                 top_icon_block_margin = (top_icon_block_margins / 2);
                 top_icon_block_padding = 7;
-                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius': '25px'});
                 $('.top-icon-block a:first').css({'margin-left': '0px'});
                 $('.top-icon-block a:last').css({'margin-right': '0px'});
                 $('.top-icon-block').css({'text-align': 'center'});
@@ -224,10 +225,10 @@
 
                 curr_link = window.location.href;
                 curr_link = curr_link.split("/").pop();
-                $('.top-icon-block a').each(function(i, e){
+                $('.top-icon-block a').each(function (i, e) {
                     link = $(e).attr('href');
                     //console.log(link);
-                    if(curr_link === link){
+                    if (curr_link === link) {
                         $(this).children('.icon-button').css({'color': '#4c68b1'});
                     }
                 });
@@ -236,7 +237,7 @@
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/friends/list?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
-                    data: 'auth_id=' + user.auth_id + '&auth_type=2',
+                    data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                     dataType: 'json',
                     success: function (vals) {
                         //console.log(JSON.stringify(vals.friends));
@@ -246,7 +247,7 @@
                             $(rows).each(function (i, row) {
                                 //console.log(JSON.stringify(row));
                                 name = row.firstname + ' ' + row.lastname;
-                                
+
                                 html = '<li class="list-message">';
                                 html += '<a class="w-clearfix w-inline-block chat-friend" data-friend="' + row.friend_user_id + '" href="chat.html?friend_id=' + row.friend_user_id + '&friend_name=' + name + '" data-load="1">';
                                 html += '<div class="w-clearfix column-left">';
@@ -255,7 +256,7 @@
                                 html += '<i class="icon ion-ios-bolt icon-online"></i>';
                                 html += '</div>';
                                 html += '<div class="column-right">';
-                                html += '<div class="message-title">' + name +'</div>';
+                                html += '<div class="message-title">' + name + '</div>';
                                 //html += '<div class="pull-right">';
                                 //html += '<a class="w-clearfix w-inline-block small-button icon-only grey" href="#">';
                                 //html += '<div class="icon-button">';
@@ -287,8 +288,8 @@
                          */
                     }
                 });
-                
-                $('body').on('click', '.chat-friend',function(e){
+
+                $('body').on('click', '.chat-friend', function (e) {
                     e.preventDefault();
                     console.log('q');
                     href = $(this).attr('href');
@@ -296,16 +297,16 @@
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/chats/start_chat?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
-                        data: 'auth_id=' + user.auth_id + '&auth_type=2&friend_id='+friend_user_id,
-                        dataType:'json',
-                        success:function(vals){
-                            if(vals.status === '1'){
+                        data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key + '&friend_id=' + friend_user_id,
+                        dataType: 'json',
+                        success: function (vals) {
+                            if (vals.status === '1') {
                                 window.location.href = href;
                             }
                         }
                     });
                 });
-                
+
             });</script>
         <script type="text/javascript" src="template/js/modernizr.js"></script>
         <script type="text/javascript" src="template/js/framework.js"></script>

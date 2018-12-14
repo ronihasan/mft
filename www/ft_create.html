@@ -17,9 +17,9 @@
         <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
         <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
         <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
-        
+
         <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet"> <!-- should always be placed before style.css -->
-        
+
         <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
         <link rel="stylesheet" type="text/css" href="template/css/framework.css">
         <link rel="stylesheet" type="text/css" href="template/css/styles.css">
@@ -28,7 +28,7 @@
         <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
         <script type="text/javascript" src="template/js/jquery-ui.min.js"></script>
-        
+
         <script src="plugins/bootstrap/bootstrap.js"></script> 
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
@@ -49,15 +49,15 @@
         <script src="plugins/input-mask/jquery.inputmask.js"></script>
         <script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
         <script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-        
+
         <!-- jQuery summernote -->
         <link rel="stylesheet" href="plugins/summernote/summernote.css" />
         <script src="plugins/summernote/summernote.min.js"></script>
-        
+
         <!-- custom & common scripts -->
         <!--<script src="js/custom.js"></script>-->
         <script type="text/javascript" src="confs.json"></script>
-        
+
         <style>
             .bg-body{
                 background-repeat: no-repeat;
@@ -79,6 +79,16 @@
                 font-size: 15px;
                 font-weight: 500;
                 line-height: 1.5;
+            }
+            
+            .img-frame{
+                width:42px;padding:1px;border:0.1em solid #EEE;overflow:hidden;margin:5px;display:inline-block;
+            }
+            .box-head{
+                display:inline-block;position:absolute;margin: 3px;
+            }
+            .note-video-clip{
+                width:90%;height:40px;overflow:hidden;margin:5px;display:inline-block;
             }
         </style>
     </head>
@@ -139,7 +149,7 @@
                             <form id="submit-form" name="email-form" action="#">
                                 <div class="separator-button-input"></div>
                                 <div id="form_body">
-                                    
+
                                 </div>
                                 <input class="w-button action-button msg_button" type="submit" value="Submit" data-wait="Please wait...">
                             </form>
@@ -179,6 +189,7 @@
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
+                secret_key = localStorage.getItem('secret_key');
                 //console.log(sess_data);
                 //console.log(user);
 
@@ -197,8 +208,8 @@
                 // Load left menu
                 if ($('.navbar').find('#lmenu')) {
                     $('#lmenu').load('menu.html');
-                }        
-                
+                }
+
                 //Short-Link Menu
                 top_icon_block_a_num = $('.top-icon-block a').length;
                 top_icon_block = $('.top-icon-block').width();
@@ -207,7 +218,7 @@
                 top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
                 top_icon_block_margin = (top_icon_block_margins / 2);
                 top_icon_block_padding = 7;
-                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius': '25px'});
                 $('.top-icon-block a:first').css({'margin-left': '0px'});
                 $('.top-icon-block a:last').css({'margin-right': '0px'});
                 $('.top-icon-block').css({'text-align': 'center'});
@@ -215,28 +226,28 @@
 
                 curr_link = window.location.href;
                 curr_link = curr_link.split("/").pop();
-                $('.top-icon-block a').each(function(i, e){
+                $('.top-icon-block a').each(function (i, e) {
                     link = $(e).attr('href');
                     console.log(link);
-                    if(curr_link === link){
+                    if (curr_link === link) {
                         $(this).children('.icon-button').css({'color': '#4c68b1'});
                     }
                 });
                 //End Short-Link Menu
-            
+
 
                 $('.msg_button').on('click', function (e) {
                     e.preventDefault();
                     fields = {};
                     $('.input-form').each(function (i, f) {
-                        if($(f).attr('disabled') !== undefined){
+                        if ($(f).attr('disabled') !== undefined) {
                             return true;//escape this field
                         }
                         val = f.value;
                         if (f.type === 'select-one') {
                             val = $('select[name="' + f.name + '"]').val();
                         }
-                        if(f.name === 'q[sent_to]'){ //custom
+                        if (f.name === 'q[sent_to]') { //custom
                             val = idsArr;
                             //val = JSON.parse(JSON.stringify(val));
                             //val = Object.assign({}, val)
@@ -245,11 +256,14 @@
                     });
                     fields['auth_id'] = user.auth_id;
                     fields['auth_type'] = '2';
+
+                    pData['secret_key'] = secret_key;
+
                     console.log(fields);
                     //send_dt = {date: send_on, time: send_at};
                     //pdata = {send_at: send_dt, txt_msg: message, send_to: send_to};
                     //return false;
-                                        
+
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/add_future_thought?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
@@ -283,7 +297,7 @@
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/add_future_thought?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
-                    data: 'auth_id=' + user.auth_id + '&auth_type=2',
+                    data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                     dataType: 'json',
                     success: function (vals) {
                         //console.log(vals);
@@ -403,11 +417,11 @@
                         //datepicker
                         $.fn.datepicker.defaults.format = "mm/dd/yyyy";
                         /*
-                        $('.datepicker').datepicker({
-                            //startDate: '-3d',
-                            autoclose: true
-                        });
-                        */
+                         $('.datepicker').datepicker({
+                         //startDate: '-3d',
+                         autoclose: true
+                         });
+                         */
                         //Datemask2 mm/dd/yyyy
                         $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
                         $(".timemask").inputmask("hh:mm:ss", {
@@ -447,18 +461,18 @@
                                         $('input[name="' + f.name + '"]').val(f.value);
                                     } else if (f.type === 'select-one') {
                                         $('select[name="' + f.name + '"]').val(f.value);
-                                        if($('select[name="' + f.name + '"]').parent('div').hasClass('condQ')){
-                                             opt_tag = $('select[name="' + f.name + '"]').parent('div').attr('opt_tag');
-                                             opt_tag_ans = $('select[name="' + f.name + '"]').parent('div').attr('opt_tag_ans');
-                                             val = $('select[name="' + f.name + '"]').val();
-                                             if(val == opt_tag_ans){
-                                                $('form').find('.opt_tag_'+opt_tag).show();
-                                                $('form').find('.opt_tag_'+opt_tag).children('.input-form').removeAttr('disabled');
-                                             }else{
-                                                $('form').find('.opt_tag_'+opt_tag).hide();
-                                                $('form').find('.opt_tag_'+opt_tag).children('.input-form').attr('disabled', '');
-                                             }
-                                         } 
+                                        if ($('select[name="' + f.name + '"]').parent('div').hasClass('condQ')) {
+                                            opt_tag = $('select[name="' + f.name + '"]').parent('div').attr('opt_tag');
+                                            opt_tag_ans = $('select[name="' + f.name + '"]').parent('div').attr('opt_tag_ans');
+                                            val = $('select[name="' + f.name + '"]').val();
+                                            if (val == opt_tag_ans) {
+                                                $('form').find('.opt_tag_' + opt_tag).show();
+                                                $('form').find('.opt_tag_' + opt_tag).children('.input-form').removeAttr('disabled');
+                                            } else {
+                                                $('form').find('.opt_tag_' + opt_tag).hide();
+                                                $('form').find('.opt_tag_' + opt_tag).children('.input-form').attr('disabled', '');
+                                            }
+                                        }
                                     } else if (f.type === 'textarea') {
                                         $('textarea[name="' + f.name + '"]').val(f.value);
                                     } else if (f.type === 'texteditor') {
@@ -487,61 +501,61 @@
                                 $('.multi_in').val(nameS);
                             }
                         }
-                        
-                         $('select').on('change', function(){
-                             if($(this).parent('div').hasClass('condQ')){
-                                 opt_tag = $(this).parent('div').attr('opt_tag');
-                                 opt_tag_ans = $(this).parent('div').attr('opt_tag_ans');
-                                 val = $(this).val();
-                                 if(val == opt_tag_ans){
-                                    $('form').find('.opt_tag_'+opt_tag).show();
-                                    $('form').find('.opt_tag_'+opt_tag).children('.input-form').removeAttr('disabled');
-                                 }else{
-                                    $('form').find('.opt_tag_'+opt_tag).hide();
-                                    $('form').find('.opt_tag_'+opt_tag).children('.input-form').attr('disabled', '');
-                                 }
-                             } 
+
+                        $('select').on('change', function () {
+                            if ($(this).parent('div').hasClass('condQ')) {
+                                opt_tag = $(this).parent('div').attr('opt_tag');
+                                opt_tag_ans = $(this).parent('div').attr('opt_tag_ans');
+                                val = $(this).val();
+                                if (val == opt_tag_ans) {
+                                    $('form').find('.opt_tag_' + opt_tag).show();
+                                    $('form').find('.opt_tag_' + opt_tag).children('.input-form').removeAttr('disabled');
+                                } else {
+                                    $('form').find('.opt_tag_' + opt_tag).hide();
+                                    $('form').find('.opt_tag_' + opt_tag).children('.input-form').attr('disabled', '');
+                                }
+                            }
                         });
-                        
-                        
+
+
                         /*
-                        $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
-                            //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
-                            slide_auto_pos = $('.slide-auto').offset().top;
-                            slide_vw_pos = $('.slide-vw').offset().top;
-                            child_curr_pos = $(this).offset().top;
-                            extra_top = 160;
-                            newtop = child_curr_pos - slide_auto_pos - extra_top;
-                            //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
-                            $('.slide-vw').css({'top':'-'+newtop+'px'});
-                        });
-                        $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
-                            slide_auto_pos = $('.slide-auto').offset().top;
-                            $('.slide-vw').css({'top':'0px'});
-                        });
-                        */
-                
+                         $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
+                         //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
+                         slide_auto_pos = $('.slide-auto').offset().top;
+                         slide_vw_pos = $('.slide-vw').offset().top;
+                         child_curr_pos = $(this).offset().top;
+                         extra_top = 160;
+                         newtop = child_curr_pos - slide_auto_pos - extra_top;
+                         //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
+                         $('.slide-vw').css({'top':'-'+newtop+'px'});
+                         });
+                         $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
+                         slide_auto_pos = $('.slide-auto').offset().top;
+                         $('.slide-vw').css({'top':'0px'});
+                         });
+                         */
+
                         $('input[type="text"],input[type="password"],select,textarea').on('click', function (e) {
                             $('.slide-body').scrollTop($(this).offset().top);
                         });
-                
-                        function onSoftKeyUp(body_height){
-                            $('.slide-body').css({'overflow-y':'scroll', 'height':body_height+'px'}); 
+
+                        function onSoftKeyUp(body_height) {
+                            $('.slide-body').css({'overflow-y': 'scroll', 'height': body_height + 'px'});
                         }
                         //onSoftKeyUp(400);
-                        function onSoftKeyDown(){
-                            $('.slide-body').css({'overflow-y':'auto', 'height':'auto'}); 
+                        function onSoftKeyDown() {
+                            $('.slide-body').css({'overflow-y': 'auto', 'height': 'auto'});
                         }
                         //setTimeout(onSoftKeyDown, 10000);
 
-                        function keyboardShowHandler(e){
+                        function keyboardShowHandler(e) {
                             wHeight = window.innerHeight;
-                            kHeight = e.keyboardHeight; 
+                            kHeight = e.keyboardHeight;
                             extraHeight = 0; //header + inputbox
                             //alert('IONIC Keyboard height is: ' + e.keyboardHeight);
                             onSoftKeyUp(wHeight - kHeight - extraHeight);
                         }
-                        function keyboardHideHandler(e){
+                        function keyboardHideHandler(e) {
                             //alert('Goodnight, sweet prince');
                             onSoftKeyDown();
                         }
@@ -552,7 +566,7 @@
                             window.addEventListener('native.keyboardshow', keyboardShowHandler);
                             window.addEventListener('native.keyboardhide', keyboardHideHandler);
                         }
-                                                                
+
                         $('body').find('.texteditor').summernote({
                             height: 200,
                             toolbar: [
@@ -563,7 +577,7 @@
                                 //['color', ['color']],
                                 ['para', ['ul', 'ol', 'paragraph']],
                                 //['height', ['height']],
-                                ['insert', ['link', 'picture', 'video']]
+                                ['insert', ['link', 'unlink', 'picture', 'video', 'hr']]
                             ],
                             placeholder: 'Write your text...',
                             callbacks: {
@@ -576,6 +590,9 @@
                         function sendFile(file, editor, welEditable) {
                             data = new FormData();
                             data.append("file", file);//You can append as many data as you want. Check mozilla docs for this
+                            data.append('auth_id=', user.auth_id);
+                            data.append("auth_type", "2");
+                            data.append("secret_key", secret_key);
                             $.ajax({
                                 data: data,
                                 type: "POST",
@@ -583,11 +600,15 @@
                                 cache: false,
                                 contentType: false,
                                 processData: false,
-                                success: function (url) {
-                                    $('.texteditor').summernote("insertImage", url);
+                                dataType: 'json',
+                                success: function (result) {
+                                    console.log(result);
+                                    if (result.status == '1') {
+                                        $('.texteditor').summernote("insertImage", result.url);
+                                    }
                                 }
                             });
-                        }                
+                        }
                     }
                 });
             });</script>

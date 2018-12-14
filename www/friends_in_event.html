@@ -210,6 +210,7 @@
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
+                secret_key = localStorage.getItem('secret_key');
                 //console.log(sess_data);
                 //console.log(user);
 
@@ -265,6 +266,7 @@
                     pData = {};
                     pData['auth_id'] = user.auth_id;
                     pData['auth_type'] = 2;
+                    pData['secret_key'] = secret_key;
                     pData['user_id'] = user.id;
                     if (queries.event_id !== undefined || queries.event_id !== null) {
                         pData['event_id'] = queries.event_id;

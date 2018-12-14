@@ -189,6 +189,7 @@
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
+                secret_key = localStorage.getItem('secret_key');
                 //console.log(sess_data);
                 //console.log(user);
 
@@ -251,6 +252,8 @@
                     });
                     fields['auth_id'] = user.auth_id;
                     fields['auth_type'] = '2';
+                    fields['secret_key'] = secret_key;
+                    
                     console.log(fields);
 
                     $.ajax({
@@ -286,7 +289,7 @@
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/events/create?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
-                    data: 'auth_id=' + user.auth_id + '&auth_type=2',
+                    data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                     dataType: 'json',
                     success: function (vals) {
                         console.log(JSON.stringify(vals.questions));

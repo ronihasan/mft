@@ -164,6 +164,9 @@
             .box-head{
                 display:inline-block;position:absolute;margin: 3px;
             }
+            .note-video-clip{
+                width:90%;height:40px;overflow:hidden;margin:5px;display:inline-block;
+            }
 
         </style>
     </head>
@@ -336,7 +339,7 @@
                 'November',
                 'December'
             ];
-            
+
             var navigationFn = {
                 goToSection: function (id) {
                     $('html, body').animate({
@@ -372,7 +375,7 @@
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/share_ft?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
-                        data: {auth_id: user.auth_id, auth_type: '2', txt_msg: txt_msg},
+                        data: {auth_id: user.auth_id, auth_type: '2', secret_key: secret_key, txt_msg: txt_msg},
                         dataType: 'json',
                         success: function (vals) {
                             if (vals.flash_data !== undefined || vals.flash_data !== null) {
@@ -432,11 +435,11 @@
                                     html += '</div>';
                                     html += '<div class="box-head">';
                                     html += '<p style="margin:0px;padding:0px;color: #003399;">You have shared a Future Thought</p>';
-                                    
+
                                     var d = new Date(event.tl_date);
                                     formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth()] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                                    
+
                                     html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
                                     html += '</div>';
                                     html += '</div>';
@@ -453,7 +456,7 @@
                                     html += '</a>';
                                     html += '</li>';
                                     $('.list-news').append(html);
-                                } else if (event.tl_type === 'rf') {                                                                   
+                                } else if (event.tl_type === 'rf') {
                                     html = '<li class="list-item-new">';
                                     html += '<a class="w-inline-block link-blog-list" href="javascript:void();" data-load="1">';
                                     html += '<div class="text-new">';
@@ -463,11 +466,11 @@
                                     html += '</div>';
                                     html += '<div class="box-head">';
                                     html += '<p style="margin:0px;padding:0px;color: #003399;">' + event.sender_name + '</a> shared a thoughts to you</p>';
-                                    
+
                                     var d = new Date(event.tl_date);
                                     formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth()] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                                    
+
                                     html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
                                     html += '</div>';
                                     html += '</div>';
@@ -493,11 +496,11 @@
                                     html += '</div>';
                                     html += '<div class="box-head">';
                                     html += '<p style="margin:0px;padding:0px;color: #003399;">My Event</p>';
-                                    
+
                                     var d = new Date(event.tl_date);
                                     formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth()] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                                    
+
                                     html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
                                     html += '</div>';
                                     html += '</div>';
@@ -525,11 +528,11 @@
                                     html += '</div>';
                                     html += '<div class="box-head">';
                                     html += '<p style="margin:0px;padding:0px;color: #003399;">' + event.sender_name + ' invited you</p>';
-                                    
+
                                     var d = new Date(event.tl_date);
                                     formatted_date = ("0" + d.getDate()).slice(-2) + " " + month_names[d.getMonth()] + ", " +
                                             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
-                                    
+
                                     html += '<p style="margin:0px;padding:0px;font-size:9px;color: #cccccc;">' + formatted_date + '</p>';
                                     html += '</div>';
                                     html += '</div>';
@@ -575,13 +578,13 @@
                         //['color', ['color']],
                         //['para', ['ul', 'ol', 'paragraph']],
                         //['height', ['height']],
-                        ['insert', ['link', 'picture', 'video']]
+                        ['insert', ['link', 'unlink','picture', 'video', 'hr']],
                     ],
                     placeholder: 'Write your text...',
                     callbacks: {
                         onImageUpload: function (image) {
                             sendFile(image[0]);
-                        }
+                        },
                     }
                 });
                 $('body').find('#message').summernote('code', '');
@@ -589,6 +592,9 @@
                 function sendFile(file, editor, welEditable) {
                     data = new FormData();
                     data.append("file", file);//You can append as many data as you want. Check mozilla docs for this
+                    data.append('auth_id=', user.auth_id);
+                    data.append("auth_type", "2");
+                    data.append("secret_key", secret_key);
                     $.ajax({
                         data: data,
                         type: "POST",
@@ -596,8 +602,12 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function (url) {
-                            $('#message').summernote("insertImage", url);
+                        dataType: 'json',
+                        success: function (result) {
+                            console.log(result);
+                            if (result.status == '1') {
+                                $('#message').summernote("insertImage", result.url);
+                            }
                         }
                     });
                 }

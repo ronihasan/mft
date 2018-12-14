@@ -27,7 +27,7 @@
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-        
+
         <!-- jQuery cftoaster plugin -->
         <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
         <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
@@ -70,7 +70,7 @@
                         </a>
                         -->
                     </div>
-                    
+
                     <!--
                     <div class="body" style="padding-top: 0px;">
                         <div class="w-clearfix grey-header" style="height:60px;">
@@ -103,22 +103,22 @@
 
                 <div class="body" style="margin-top: 0px;">
                     <ul class="list list-chats">
-                      
+
                     </ul>
                 </div>
-                
+
                 <div class="input-chat-block">
                     <div class="w-form">
-                      <form class="w-clearfix" id="wf-form-Send" name="wf-form-Send" action="#">
-                        <input class="w-input input-chat" id="chat-message" type="text" placeholder="Your message" name="message" data-name="Email" required="required">
-                        <input class="w-button chat-button" id="chat-button" type="submit" value="Send" data-wait="Please wait...">
-                      </form>
-                      <div class="w-form-done">
-                        <p>Thank you! Your submission has been received!</p>
-                      </div>
-                      <div class="w-form-fail">
-                        <p>Oops! Something went wrong while submitting the form</p>
-                      </div>
+                        <form class="w-clearfix" id="wf-form-Send" name="wf-form-Send" action="#">
+                            <input class="w-input input-chat" id="chat-message" type="text" placeholder="Your message" name="message" data-name="Email" required="required">
+                            <input class="w-button chat-button" id="chat-button" type="submit" value="Send" data-wait="Please wait...">
+                        </form>
+                        <div class="w-form-done">
+                            <p>Thank you! Your submission has been received!</p>
+                        </div>
+                        <div class="w-form-fail">
+                            <p>Oops! Something went wrong while submitting the form</p>
+                        </div>
                     </div>
                 </div>
 
@@ -136,7 +136,7 @@
                     families: ["Montserrat:400,700"]
                 }
             });
-            
+
             var confs = [];
             var sess_data = [];
             var user = [];
@@ -146,6 +146,7 @@
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
+                secret_key = localStorage.getItem('secret_key');
                 //console.log(sess_data);
                 //console.log(user);
 
@@ -158,34 +159,34 @@
                 if ($('.navbar').find('#lmenu')) {
                     $('#lmenu').load('menu.html');
                 }
-                
+
                 //Short-Link Menu
                 /*
-                top_icon_block_a_num = $('.top-icon-block a').length;
-                top_icon_block = $('.top-icon-block').width();
-                top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
-                top_icon_block_a = $('.top-icon-block a').innerWidth();
-                top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
-                top_icon_block_margin = (top_icon_block_margins / 2);
-                top_icon_block_padding = 7;
-                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
-                $('.top-icon-block a:first').css({'margin-left': '0px'});
-                $('.top-icon-block a:last').css({'margin-right': '0px'});
-                $('.top-icon-block').css({'text-align': 'center'});
-                $('.icon-button').css({'font-size': '18px !important'});
-
-                curr_link = window.location.href;
-                curr_link = curr_link.split("/").pop();
-                $('.top-icon-block a').each(function(i, e){
-                    link = $(e).attr('href');
-                    //console.log(link);
-                    if(curr_link === link){
-                        $(this).children('.icon-button').css({'color': '#4c68b1'});
-                    }
-                });
-                */
+                 top_icon_block_a_num = $('.top-icon-block a').length;
+                 top_icon_block = $('.top-icon-block').width();
+                 top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
+                 top_icon_block_a = $('.top-icon-block a').innerWidth();
+                 top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
+                 top_icon_block_margin = (top_icon_block_margins / 2);
+                 top_icon_block_padding = 7;
+                 $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                 $('.top-icon-block a:first').css({'margin-left': '0px'});
+                 $('.top-icon-block a:last').css({'margin-right': '0px'});
+                 $('.top-icon-block').css({'text-align': 'center'});
+                 $('.icon-button').css({'font-size': '18px !important'});
+                 
+                 curr_link = window.location.href;
+                 curr_link = curr_link.split("/").pop();
+                 $('.top-icon-block a').each(function(i, e){
+                 link = $(e).attr('href');
+                 //console.log(link);
+                 if(curr_link === link){
+                 $(this).children('.icon-button').css({'color': '#4c68b1'});
+                 }
+                 });
+                 */
                 //End Short-Link Menu
-                
+
                 var queries = {};
                 $.each(document.location.search.substr(1).split('&'), function (c, q) {
                     var i = q.split('=');
@@ -193,20 +194,20 @@
                         queries[i[0].toString()] = i[1].toString();
                     }
                 });
-                
+
                 if (queries.friend_name !== undefined && queries.friend_name !== null) {
                     $('.navbar-title').text(queries.friend_name.replace("%20", " "));
                 }
-                
+
                 if (queries.back_to !== undefined && queries.back_to !== null) {
                     $('.back_to_link').attr('href', queries.back_to);
                 }
-                
-                function load_chat(){
+
+                function load_chat() {
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/chats/load_chat?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
-                        data: 'auth_id=' + user.auth_id + '&auth_type=2&friend_id=' + queries.friend_id,
+                        data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key + '&friend_id=' + queries.friend_id,
                         dataType: 'json',
                         success: function (vals) {
                             //console.log(JSON.stringify(vals));
@@ -215,27 +216,27 @@
                                 count = 0;
                                 $('.list-chats').html('');
                                 $(rows).each(function (i, row) {
-                                    if(user.id === row.chat_start_by){     
-                                      html = '<li class="list-chat right">';
-                                      html += '<div class="w-clearfix column-right chat right">';
-                                      html += '<div class="arrow-globe right"></div>';
-                                      html += '<div class="chat-text right">'+ row.message +'</div>';
-                                      html += '<div class="chat-time right">'+ row.chat_date +'</div>';
-                                      html += '</div>';
-                                      html += '</li>';
-                                    }else{ 
-                                      html = '<li class="w-clearfix list-chat">';
-                                      html += '<div class="column-left chat">';
-                                      html += '<div class="image-message chat">';
-                                      html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/' + row.user_img + '" alt="Profile Picture" />';
-                                      html += '</div>';
-                                      html += '</div>';
-                                      html += '<div class="w-clearfix column-right chat">';
-                                      html += '<div class="arrow-globe"></div>';
-                                      html += '<div class="chat-text">'+ row.message +'</div>';
-                                      html += '<div class="chat-time">'+ row.chat_date +'</div>';
-                                      html += '</div>';
-                                      html += '</li>';
+                                    if (user.id === row.chat_start_by) {
+                                        html = '<li class="list-chat right">';
+                                        html += '<div class="w-clearfix column-right chat right">';
+                                        html += '<div class="arrow-globe right"></div>';
+                                        html += '<div class="chat-text right">' + row.message + '</div>';
+                                        html += '<div class="chat-time right">' + row.chat_date + '</div>';
+                                        html += '</div>';
+                                        html += '</li>';
+                                    } else {
+                                        html = '<li class="w-clearfix list-chat">';
+                                        html += '<div class="column-left chat">';
+                                        html += '<div class="image-message chat">';
+                                        html += '<img onerror="this.src=\'template/images/blank_user.png\'" src="http://' + confs.site_addr + '/' + row.user_img + '" alt="Profile Picture" />';
+                                        html += '</div>';
+                                        html += '</div>';
+                                        html += '<div class="w-clearfix column-right chat">';
+                                        html += '<div class="arrow-globe"></div>';
+                                        html += '<div class="chat-text">' + row.message + '</div>';
+                                        html += '<div class="chat-time">' + row.chat_date + '</div>';
+                                        html += '</div>';
+                                        html += '</li>';
                                     }
                                     $('.list-chats').append(html);
                                 });
@@ -250,23 +251,23 @@
                     });
                 }
                 load_chat();
-                var chat_auto_load = setInterval(function(){
+                var chat_auto_load = setInterval(function () {
                     load_chat();
                 }, 15000);
-                
-                $('#chat-button').on('click', function(e){
+
+                $('#chat-button').on('click', function (e) {
                     e.preventDefault();
                     clearInterval(chat_auto_load);
                     msg = $('input[name="message"]').val();
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/chats/send_chat?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
-                        data: 'auth_id=' + user.auth_id + '&auth_type=2&friend_id=' + queries.friend_id + '&message='+msg,
+                        data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key + '&friend_id=' + queries.friend_id + '&message=' + msg,
                         dataType: 'json',
                         success: function (vals) {
-                            if(vals.status === '1'){
+                            if (vals.status === '1') {
                                 load_chat();
-                                chat_auto_load = setInterval(function(){
+                                chat_auto_load = setInterval(function () {
                                     load_chat();
                                 }, 5000);
                                 $('input[name="message"]').val('');
@@ -274,27 +275,27 @@
                         }
                     });
                 });
-                
-                
-                function onSoftKeyUp(body_height){
-                    $('.body').css({'overflow-y':'scroll', 'height':body_height+'px'}); 
-                    $('.input-chat-block').css({'position':'absolute', 'top':(body_height-60)+'px'}); 
+
+
+                function onSoftKeyUp(body_height) {
+                    $('.body').css({'overflow-y': 'scroll', 'height': body_height + 'px'});
+                    $('.input-chat-block').css({'position': 'absolute', 'top': (body_height - 60) + 'px'});
                 }
                 //onSoftKeyUp(300);
-                function onSoftKeyDown(){
-                    $('.body').css({'overflow-y':'auto', 'height':'auto'}); 
-                    $('.input-chat-block').css({'position':'fixed', 'top':'auto', 'bottom':'0px'}); 
+                function onSoftKeyDown() {
+                    $('.body').css({'overflow-y': 'auto', 'height': 'auto'});
+                    $('.input-chat-block').css({'position': 'fixed', 'top': 'auto', 'bottom': '0px'});
                 }
                 //setTimeout(onSoftKeyDown, 5000);
-                
-                function keyboardShowHandler(e){
+
+                function keyboardShowHandler(e) {
                     wHeight = window.innerHeight;
-                    kHeight = e.keyboardHeight; 
+                    kHeight = e.keyboardHeight;
                     extraHeight = 0; //header + inputbox
                     //alert('IONIC Keyboard height is: ' + e.keyboardHeight);
                     onSoftKeyUp(wHeight - kHeight - extraHeight);
                 }
-                function keyboardHideHandler(e){
+                function keyboardHideHandler(e) {
                     //alert('Goodnight, sweet prince');
                     onSoftKeyDown();
                 }
@@ -305,7 +306,7 @@
                     window.addEventListener('native.keyboardshow', keyboardShowHandler);
                     window.addEventListener('native.keyboardhide', keyboardHideHandler);
                 }
-                                
+
             });</script>
         <script type="text/javascript" src="template/js/modernizr.js"></script>
         <script type="text/javascript" src="template/js/framework.js"></script>

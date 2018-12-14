@@ -17,9 +17,9 @@
         <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls, added during build -->
         <script src="js/app.js"></script>           <!-- recommended location of your JavaScript code relative to other JS files -->
         <script src="xdk/init-dev.js"></script>     <!-- normalizes device and document ready events, see README for details -->
-        
+
         <link href="plugins/bootstrap/bootstrap.css" rel="stylesheet"> <!-- should always be placed before style.css -->
-        
+
         <link rel="stylesheet" type="text/css" href="template/css/normalize.css">
         <link rel="stylesheet" type="text/css" href="template/css/framework.css">
         <link rel="stylesheet" type="text/css" href="template/css/styles.css">
@@ -28,7 +28,7 @@
         <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
         <script type="text/javascript" src="template/js/jquery-ui.min.js"></script>
-        
+
         <script src="plugins/bootstrap/bootstrap.js"></script> 
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
@@ -53,11 +53,11 @@
         <!-- jQuery summernote -->
         <link rel="stylesheet" href="plugins/summernote/summernote.css" />
         <script src="plugins/summernote/summernote.min.js"></script>
-        
+
         <!-- custom & common scripts -->
         <!--<script src="js/custom.js"></script>-->
         <script type="text/javascript" src="confs.json"></script>
-        
+
         <style>
             .bg-body{
                 background-repeat: no-repeat;
@@ -101,7 +101,7 @@
                             <div class="navbar-button-icon icon ion-ios-close-empty"></div>
                         </a>
                     </div>
-                    
+
                     <!--
                     <div class="body" style="padding-top: 0px;">
                         <div class="w-clearfix grey-header" style="height:60px;">
@@ -133,7 +133,7 @@
                 </div>
 
                 <div class="body padding" style="margin-top:60px">
-                    
+
                     <div class="w-form-body">
                         <div class="w-form">
                             <form id="submit-form" name="email-form" action="#">
@@ -184,34 +184,35 @@
                 // Getting value
                 sess_data = JSON.parse(localStorage.getItem('sess_data'));
                 user = JSON.parse(localStorage.getItem('user'));
+                secret_key = localStorage.getItem('secret_key');
                 //console.log(sess_data);
                 //console.log(user);
-                
+
                 //Short-Link Menu
                 /*
-                top_icon_block_a_num = $('.top-icon-block a').length;
-                top_icon_block = $('.top-icon-block').width();
-                top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
-                top_icon_block_a = $('.top-icon-block a').innerWidth();
-                top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
-                top_icon_block_margin = (top_icon_block_margins / 2);
-                top_icon_block_padding = 7;
-                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
-                $('.top-icon-block a:first').css({'margin-left': '0px'});
-                $('.top-icon-block a:last').css({'margin-right': '0px'});
-                $('.top-icon-block').css({'text-align': 'center'});
-                $('.icon-button').css({'font-size': '18px !important'});
-
-                curr_link = window.location.href;
-                curr_link = curr_link.split("/").pop();
-                $('.top-icon-block a').each(function(i, e){
-                    link = $(e).attr('href');
-                    console.log(link);
-                    if(curr_link === link){
-                        $(this).children('.icon-button').css({'color': '#4c68b1'});
-                    }
-                });
-                */
+                 top_icon_block_a_num = $('.top-icon-block a').length;
+                 top_icon_block = $('.top-icon-block').width();
+                 top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
+                 top_icon_block_a = $('.top-icon-block a').innerWidth();
+                 top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
+                 top_icon_block_margin = (top_icon_block_margins / 2);
+                 top_icon_block_padding = 7;
+                 $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                 $('.top-icon-block a:first').css({'margin-left': '0px'});
+                 $('.top-icon-block a:last').css({'margin-right': '0px'});
+                 $('.top-icon-block').css({'text-align': 'center'});
+                 $('.icon-button').css({'font-size': '18px !important'});
+                 
+                 curr_link = window.location.href;
+                 curr_link = curr_link.split("/").pop();
+                 $('.top-icon-block a').each(function(i, e){
+                 link = $(e).attr('href');
+                 console.log(link);
+                 if(curr_link === link){
+                 $(this).children('.icon-button').css({'color': '#4c68b1'});
+                 }
+                 });
+                 */
                 //End Short-Link Menu
 
                 var queries = {};
@@ -221,15 +222,15 @@
                         queries[i[0].toString()] = i[1].toString();
                     }
                 });
-                
+
                 if (queries.back_to !== undefined && queries.back_to !== null) {
-                    if(queries.event_friend_id !== undefined){
-                        $('.back_to_link').attr('href', queries.back_to+'#event_'+queries.event_friend_id);
-                    }else{
-                        $('.back_to_link').attr('href', queries.back_to+'#event_'+queries.event_id);
+                    if (queries.event_friend_id !== undefined) {
+                        $('.back_to_link').attr('href', queries.back_to + '#event_' + queries.event_friend_id);
+                    } else {
+                        $('.back_to_link').attr('href', queries.back_to + '#event_' + queries.event_id);
                     }
                 }
-                
+
                 if (queries.selected !== undefined) {
                     selected = queries.selected;
                     selected_frnd = JSON.parse(decodeURIComponent(selected));
@@ -264,11 +265,11 @@
                 //datepicker
                 $.fn.datepicker.defaults.format = "mm/dd/yyyy";
                 /*
-                $('.datepicker').datepicker({
-                    //startDate: '-3d',
-                    autoclose: true
-                });
-                */
+                 $('.datepicker').datepicker({
+                 //startDate: '-3d',
+                 autoclose: true
+                 });
+                 */
 
                 //Datemask2 mm/dd/yyyy
                 $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
@@ -279,16 +280,16 @@
                     hourFormat: 12
                 });
 
-                
+
                 $('.msg_button').on('click', function (e) {
                     e.preventDefault();
                     remind_on = $('input[name="remind_on"]').val();
                     remind_at = $('input[name="remind_at"]').val();
-                    var pData = {auth_id: user.auth_id, auth_type: '2', remind_on: remind_on, remind_at: remind_at, event_id: queries.event_id};
-                    if(queries.event_friend_id !== undefined){
+                    var pData = {auth_id: user.auth_id, auth_type: '2', secret_key: secret_key, remind_on: remind_on, remind_at: remind_at, event_id: queries.event_id};
+                    if (queries.event_friend_id !== undefined) {
                         pData.event_friend_id = queries.event_friend_id;
                     }
-                    
+
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/events/set_reminder?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
@@ -299,17 +300,17 @@
                             if (vals.status !== undefined && vals.status === '1') {
                                 $("body").cftoaster({content: 'Reminder is saved.'});
                                 setTimeout(function () {
-                                    if(queries.back_to != undefined){
-                                        if(queries.event_friend_id !== undefined){
-                                            window.location.href = queries.back_to+'#event_'+queries.event_friend_id;
-                                        }else{
-                                            window.location.href = queries.back_to+'#event_'+queries.event_id;
+                                    if (queries.back_to != undefined) {
+                                        if (queries.event_friend_id !== undefined) {
+                                            window.location.href = queries.back_to + '#event_' + queries.event_friend_id;
+                                        } else {
+                                            window.location.href = queries.back_to + '#event_' + queries.event_id;
                                         }
-                                    }else{
+                                    } else {
                                         window.location.href = 'future_thoughts.html';
                                     }
                                 }, 2000);
-                                
+
                             } else {
                                 $("body").cftoaster({content: 'Error in submission.'});
                             }
@@ -318,22 +319,22 @@
                 });
 
                 /*
-                $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
-                            //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
-                            slide_auto_pos = $('.slide-auto').offset().top;
-                            slide_vw_pos = $('.slide-vw').offset().top;
-                            child_curr_pos = $(this).offset().top;
-                            extra_top = 120;
-                            newtop = child_curr_pos - slide_auto_pos - extra_top;
-                            //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
-                            $('.slide-vw').css({'top':'-'+newtop+'px'});
-                        });
-                $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
-                            slide_auto_pos = $('.slide-auto').offset().top;
-                            $('.slide-vw').css({'top':'0px'});
-                        });
-                */
-                                
+                 $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
+                 //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
+                 slide_auto_pos = $('.slide-auto').offset().top;
+                 slide_vw_pos = $('.slide-vw').offset().top;
+                 child_curr_pos = $(this).offset().top;
+                 extra_top = 120;
+                 newtop = child_curr_pos - slide_auto_pos - extra_top;
+                 //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
+                 $('.slide-vw').css({'top':'-'+newtop+'px'});
+                 });
+                 $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
+                 slide_auto_pos = $('.slide-auto').offset().top;
+                 $('.slide-vw').css({'top':'0px'});
+                 });
+                 */
+
                 $('body').find('#message').summernote({
                     height: 200,
                     toolbar: [
@@ -344,7 +345,7 @@
                         //['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         //['height', ['height']],
-                        ['insert', ['link', 'picture', 'video']]
+                        ['insert', ['link', 'unlink','picture', 'video', 'hr']]
                     ],
                     placeholder: 'Write your text...',
                     callbacks: {
@@ -353,10 +354,13 @@
                         }
                     }
                 });
-                
+
                 function sendFile(file, editor, welEditable) {
                     data = new FormData();
                     data.append("file", file);//You can append as many data as you want. Check mozilla docs for this
+                    data.append('auth_id=', user.auth_id);
+                    data.append("auth_type", "2");
+                    data.append("secret_key", secret_key);
                     $.ajax({
                         data: data,
                         type: "POST",
@@ -364,12 +368,16 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function (url) {
-                            $('#message').summernote("insertImage", url);
+                        dataType: 'json',
+                        success: function (result) {
+                            console.log(result);
+                            if (result.status == '1') {
+                                $('#message').summernote("insertImage", result.url);
+                            }
                         }
                     });
                 }
-                
+
             });
         </script>
         <script type="text/javascript" src="template/js/modernizr.js"></script>
