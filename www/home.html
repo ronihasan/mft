@@ -607,6 +607,8 @@
                             console.log(result);
                             if (result.status == '1') {
                                 $('#message').summernote("insertImage", result.url);
+                            }else{
+                                $("body").cftoaster({content: 'Cannot upload this image. Please try another.'});
                             }
                         }
                     });
