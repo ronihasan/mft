@@ -595,6 +595,7 @@
                     data.append('auth_id=', user.auth_id);
                     data.append("auth_type", "2");
                     data.append("secret_key", secret_key);
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         data: data,
                         type: "POST",
@@ -605,6 +606,7 @@
                         dataType: 'json',
                         success: function (result) {
                             console.log(result);
+                            $('.loading-mask').addClass('stop-loading');
                             if (result.status == '1') {
                                 $('#message').summernote("insertImage", result.url);
                             }else{
