@@ -234,12 +234,15 @@
                 });
                 //End Short-Link Menu
 
+
+                $('.loading-mask').removeClass('stop-loading');
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/friends/list?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
                     data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                     dataType: 'json',
                     success: function (vals) {
+                        $('.loading-mask').addClass('stop-loading');
                         //console.log(JSON.stringify(vals.friends));
                         rows = vals.friends;
                         if (rows !== undefined && rows !== null) {
@@ -294,12 +297,14 @@
                     console.log('q');
                     href = $(this).attr('href');
                     friend_user_id = $(this).attr('data-friend');
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/chats/start_chat?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
                         data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key + '&friend_id=' + friend_user_id,
                         dataType: 'json',
                         success: function (vals) {
+                            $('.loading-mask').addClass('stop-loading');
                             if (vals.status === '1') {
                                 window.location.href = href;
                             }

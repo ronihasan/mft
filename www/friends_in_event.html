@@ -27,7 +27,7 @@
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-        
+
         <!-- jQuery cftoaster plugin -->
         <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
         <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
@@ -50,7 +50,7 @@
                 /*width: 128px;*/
                 /*width: 50%;*/
                 overflow: hidden;
-/*                border:1px solid #cccccc;*/
+                /*                border:1px solid #cccccc;*/
                 background-color: transparent;
                 height: auto;
                 max-height: 45px;
@@ -271,6 +271,7 @@
                     if (queries.event_id !== undefined || queries.event_id !== null) {
                         pData['event_id'] = queries.event_id;
                     }
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         //url: 'http://' + confs.site_addr + '/admin.php/friends/search?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         url: surl,
@@ -279,6 +280,7 @@
                         data: pData,
                         dataType: 'json',
                         success: function (vals) {
+                            $('.loading-mask').addClass('stop-loading');
                             //console.log(vals.list);
                             rows = vals.list;
                             if (rows !== undefined || rows !== null) {

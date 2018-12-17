@@ -27,7 +27,7 @@
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-        
+
         <!-- jQuery cftoaster plugin -->
         <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
         <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
@@ -83,7 +83,7 @@
                         </a>
                         -->
                     </div>
-                    
+
                     <div class="body" style="padding-top: 0px;">
                         <div class="w-clearfix grey-header" style="height:60px;">
                             <div class="top-icon-block">
@@ -167,19 +167,19 @@
             var sess_data = [];
             var user = [];
             var month_names = [
-                            'January',
-                            'February',
-                            'March',
-                            'April',
-                            'May',
-                            'June',
-                            'July',
-                            'August',
-                            'September',
-                            'October',
-                            'November',
-                            'December'
-                        ];
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+            ];
 
             $(document).ready(function () {
                 // loading confs value
@@ -200,7 +200,7 @@
                 if ($('.navbar').find('#lmenu')) {
                     $('#lmenu').load('menu.html');
                 }
-                
+
                 //Short-Link Menu
                 top_icon_block_a_num = $('.top-icon-block a').length;
                 top_icon_block = $('.top-icon-block').width();
@@ -209,7 +209,7 @@
                 top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
                 top_icon_block_margin = (top_icon_block_margins / 2);
                 top_icon_block_padding = 7;
-                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius': '25px'});
                 $('.top-icon-block a:first').css({'margin-left': '0px'});
                 $('.top-icon-block a:last').css({'margin-right': '0px'});
                 $('.top-icon-block').css({'text-align': 'center'});
@@ -217,10 +217,10 @@
 
                 curr_link = window.location.href;
                 curr_link = curr_link.split("/").pop();
-                $('.top-icon-block a').each(function(i, e){
+                $('.top-icon-block a').each(function (i, e) {
                     link = $(e).attr('href');
                     console.log(link);
-                    if(curr_link === link){
+                    if (curr_link === link) {
                         $(this).children('.icon-button').css({'color': '#4c68b1'});
                     }
                 });
@@ -228,21 +228,23 @@
 
                 var chat = null;
                 var formatted_date = currentTime = chatTime = null;
-                function all_chat_history(){
+                function all_chat_history() {
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/chats/all_chat_history?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
                         data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                         dataType: 'json',
                         success: function (vals) {
-                            if($('.list-messages').html() === undefined || $('.list-messages').html() === null){
+                            $('.loading-mask').addClass('stop-loading');
+                            if ($('.list-messages').html() === undefined || $('.list-messages').html() === null) {
                                 clearInterval(chat);
                             }
                             $('.list-messages').html('');
-                            if(vals.status == '1'){
+                            if (vals.status == '1') {
                                 chats = $.parseJSON(vals.chats);
                                 if (chats !== undefined && chats !== null) {
-                                    $.each(chats, function(friend_id, event) {
+                                    $.each(chats, function (friend_id, event) {
                                         html = '<li class="list-message">';
                                         html += '<a class="w-clearfix w-inline-block" href="chat.html?back_to=chatbox.html&friend_id=' + friend_id + '&friend_name=' + event.chat_with + '" data-load="1">';
                                         html += '<div class="w-clearfix column-left">';
@@ -251,15 +253,15 @@
                                         html += '</div>';
                                         html += '<div class="column-right">';
                                         html += '<div class="message-title">' + event.chat_with + '</div>';
-                                        
+
                                         currentTime = new Date();
                                         chatTime = new Date(event.chat_date);
-                                        if(chatTime.getDate() === currentTime.getDate() && chatTime.getMonth() === currentTime.getMonth() && chatTime.getFullYear() === currentTime.getFullYear()){
+                                        if (chatTime.getDate() === currentTime.getDate() && chatTime.getMonth() === currentTime.getMonth() && chatTime.getFullYear() === currentTime.getFullYear()) {
                                             formatted_date = ("0" + chatTime.getHours()).slice(-2) + ":" + ("0" + chatTime.getMinutes()).slice(-2);
-                                        }else{
-                                            formatted_date = ("0" + chatTime.getDate()).slice(-2) + " " + month_names[chatTime.getMonth()+1];
+                                        } else {
+                                            formatted_date = ("0" + chatTime.getDate()).slice(-2) + " " + month_names[chatTime.getMonth() + 1];
                                         }
-                                    
+
                                         html += '<span class="last-chat">' + formatted_date + '</span>';
                                         html += '<div class="message-text">' + event.message + '</div>';
                                         html += '</div>';
@@ -279,7 +281,7 @@
                 }
                 all_chat_history();
                 chat = setInterval(all_chat_history, 10000);
-                
+
             });</script>
         <script type="text/javascript" src="template/js/modernizr.js"></script>
         <script type="text/javascript" src="template/js/framework.js"></script>

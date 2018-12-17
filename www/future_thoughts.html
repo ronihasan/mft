@@ -27,7 +27,7 @@
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-        
+
         <!-- jQuery cftoaster plugin -->
         <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
         <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
@@ -174,12 +174,21 @@
                 //console.log(sess_data);
                 //console.log('http://' + confs.site_addr + '/admin.php/users/my_account?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent + '*auth_id=' + user.auth_id + '&auth_type=2');
 
+                function check_video_url(url_text) {
+                    if (url_text.indexOf('http://') !== 0 && url_text.indexOf('#') !== 0) {
+                        url_text = 'http://' + url_text;
+                    }
+                    return url_text;
+                }
+                
+                $('.loading-mask').removeClass('stop-loading');
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/timeline?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
                     data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                     dataType: 'json',
                     success: function (vals) {
+                        $('.loading-mask').addClass('stop-loading');
                         //console.log(JSON.stringify(vals.events));
                         events = vals.events;
                         if (events !== undefined || events !== null) {
@@ -194,7 +203,15 @@
                                 html += '</div>';
                                 html += '</a>';
                                 html += '</li>';
+                                if($(html).find('iframe') !== undefined) {
+                                    $(html).find('iframe').each(function(i , frme){
+                                        src = check_video_url($(frme).prop('src'));
+                                        console.log(src);
+                                        $(frme).prop('src', src);
+                                    });
+                                }
                                 $('.list-news').append(html);
+                                
                             });
                         }
                         $('.list-news').width($(window).width() - 30);

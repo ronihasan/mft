@@ -27,7 +27,7 @@
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-        
+
         <!-- jQuery cftoaster plugin -->
         <link rel="stylesheet" title="default" type="text/css" href="plugins/cftoaster/jquery.cftoaster.1.0.1.css"/>
         <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
@@ -66,7 +66,7 @@
                             <div class="navbar-button-icon icon ion-ios-plus-empty"></div>
                         </a>
                     </div>
-                    
+
                     <div class="body" style="padding-top: 0px;">
                         <div class="w-clearfix grey-header" style="height:60px;">
                             <div class="top-icon-block">
@@ -153,7 +153,7 @@
                 if ($('.navbar').find('#lmenu')) {
                     $('#lmenu').load('menu.html');
                 }
-                
+
                 //Short-Link Menu
                 top_icon_block_a_num = $('.top-icon-block a').length;
                 top_icon_block = $('.top-icon-block').width();
@@ -162,7 +162,7 @@
                 top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
                 top_icon_block_margin = (top_icon_block_margins / 2);
                 top_icon_block_padding = 7;
-                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius':'25px'});
+                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius': '25px'});
                 $('.top-icon-block a:first').css({'margin-left': '0px'});
                 $('.top-icon-block a:last').css({'margin-right': '0px'});
                 $('.top-icon-block').css({'text-align': 'center'});
@@ -170,15 +170,17 @@
 
                 curr_link = window.location.href;
                 curr_link = curr_link.split("/").pop();
-                $('.top-icon-block a').each(function(i, e){
+                $('.top-icon-block a').each(function (i, e) {
                     link = $(e).attr('href');
                     console.log(link);
-                    if(curr_link === link){
+                    if (curr_link === link) {
                         $(this).children('.icon-button').css({'color': '#4c68b1'});
                     }
                 });
                 //End Short-Link Menu
 
+
+                $('.loading-mask').removeClass('stop-loading');
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/messages/inbox?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
@@ -186,6 +188,7 @@
                     dataType: 'json',
                     success: function (vals) {
                         //console.log(JSON.stringify(vals.events));
+                        $('.loading-mask').addClass('stop-loading');
                         events = vals.rows;
                         if (events !== undefined || events !== null) {
                             $(events).each(function (i, event) {

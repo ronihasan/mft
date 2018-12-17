@@ -31,7 +31,7 @@
         <script type="text/javascript" src="plugins/cftoaster/jquery.cftoaster.1.0.1.min.js"></script>
 
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
-        
+
         <!-- custom & common scripts -->
         <script type="text/javascript" src="confs.json"></script>
         <!--<script src="js/custom.js"></script>-->
@@ -50,7 +50,7 @@
                 /*width: 128px;*/
                 /*width: 50%;*/
                 overflow: hidden;
-/*                border:1px solid #cccccc;*/
+                /*                border:1px solid #cccccc;*/
                 background-color: transparent;
                 height: auto;
                 max-height: 45px;
@@ -236,9 +236,9 @@
                     if (queries.back_to !== undefined || queries.back_to !== null) {
                         href = queries.back_to + '?1=1';
                     }
-                    
+
                     href += '&selected=' + encodeURIComponent(JSON.stringify(selected));
-                    
+
                     if (queries.fields !== undefined || queries.fields !== null) {
                         href += '&fields=' + queries.fields;
                     }
@@ -263,6 +263,7 @@
                 });
 
                 function friend_search(surl) {
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         //url: 'http://' + confs.site_addr + '/admin.php/friends/search?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         url: surl,
@@ -270,6 +271,7 @@
                         data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                         dataType: 'json',
                         success: function (vals) {
+                            $('.loading-mask').addClass('stop-loading');
                             //console.log(JSON.stringify(vals.events));
                             rows = vals.friends;
                             if (rows !== undefined || rows !== null) {

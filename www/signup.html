@@ -186,12 +186,14 @@
                 $('.sign_up_button').on('click', function (e) {
                     e.preventDefault();
                     pdata = $('#email-form').serialize();
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/users/signup?ma=1',
                         method: 'post',
                         data: pdata,
                         dataType: 'json',
                         success: function (vals) {
+                            $('.loading-mask').addClass('stop-loading');
                             console.log(vals);
                             if (vals.flash_data !== undefined || vals.flash_data !== null) {
                                 if (vals.flash_data.success === 1) {

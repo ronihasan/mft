@@ -204,12 +204,15 @@
                 }
 
                 function load_chat() {
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/chats/load_chat?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
                         data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key + '&friend_id=' + queries.friend_id,
                         dataType: 'json',
                         success: function (vals) {
+
+                            $('.loading-mask').addClass('stop-loading');
                             //console.log(JSON.stringify(vals));
                             rows = vals.chat_history;
                             if (rows !== undefined && rows !== null) {
@@ -259,12 +262,15 @@
                     e.preventDefault();
                     clearInterval(chat_auto_load);
                     msg = $('input[name="message"]').val();
+
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/chats/send_chat?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
                         data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key + '&friend_id=' + queries.friend_id + '&message=' + msg,
                         dataType: 'json',
                         success: function (vals) {
+                            $('.loading-mask').addClass('stop-loading');
                             if (vals.status === '1') {
                                 load_chat();
                                 chat_auto_load = setInterval(function () {

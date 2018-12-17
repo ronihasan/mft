@@ -25,7 +25,7 @@
         <link rel="apple-touch-icon" href="template/images/logo.ico">
         <link href="template/css/ionicons.min.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="template/js/jquery.min.js"></script>
-        
+
         <script type="text/javascript" charset="utf-8" src="lib/fastclick.min.js"></script>
 
         <!-- jQuery cftoaster plugin -->
@@ -167,12 +167,14 @@
                     $('#lmenu').load('menu.html');
                 }
 
+                $('.loading-mask').removeClass('stop-loading');
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/events/timeline?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
                     data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                     dataType: 'json',
                     success: function (vals) {
+                        $('.loading-mask').addClass('stop-loading');
                         //console.log(JSON.stringify(vals));
                         events = vals.events;
                         if (events !== undefined || events !== null) {

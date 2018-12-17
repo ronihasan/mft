@@ -276,12 +276,14 @@
                     }
                     console.log(pData);
                     var email_ids = '';
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: surl,
                         method: 'post',
                         data: pData,
                         dataType: 'json',
                         success: function (vals) {
+                    $('.loading-mask').addClass('stop-loading');
                             //console.log(vals.list);
                             if (vals.list !== undefined && vals.list != null) {
                                 rows = vals.list;
@@ -383,6 +385,8 @@
                     pdata = {send_at: send_dt, txt_msg: message, send_to: send_to};
                     //pdata = 'msg[send_to]=' + send_to + '&msg[txt_msg]=' + message + '&msg[send_at]=' + send_at;
                     //console.log(pdata);
+                    
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/compose?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
@@ -390,6 +394,7 @@
                         data: {auth_id: user.auth_id, auth_type: '2', secret_key: secret_key, msg: pdata},
                         dataType: 'json',
                         success: function (vals) {
+                    $('.loading-mask').addClass('stop-loading');
                             //console.log(vals);
                             if (vals.flash_data !== undefined || vals.flash_data !== null) {
                                 if (vals.flash_data.success === 1) {
@@ -488,6 +493,7 @@
                     data.append('auth_id=', user.auth_id);
                     data.append("auth_type", "2");
                     data.append("secret_key", secret_key);
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         data: data,
                         type: "POST",
@@ -497,6 +503,7 @@
                         processData: false,
                         dataType: 'json',
                         success: function (result) {
+                            $('.loading-mask').addClass('stop-loading');
                             console.log(result);
                             if (result.status == '1') {
                                 $('#message').summernote("insertImage", result.url);

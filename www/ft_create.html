@@ -80,7 +80,7 @@
                 font-weight: 500;
                 line-height: 1.5;
             }
-            
+
             .img-frame{
                 width:42px;padding:1px;border:0.1em solid #EEE;overflow:hidden;margin:5px;display:inline-block;
             }
@@ -264,6 +264,7 @@
                     //pdata = {send_at: send_dt, txt_msg: message, send_to: send_to};
                     //return false;
 
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/add_future_thought?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
@@ -271,6 +272,7 @@
                         data: fields,
                         dataType: 'json',
                         success: function (vals) {
+                            $('.loading-mask').addClass('stop-loading');
                             //console.log(vals);
                             if (vals.flash_data !== undefined || vals.flash_data !== null) {
                                 if (vals.flash_data.success === 1) {
@@ -294,12 +296,15 @@
                     });
                 });
 
+
+                    $('.loading-mask').removeClass('stop-loading');
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/add_future_thought?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
                     data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                     dataType: 'json',
                     success: function (vals) {
+                    $('.loading-mask').addClass('stop-loading');
                         //console.log(vals);
                         //console.log(JSON.stringify(vals.questions));
                         questions = vals.questions;
@@ -593,6 +598,7 @@
                             data.append('auth_id=', user.auth_id);
                             data.append("auth_type", "2");
                             data.append("secret_key", secret_key);
+                            $('.loading-mask').removeClass('stop-loading');
                             $.ajax({
                                 data: data,
                                 type: "POST",
@@ -602,6 +608,7 @@
                                 processData: false,
                                 dataType: 'json',
                                 success: function (result) {
+                                    $('.loading-mask').addClass('stop-loading');
                                     console.log(result);
                                     if (result.status == '1') {
                                         $('.texteditor').summernote("insertImage", result.url);

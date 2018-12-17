@@ -290,12 +290,14 @@
                         pData.event_friend_id = queries.event_friend_id;
                     }
 
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         url: 'http://' + confs.site_addr + '/admin.php/events/set_reminder?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         method: 'post',
                         data: pData,
                         dataType: 'json',
                         success: function (vals) {
+                            $('.loading-mask').addClass('stop-loading');
                             //console.log(vals);
                             if (vals.status !== undefined && vals.status === '1') {
                                 $("body").cftoaster({content: 'Reminder is saved.'});
@@ -345,7 +347,7 @@
                         //['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         //['height', ['height']],
-                        ['insert', ['link', 'unlink','picture', 'video', 'hr']]
+                        ['insert', ['link', 'unlink', 'picture', 'video', 'hr']]
                     ],
                     placeholder: 'Write your text...',
                     callbacks: {
@@ -361,6 +363,7 @@
                     data.append('auth_id=', user.auth_id);
                     data.append("auth_type", "2");
                     data.append("secret_key", secret_key);
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         data: data,
                         type: "POST",
@@ -370,6 +373,7 @@
                         processData: false,
                         dataType: 'json',
                         success: function (result) {
+                            $('.loading-mask').addClass('stop-loading');
                             console.log(result);
                             if (result.status == '1') {
                                 $('#message').summernote("insertImage", result.url);

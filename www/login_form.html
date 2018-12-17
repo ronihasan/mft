@@ -130,6 +130,7 @@
 
                 $('.sign_in_button').on('click', function (e) {
                     e.preventDefault();
+                    $('.loading-mask').removeClass('stop-loading');
                     pdata = $('#submit-form').serialize();
                     console.log(pdata + '&secret_key=' + secret_key);
                     $.ajax({
@@ -138,6 +139,7 @@
                         data: pdata + '&secret_key=' + secret_key,
                         dataType: 'json',
                         success: function (vals) {
+                            $('.loading-mask').addClass('stop-loading');
                             console.log(vals);
                             /*
                              if (vals.flash_data !== undefined || vals.flash_data !== null) {

@@ -275,6 +275,7 @@
                     if (queries.ft_id !== undefined || queries.ft_id !== null) {
                         pData['ft_id'] = queries.ft_id;
                     }
+                    $('.loading-mask').removeClass('stop-loading');
                     $.ajax({
                         //url: 'http://' + confs.site_addr + '/admin.php/friends/search?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                         url: surl,
@@ -283,6 +284,7 @@
                         data: pData,
                         dataType: 'json',
                         success: function (vals) {
+                    $('.loading-mask').addClass('stop-loading');
                             //console.log(vals.list);
                             rows = vals.list;
                             if (rows !== undefined || rows !== null) {
