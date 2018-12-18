@@ -48,6 +48,22 @@
                 color: #4099ff;
                 display: inline;
             }
+            .img-frame{
+                width:42px;padding:1px;border:0.1em solid #EEE;overflow:hidden;margin:5px;display:inline-block;
+            }
+            .box-head{
+                display:inline-block;position:absolute;margin: 3px;
+            }
+            .note-video-clip{
+                width:100%;height:180px;overflow:hidden;margin:5px 0px;display:inline-block;
+            }
+            .list-item-new{
+                /*box-shadow: none;*/
+            }
+            .text-new{
+                /*padding: 2px;*/
+                /*border:none;*/
+            }
         </style>
     </head>
     <body>
@@ -176,11 +192,11 @@
 
                 function check_video_url(url_text) {
                     if (url_text.indexOf('http://') !== 0 && url_text.indexOf('#') !== 0) {
-                        url_text = 'http://' + url_text;
+                        url_text = 'http:' + url_text;
                     }
                     return url_text;
                 }
-                
+
                 $('.loading-mask').removeClass('stop-loading');
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/timeline?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
@@ -198,20 +214,36 @@
                                 //html += '<div class="image-new"></div>';
                                 html += '<div class="text-new">';
                                 html += '<h6 class="title-new">You have shared a Future Thought</h6>';
-                                html += '<p class="description-new">' + event.ft_text + '</p>';
+                                if ($(event.ft_text).find('iframe') !== undefined) {
+                                    console.log(event.ft_text);
+                                    var iframe = $(event.ft_text);
+                                    $(iframe).find('iframe').each(function () {
+                                        src = check_video_url($(this).attr('src'));
+                                        console.log(src);
+                                        $(this).attr('src', src);
+                                    });
+                                    console.log(iframe);
+                                    //console.log($(html).find('iframe').wrapAll($('<div/>')).parent().html()); 
+                                    html += '<p class="description-new">' + iframe.html() + '</p>';
+                                } else {
+                                    html += '<p class="description-new">' + event.ft_text + '</p>';
+                                }
                                 html += '<a class="category-link" href="friends_in_ft.html?back_to=future_thoughts.html&ft_id=' + event.id + '">See Invites</a><a class="category-link" href="#">Send a Message</a>';
                                 html += '</div>';
                                 html += '</a>';
                                 html += '</li>';
-                                if($(html).find('iframe') !== undefined) {
-                                    $(html).find('iframe').each(function(i , frme){
-                                        src = check_video_url($(frme).prop('src'));
-                                        console.log(src);
-                                        $(frme).prop('src', src);
-                                    });
-                                }
+//                                if($(html).find('iframe') !== undefined) {
+//                                    $(html).find('iframe').each(function(){
+//                                        src = check_video_url($(this).attr('src'));
+//                                        console.log(src);
+//                                        $(this).attr('src', src);
+//                                        console.log($(this));
+//                                    });
+//                                    console.log(html);
+//                                    //console.log($(html).find('iframe').wrapAll($('<div/>')).parent().html()); 
+//                                }
                                 $('.list-news').append(html);
-                                
+
                             });
                         }
                         $('.list-news').width($(window).width() - 30);
