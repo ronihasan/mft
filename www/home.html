@@ -165,7 +165,7 @@
                 display:inline-block;position:absolute;margin: 3px;
             }
             .note-video-clip{
-                width:90%;height:40px;overflow:hidden;margin:5px;display:inline-block;
+                width:100%;height:180px;overflow:hidden;margin:5px 0px;display:inline-block;
             }
 
         </style>
@@ -396,6 +396,12 @@
                     });
                 });
 
+                function check_video_url(url_text) {
+                    if (url_text.indexOf('http://') !== 0 && url_text.indexOf('#') !== 0) {
+                        url_text = 'http:' + url_text;
+                    }
+                    return url_text;
+                }
 
                 $('.loading-mask').removeClass('stop-loading');
                 $.ajax({
@@ -449,7 +455,21 @@
                                     html += '</div>';
                                     html += '</div>';
                                     html += '<div class="description-new" style="margin:5px;min-height: 30px;">';
-                                    html += event.tl_desc;
+                                    //html += event.tl_desc;
+                                    if ($(event.tl_desc).find('iframe') !== undefined) {
+                                        //console.log(event.ft_text);
+                                        var iframe = $(event.tl_desc);
+                                        $(iframe).find('iframe').each(function () {
+                                            src = check_video_url($(this).attr('src'));
+                                            //console.log(src);
+                                            $(this).attr('src', src);
+                                        });
+                                        //console.log(iframe);
+                                        //console.log($(html).find('iframe').wrapAll($('<div/>')).parent().html()); 
+                                        html += iframe.html();
+                                    } else {
+                                        html += event.tl_desc;
+                                    }
                                     html += '</div>';
                                     html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin:10px;">';
                                     html += '<div style="text-align:right;display:block;">';
@@ -480,7 +500,21 @@
                                     html += '</div>';
                                     html += '</div>';
                                     html += '<div class="description-new" style="margin:5px;min-height: 30px;">';
-                                    html += event.tl_desc;
+                                    if ($(event.tl_desc).find('iframe') !== undefined) {
+                                        //console.log(event.ft_text);
+                                        var iframe = $(event.tl_desc);
+                                        $(iframe).find('iframe').each(function () {
+                                            src = check_video_url($(this).attr('src'));
+                                            //console.log(src);
+                                            $(this).attr('src', src);
+                                        });
+                                        //console.log(iframe);
+                                        //console.log($(html).find('iframe').wrapAll($('<div/>')).parent().html()); 
+                                        html += iframe.html();
+                                    } else {
+                                        html += event.tl_desc;
+                                    }
+
                                     html += '</div>';
                                     html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin:10px;">';
                                     html += '<div style="text-align:right;display:block;">';
@@ -510,7 +544,21 @@
                                     html += '</div>';
                                     html += '</div>';
                                     html += '<div class="description-new" style="margin:5px;min-height: 30px;">';
-                                    html += event.tl_title;
+                                    //html += event.tl_title;
+                                    if ($(event.tl_title).find('iframe') !== undefined) {
+                                        //console.log(event.ft_text);
+                                        var iframe = $(event.tl_title);
+                                        $(iframe).find('iframe').each(function () {
+                                            src = check_video_url($(this).attr('src'));
+                                            //console.log(src);
+                                            $(this).attr('src', src);
+                                        });
+                                        //console.log(iframe);
+                                        //console.log($(html).find('iframe').wrapAll($('<div/>')).parent().html()); 
+                                        html += iframe.html();
+                                    } else {
+                                        html += event.tl_title;
+                                    }
                                     html += '</div>';
                                     html += '<div style="width:100%;padding:5px 10px;display:inline-block;margin:10px;">';
                                     html += '<div style="text-align:right;display:block;">';

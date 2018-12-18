@@ -215,14 +215,14 @@
                                 html += '<div class="text-new">';
                                 html += '<h6 class="title-new">You have shared a Future Thought</h6>';
                                 if ($(event.ft_text).find('iframe') !== undefined) {
-                                    console.log(event.ft_text);
+                                    //console.log(event.ft_text);
                                     var iframe = $(event.ft_text);
                                     $(iframe).find('iframe').each(function () {
                                         src = check_video_url($(this).attr('src'));
-                                        console.log(src);
+                                        //console.log(src);
                                         $(this).attr('src', src);
                                     });
-                                    console.log(iframe);
+                                    //console.log(iframe);
                                     //console.log($(html).find('iframe').wrapAll($('<div/>')).parent().html()); 
                                     html += '<p class="description-new">' + iframe.html() + '</p>';
                                 } else {
