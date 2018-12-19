@@ -38,8 +38,8 @@
         <script type="text/javascript" src="plugins/datepicker/bootstrap-datepicker.js"></script>
 
         <!-- jQuery timepicker -->
-        <!--<link rel="stylesheet" title="default" type="text/css" href="plugins/timepicker/bootstrap-timepicker.min.css"/>-->
-        <!--<script type="text/javascript" src="plugins/timepicker/bootstrap-timepicker.min.js"></script>-->
+        <link rel="stylesheet" title="default" type="text/css" href="plugins/timepicker/bootstrap-timepicker.min.css"/>
+        <script type="text/javascript" src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
         <!-- jQuery timepicker -->
         <script src="plugins/input-mask/jquery.inputmask.js"></script>
@@ -71,6 +71,13 @@
                 font-size: 15px;
                 font-weight: 500;
                 line-height: 1.5;
+            }
+            .d-col-3{
+                display: inline-block;
+                width: 33%;
+            }
+            .select > option {
+                color: #000;
             }
         </style>
     </head>
@@ -372,10 +379,47 @@
                                 } else if (row.type === 'date') {
                                     html = '<div>';
                                     html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
-                                    html += '<input class="w-input input-form datepicker datemask" type="text" placeholder="Date..." name="' + field_name + '[date]" data-name="full-name" required="required">';
+                                    html += '<div class="dob-row">';
+                                    html += '<select class="w-select input-form select d-col-3" name="' + field_name + '[mm]">';
+                                    html += '<option value="01">MM</option>';
+                                    html += '<option value="01">JAN</option>';
+                                    html += '<option value="02">FEB</option>';
+                                    html += '<option value="03">MAR</option>';
+                                    html += '<option value="04">APR</option>';
+                                    html += '<option value="05">MAY</option>';
+                                    html += '<option value="06">JUN</option>';
+                                    html += '<option value="07">JUL</option>';
+                                    html += '<option value="08">AUG</option>';
+                                    html += '<option value="09">SEP</option>';
+                                    html += '<option value="10">OCT</option>';
+                                    html += '<option value="11">NOV</option>';
+                                    html += '<option value="12">DEC</option>';
+                                    html += '</select>';
+                                    html += '<select class="w-select input-form select d-col-3" name="' + field_name + '[dd]">';
+                                    html += '<option value="01">DD</option>';
+                                    for (i = 1; i < 32; i++) {
+                                        dt = i;
+                                        if (dt < 10) {
+                                            dt = '0' + dt;
+                                        }
+                                        html += '<option value="' + dt + '">' + dt + '</option>';
+                                    }
+                                    html += '</select>';
+                                    html += '<input class="w-input input-form d-col-3 datemask_year" type="text" name="' + field_name + '[yyyy]" />';
+                                    html += '</div>';
+//                                    html += '<input class="w-input input-form datepicker datemask" type="text" placeholder="Date..." name="' + field_name + '[date]" data-name="full-name" required="required">';
                                     html += '<div class="separator-fields"></div>';
-                                    html += '<input class="w-input input-form timepicker timemask" placeholder="Time..." type="text" name="' + field_name + '[time]" data-name="full-name" required="required">';
+//                                    html += '<input class="w-input input-form timepicker timemask" id="timepicker1" placeholder="Time..." type="text" name="' + field_name + '[time]" data-name="full-name" required="required">';
+                                    html += '<div class="dob-row">';
+                                    html += '<input class="w-input input-form d-col-3 timemask_hh" placeholder="HH" type="text" name="' + field_name + '[thh]" />';
+                                    html += '<input class="w-input input-form d-col-3 timemask_mm" placeholder="MM" type="text" name="' + field_name + '[tmm]" />';
+                                    html += '<input class="w-input input-form d-col-3 timemask_ss" placeholder="SS" type="text" name="' + field_name + '[tss]" />';
+                                    html += '</div>';
                                     html += '<div class="separator-fields"></div>';
+//                                    html += '<div class="input-group bootstrap-timepicker timepicker">';
+//                                    html += '<input id="timepicker1" type="text" class="form-control input-small">';
+//                                    html += '<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>';
+//                                    html += '</div>';
                                     html += '</div>';
                                     $('#form_body').append(html);
                                 } else if (row.type === 'image') {
@@ -410,20 +454,28 @@
 
                         //datepicker
                         $.fn.datepicker.defaults.format = "mm/dd/yyyy";
-                        /*
-                         $('.datepicker').datepicker({
-                         //startDate: '-3d',
-                         autoclose: true
-                         });
-                         */
-                        //Datemask2 mm/dd/yyyy
-                        $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-                        $(".timemask").inputmask("hh:mm:ss", {
-                            placeholder: "HH:MM:SS",
-                            insertMode: false,
-                            showMaskOnHover: true,
-                            hourFormat: 12
+
+                        $('.datepicker').datepicker({
+                            //startDate: '-3d',
+                            autoclose: true
                         });
+
+//                        $('.timepicker').timepicker();
+//                        $('body').find('#timepicker1').timepicker();
+
+                        //Datemask2 mm/dd/yyyy
+//                        $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+//                        $(".timemask").inputmask("hh:mm:ss", {
+//                            placeholder: "HH:MM:SS",
+//                            insertMode: false,
+//                            showMaskOnHover: true,
+//                            hourFormat: 12
+//                        });
+                        $(".datemask_year").inputmask("yy");
+                        $(".timemask_hh").inputmask("hh", {hourFormat: 12});
+                        $(".timemask_mm").inputmask("mm");
+                        $(".timemask_ss").inputmask("ss");
+
 
                         $('.multi_in').on('click', function (e) {
                             e.preventDefault();
