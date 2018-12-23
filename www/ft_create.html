@@ -90,6 +90,13 @@
             .note-video-clip{
                 width:90%;height:40px;overflow:hidden;margin:5px;display:inline-block;
             }
+            .d-col-3{
+                display: inline-block;
+                width: 33%;
+            }
+            .select > option {
+                color: #000;
+            }
         </style>
     </head>
     <body class="bg-body">
@@ -257,7 +264,7 @@
                     fields['auth_id'] = user.auth_id;
                     fields['auth_type'] = '2';
 
-                    pData['secret_key'] = secret_key;
+                    fields['secret_key'] = secret_key;
 
                     console.log(fields);
                     //send_dt = {date: send_on, time: send_at};
@@ -297,14 +304,14 @@
                 });
 
 
-                    $('.loading-mask').removeClass('stop-loading');
+                $('.loading-mask').removeClass('stop-loading');
                 $.ajax({
                     url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/add_future_thought?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
                     method: 'post',
                     data: 'auth_id=' + user.auth_id + '&auth_type=2&secret_key=' + secret_key,
                     dataType: 'json',
                     success: function (vals) {
-                    $('.loading-mask').addClass('stop-loading');
+                        $('.loading-mask').addClass('stop-loading');
                         //console.log(vals);
                         //console.log(JSON.stringify(vals.questions));
                         questions = vals.questions;
@@ -381,11 +388,49 @@
                                     html += '</div>';
                                     $('#form_body').append(html);
                                 } else if (row.type === 'date') {
+//                                    html = '<div class="opt_tag_' + row.opt_tag + '">';
+//                                    html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
+//                                    html += '<input class="w-input input-form datepicker datemask" type="text" placeholder="Date..." name="' + field_name + '[date]" data-name="full-name" required="required">';
+//                                    html += '<div class="separator-fields"></div>';
+//                                    html += '<input class="w-input input-form timepicker timemask" placeholder="Time..." type="text" name="' + field_name + '[time]" data-name="full-name" required="required">';
+//                                    html += '<div class="separator-fields"></div>';
+//                                    html += '</div>';
+//                                    $('#form_body').append(html);
+
                                     html = '<div class="opt_tag_' + row.opt_tag + '">';
                                     html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
-                                    html += '<input class="w-input input-form datepicker datemask" type="text" placeholder="Date..." name="' + field_name + '[date]" data-name="full-name" required="required">';
+                                    html += '<div class="dob-row">';
+                                    html += '<select class="w-select input-form select d-col-3" name="' + field_name + '[mm]">';
+                                    html += '<option value="01">JAN</option>';
+                                    html += '<option value="02">FEB</option>';
+                                    html += '<option value="03">MAR</option>';
+                                    html += '<option value="04">APR</option>';
+                                    html += '<option value="05">MAY</option>';
+                                    html += '<option value="06">JUN</option>';
+                                    html += '<option value="07">JUL</option>';
+                                    html += '<option value="08">AUG</option>';
+                                    html += '<option value="09">SEP</option>';
+                                    html += '<option value="10">OCT</option>';
+                                    html += '<option value="11">NOV</option>';
+                                    html += '<option value="12">DEC</option>';
+                                    html += '</select>';
+                                    html += '<select class="w-select input-form select d-col-3" name="' + field_name + '[dd]">';
+                                    for (i = 1; i < 32; i++) {
+                                        dt = i;
+                                        if (dt < 10) {
+                                            dt = '0' + dt;
+                                        }
+                                        html += '<option value="' + dt + '">' + dt + '</option>';
+                                    }
+                                    html += '</select>';
+                                    html += '<input class="w-input input-form d-col-3 datemask_year" type="text" name="' + field_name + '[yyyy]" />';
+                                    html += '</div>';
                                     html += '<div class="separator-fields"></div>';
-                                    html += '<input class="w-input input-form timepicker timemask" placeholder="Time..." type="text" name="' + field_name + '[time]" data-name="full-name" required="required">';
+                                    html += '<div class="dob-row">';
+                                    html += '<input class="w-input input-form d-col-3 timemask_hh" type="text" name="' + field_name + '[thh]" />';
+                                    html += '<input class="w-input input-form d-col-3 timemask_mm" type="text" name="' + field_name + '[tmm]" />';
+                                    html += '<input class="w-input input-form d-col-3 timemask_ss" type="text" name="' + field_name + '[tss]" />';
+                                    html += '</div>';
                                     html += '<div class="separator-fields"></div>';
                                     html += '</div>';
                                     $('#form_body').append(html);
@@ -428,13 +473,17 @@
                          });
                          */
                         //Datemask2 mm/dd/yyyy
-                        $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-                        $(".timemask").inputmask("hh:mm:ss", {
-                            placeholder: "HH:MM:SS",
-                            insertMode: false,
-                            showMaskOnHover: true,
-                            hourFormat: 12
-                        });
+//                        $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+//                        $(".timemask").inputmask("hh:mm:ss", {
+//                            placeholder: "HH:MM:SS",
+//                            insertMode: false,
+//                            showMaskOnHover: true,
+//                            hourFormat: 12
+//                        });
+                        $(".datemask_year").inputmask("y", {"placeholder": "yyyy", insertMode: false, showMaskOnHover: true});
+                        $(".timemask_hh").inputmask("h", {"placeholder": "HH", insertMode: false, showMaskOnHover: true});
+                        $(".timemask_mm").inputmask("s", {"placeholder": "MM", insertMode: false, showMaskOnHover: true});
+                        $(".timemask_ss").inputmask("s", {"placeholder": "SS", insertMode: false, showMaskOnHover: true});
 
                         $('.multi_in').on('click', function (e) {
                             e.preventDefault();

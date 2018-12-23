@@ -381,7 +381,7 @@
                                     html += '<label class="label-form" for="full-name-field">' + row.q + '</label>';
                                     html += '<div class="dob-row">';
                                     html += '<select class="w-select input-form select d-col-3" name="' + field_name + '[mm]">';
-                                    html += '<option value="01">MM</option>';
+                                    //html += '<option value="01">MM</option>';
                                     html += '<option value="01">JAN</option>';
                                     html += '<option value="02">FEB</option>';
                                     html += '<option value="03">MAR</option>';
@@ -396,7 +396,7 @@
                                     html += '<option value="12">DEC</option>';
                                     html += '</select>';
                                     html += '<select class="w-select input-form select d-col-3" name="' + field_name + '[dd]">';
-                                    html += '<option value="01">DD</option>';
+                                    //html += '<option value="01">DD</option>';
                                     for (i = 1; i < 32; i++) {
                                         dt = i;
                                         if (dt < 10) {
@@ -411,9 +411,9 @@
                                     html += '<div class="separator-fields"></div>';
 //                                    html += '<input class="w-input input-form timepicker timemask" id="timepicker1" placeholder="Time..." type="text" name="' + field_name + '[time]" data-name="full-name" required="required">';
                                     html += '<div class="dob-row">';
-                                    html += '<input class="w-input input-form d-col-3 timemask_hh" placeholder="HH" type="text" name="' + field_name + '[thh]" />';
-                                    html += '<input class="w-input input-form d-col-3 timemask_mm" placeholder="MM" type="text" name="' + field_name + '[tmm]" />';
-                                    html += '<input class="w-input input-form d-col-3 timemask_ss" placeholder="SS" type="text" name="' + field_name + '[tss]" />';
+                                    html += '<input class="w-input input-form d-col-3 timemask_hh" type="text" name="' + field_name + '[thh]" />';
+                                    html += '<input class="w-input input-form d-col-3 timemask_mm" type="text" name="' + field_name + '[tmm]" />';
+                                    html += '<input class="w-input input-form d-col-3 timemask_ss" type="text" name="' + field_name + '[tss]" />';
                                     html += '</div>';
                                     html += '<div class="separator-fields"></div>';
 //                                    html += '<div class="input-group bootstrap-timepicker timepicker">';
@@ -471,10 +471,10 @@
 //                            showMaskOnHover: true,
 //                            hourFormat: 12
 //                        });
-                        $(".datemask_year").inputmask("yy");
-                        $(".timemask_hh").inputmask("hh", {hourFormat: 12});
-                        $(".timemask_mm").inputmask("mm");
-                        $(".timemask_ss").inputmask("ss");
+                        $(".datemask_year").inputmask("y", {"placeholder": "yyyy", insertMode: false, showMaskOnHover: true});
+                        $(".timemask_hh").inputmask("h", {"placeholder": "HH", insertMode: false, showMaskOnHover: true});
+                        $(".timemask_mm").inputmask("s", {"placeholder": "MM", insertMode: false, showMaskOnHover: true});
+                        $(".timemask_ss").inputmask("s", {"placeholder": "SS", insertMode: false, showMaskOnHover: true});
 
 
                         $('.multi_in').on('click', function (e) {

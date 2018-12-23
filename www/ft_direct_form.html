@@ -80,7 +80,7 @@
                 font-weight: 500;
                 line-height: 1.5;
             }
-            
+
             .img-frame{
                 width:42px;padding:1px;border:0.1em solid #EEE;overflow:hidden;margin:5px;display:inline-block;
             }
@@ -91,6 +91,13 @@
                 width:90%;height:40px;overflow:hidden;margin:5px;display:inline-block;
             }
 
+            .d-col-3{
+                display: inline-block;
+                width: 32%;
+            }
+            .select > option {
+                color: #000;
+            }
         </style>
     </head>
     <body class="bg-body">
@@ -151,16 +158,58 @@
                         <div class="w-form">
                             <form id="submit-form" name="email-form" action="#">
                                 <div class="separator-button-input"></div>
+                                <!--
                                 <div>
                                     <input class="w-input input-form datepicker datemask" placeholder="Send On" type="text" name="send_on" data-name="full-name" required="required">
                                     <div class="separator-fields"></div>
                                 </div>
-                                <!--<div class="bootstrap-timepicker">-->
                                 <div>
                                     <input class="w-input input-form timepicker timemask" placeholder="Send At" type="text" name="send_at" data-name="full-name" required="required">
                                     <div class="separator-fields"></div>
                                 </div>
-                                <!--</div>-->
+                                -->
+                                <div>
+                                    <label class="label-form" for="full-name-field">Send Time</label>
+                                    <div class="dob-row">
+                                        <select class="w-select input-form select d-col-3" name="send_at[mm]">
+                                            <option value="01">JAN</option>
+                                            <option value="02">FEB</option>
+                                            <option value="03">MAR</option>
+                                            <option value="04">APR</option>
+                                            <option value="05">MAY</option>
+                                            <option value="06">JUN</option>
+                                            <option value="07">JUL</option>
+                                            <option value="08">AUG</option>
+                                            <option value="09">SEP</option>
+                                            <option value="10">OCT</option>
+                                            <option value="11">NOV</option>
+                                            <option value="12">DEC</option>
+                                        </select>
+                                        <select class="w-select input-form select d-col-3" name="send_at[dd]"></select>
+                                        <script>
+                                            $(document).ready(function () {
+                                                html = '';
+                                                for (i = 1; i < 32; i++) {
+                                                    dt = i;
+                                                    if (dt < 10) {
+                                                        dt = '0' + dt;
+                                                    }
+                                                    html += '<option value="' + dt + '">' + dt + '</option>';
+                                                }
+                                                $('body').find('select[name="send_at[dd]"]').append(html);
+                                            });
+                                        </script>
+                                        <input class="w-input input-form d-col-3 datemask_year" type="text" name="send_at[yyyy]" />
+                                    </div>
+                                    <div class="separator-fields"></div>
+                                    <div class="dob-row">
+                                        <input class="w-input input-form d-col-3 timemask_hh" type="text" name="send_at[thh]" />
+                                        <input class="w-input input-form d-col-3 timemask_mm" type="text" name="send_at[tmm]" />
+                                        <input class="w-input input-form d-col-3 timemask_ss" type="text" name="send_at[tss]" />
+                                    </div>
+                                    <div class="separator-fields"></div>
+                                </div>
+
                                 <div>
                                     <textarea class="w-input input-form textarea" placeholder="Send To ..." name="send_to" data-name="full-name" required="required"></textarea>
                                     <!--<input type="hidden" name="send_to_ids">-->
@@ -186,333 +235,351 @@
         </section>
         <script src="template/js/webfont.js"></script>
         <script>
-            WebFont.load({
-                google: {
-                    families: ["Montserrat:400,700"]
-                }
-            });
-            //$('.mobile-wrapper').height(window.innerHeight);
+                                            WebFont.load({
+                                                google: {
+                                                    families: ["Montserrat:400,700"]
+                                                }
+                                            });
+                                            //$('.mobile-wrapper').height(window.innerHeight);
 
-            var confs = [];
-            var sess_data = [];
-            var user = [];
-            var selected = [];
-            var nameArr = [];
-            var idsArr = [];
+                                            var confs = [];
+                                            var sess_data = [];
+                                            var user = [];
+                                            var selected = [];
+                                            var nameArr = [];
+                                            var idsArr = [];
 
-            $(document).ready(function () {
-                // loading confs value
-                confs = JSON.parse(app_confs);
+                                            $(document).ready(function () {
+                                                // loading confs value
+                                                confs = JSON.parse(app_confs);
 
-                // Getting value
-                sess_data = JSON.parse(localStorage.getItem('sess_data'));
-                user = JSON.parse(localStorage.getItem('user'));
-                secret_key = localStorage.getItem('secret_key');
-                //console.log(sess_data);
-                //console.log(user);
+                                                // Getting value
+                                                sess_data = JSON.parse(localStorage.getItem('sess_data'));
+                                                user = JSON.parse(localStorage.getItem('user'));
+                                                secret_key = localStorage.getItem('secret_key');
+                                                //console.log(sess_data);
+                                                //console.log(user);
 
-                //Short-Link Menu
-                top_icon_block_a_num = $('.top-icon-block a').length;
-                top_icon_block = $('.top-icon-block').width();
-                top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
-                top_icon_block_a = $('.top-icon-block a').innerWidth();
-                top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
-                top_icon_block_margin = (top_icon_block_margins / 2);
-                top_icon_block_padding = 7;
-                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius': '25px'});
-                $('.top-icon-block a:first').css({'margin-left': '0px'});
-                $('.top-icon-block a:last').css({'margin-right': '0px'});
-                $('.top-icon-block').css({'text-align': 'center'});
-                $('.icon-button').css({'font-size': '18px !important'});
+                                                //Short-Link Menu
+                                                top_icon_block_a_num = $('.top-icon-block a').length;
+                                                top_icon_block = $('.top-icon-block').width();
+                                                top_icon_block = Math.floor(top_icon_block - ((top_icon_block * 5) / 100));
+                                                top_icon_block_a = $('.top-icon-block a').innerWidth();
+                                                top_icon_block_margins = (top_icon_block - (top_icon_block_a * top_icon_block_a_num)) / top_icon_block_a_num;
+                                                top_icon_block_margin = (top_icon_block_margins / 2);
+                                                top_icon_block_padding = 7;
+                                                $('.top-icon-block a').css({'margin': '1px ' + top_icon_block_margin + 'px', 'border-radius': '25px'});
+                                                $('.top-icon-block a:first').css({'margin-left': '0px'});
+                                                $('.top-icon-block a:last').css({'margin-right': '0px'});
+                                                $('.top-icon-block').css({'text-align': 'center'});
+                                                $('.icon-button').css({'font-size': '18px !important'});
 
-                curr_link = window.location.href;
-                curr_link = curr_link.split("/").pop();
-                $('.top-icon-block a').each(function (i, e) {
-                    link = $(e).attr('href');
-                    console.log(link);
-                    if (curr_link === link) {
-                        $(this).children('.icon-button').css({'color': '#4c68b1'});
-                    }
-                });
-                //End Short-Link Menu
+                                                curr_link = window.location.href;
+                                                curr_link = curr_link.split("/").pop();
+                                                $('.top-icon-block a').each(function (i, e) {
+                                                    link = $(e).attr('href');
+                                                    console.log(link);
+                                                    if (curr_link === link) {
+                                                        $(this).children('.icon-button').css({'color': '#4c68b1'});
+                                                    }
+                                                });
+                                                //End Short-Link Menu
 
-                var queries = {};
-                $.each(document.location.search.substr(1).split('&'), function (c, q) {
-                    var i = q.split('=');
-                    if (i[0] !== undefined && i[1] !== undefined) {
-                        queries[i[0].toString()] = i[1].toString();
-                    }
-                });
+                                                var queries = {};
+                                                $.each(document.location.search.substr(1).split('&'), function (c, q) {
+                                                    var i = q.split('=');
+                                                    if (i[0] !== undefined && i[1] !== undefined) {
+                                                        queries[i[0].toString()] = i[1].toString();
+                                                    }
+                                                });
 
-                if (queries.back_to !== undefined && queries.back_to !== null) {
-                    $('.navbar-button').hide();
-                    //console.log(queries.ft_id);
-                    if (queries.ft_id !== undefined && queries.ft_id !== null) {
-                        html = '<a class="w-inline-block navbar-button back_to_link" href="' + queries.back_to + '#ft_' + queries.ft_id + '" data-load="1">';
-                    }
-                    if (queries.event_id !== undefined && queries.event_id !== null) {
-                        html = '<a class="w-inline-block navbar-button back_to_link" href="' + queries.back_to + '#event_' + queries.event_id + '" data-load="1">';
-                    }
+                                                if (queries.back_to !== undefined && queries.back_to !== null) {
+                                                    $('.navbar-button').hide();
+                                                    //console.log(queries.ft_id);
+                                                    if (queries.ft_id !== undefined && queries.ft_id !== null) {
+                                                        html = '<a class="w-inline-block navbar-button back_to_link" href="' + queries.back_to + '#ft_' + queries.ft_id + '" data-load="1">';
+                                                    }
+                                                    if (queries.event_id !== undefined && queries.event_id !== null) {
+                                                        html = '<a class="w-inline-block navbar-button back_to_link" href="' + queries.back_to + '#event_' + queries.event_id + '" data-load="1">';
+                                                    }
 
-                    html += '<div class="navbar-button-icon icon ion-ios-close-empty"></div>';
-                    html += '</a>';
-                    //console.log(html);
-                    $('.navbar-button').after(html);
-                }
+                                                    html += '<div class="navbar-button-icon icon ion-ios-close-empty"></div>';
+                                                    html += '</a>';
+                                                    //console.log(html);
+                                                    $('.navbar-button').after(html);
+                                                }
 
-                //console.log(queries);
-                function friend_search(surl) {
-                    pData = {};
-                    pData['auth_id'] = user.auth_id;
-                    pData['auth_type'] = 2;
-                    pData['user_id'] = user.id;
-                    pData['secret_key'] = secret_key;
+                                                //console.log(queries);
+                                                function friend_search(surl) {
+                                                    pData = {};
+                                                    pData['auth_id'] = user.auth_id;
+                                                    pData['auth_type'] = 2;
+                                                    pData['user_id'] = user.id;
+                                                    pData['secret_key'] = secret_key;
 
-                    if (queries.ft_id !== undefined && queries.ft_id !== null) {
-                        pData['ft_id'] = queries.ft_id;
-                    }
-                    if (queries.event_id !== undefined && queries.event_id !== null) {
-                        pData['event_id'] = queries.event_id;
-                    }
-                    console.log(pData);
-                    var email_ids = '';
-                    $('.loading-mask').removeClass('stop-loading');
-                    $.ajax({
-                        url: surl,
-                        method: 'post',
-                        data: pData,
-                        dataType: 'json',
-                        success: function (vals) {
-                    $('.loading-mask').addClass('stop-loading');
-                            //console.log(vals.list);
-                            if (vals.list !== undefined && vals.list != null) {
-                                rows = vals.list;
-                                if (rows !== undefined && rows !== null) {
-                                    $(rows).each(function (i, row) {
-                                        //console.log(row.email);
-                                        email_ids = email_ids + row.email + ',';
-                                    });
-                                    $('textarea[name="send_to"]').val(email_ids.slice(0, (email_ids.length - 1)));
-                                }
-                            }
-                        }
-                    });
-                }
+                                                    if (queries.ft_id !== undefined && queries.ft_id !== null) {
+                                                        pData['ft_id'] = queries.ft_id;
+                                                    }
+                                                    if (queries.event_id !== undefined && queries.event_id !== null) {
+                                                        pData['event_id'] = queries.event_id;
+                                                    }
+                                                    console.log(pData);
+                                                    var email_ids = '';
+                                                    $('.loading-mask').removeClass('stop-loading');
+                                                    $.ajax({
+                                                        url: surl,
+                                                        method: 'post',
+                                                        data: pData,
+                                                        dataType: 'json',
+                                                        success: function (vals) {
+                                                            $('.loading-mask').addClass('stop-loading');
+                                                            //console.log(vals.list);
+                                                            if (vals.list !== undefined && vals.list != null) {
+                                                                rows = vals.list;
+                                                                if (rows !== undefined && rows !== null) {
+                                                                    $(rows).each(function (i, row) {
+                                                                        //console.log(row.email);
+                                                                        email_ids = email_ids + row.email + ',';
+                                                                    });
+                                                                    $('textarea[name="send_to"]').val(email_ids.slice(0, (email_ids.length - 1)));
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
 
-                if (queries.ft_id !== undefined && queries.ft_id !== null) {
-                    search_url = 'http://' + confs.site_addr + '/admin.php/future_thoughts/ajax_get_invited_friends?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent;
-                    friend_search(search_url);
-                }
+                                                if (queries.ft_id !== undefined && queries.ft_id !== null) {
+                                                    search_url = 'http://' + confs.site_addr + '/admin.php/future_thoughts/ajax_get_invited_friends?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent;
+                                                    friend_search(search_url);
+                                                }
 
-                if (queries.event_id !== undefined && queries.event_id !== null) {
-                    search_url = 'http://' + confs.site_addr + '/admin.php/events/ajax_get_invited_friends?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent;
-                    friend_search(search_url);
-                }
+                                                if (queries.event_id !== undefined && queries.event_id !== null) {
+                                                    search_url = 'http://' + confs.site_addr + '/admin.php/events/ajax_get_invited_friends?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent;
+                                                    friend_search(search_url);
+                                                }
 
-                if (queries.selected !== undefined) {
-                    selected = queries.selected;
-                    selected_frnd = JSON.parse(decodeURIComponent(selected));
-                    if ($.isArray(selected_frnd)) {
-                        $.each(selected_frnd, function (i, f) {
-                            nameArr.push(f.name);
-                            idsArr.push(f.email);
-                        });
-                        nameS = nameArr.join(', ');
-                        idS = idsArr.join(',');
-                        $('textarea[name=send_to]').val(nameS);
-                    }
-                }
-                if (queries.fields !== undefined) {
-                    fields = JSON.parse(decodeURIComponent(queries.fields));
-                    if ($.isPlainObject(fields)) {
-                        message = $('textarea[name="message"]').val(fields.txt_msg);
-                        send_on = $('input[name="send_on"]').val(fields.send_at.date);
-                        send_at = $('input[name="send_at"]').val(fields.send_at.time);
-                    }
-                }
+                                                if (queries.selected !== undefined) {
+                                                    selected = queries.selected;
+                                                    selected_frnd = JSON.parse(decodeURIComponent(selected));
+                                                    if ($.isArray(selected_frnd)) {
+                                                        $.each(selected_frnd, function (i, f) {
+                                                            nameArr.push(f.name);
+                                                            idsArr.push(f.email);
+                                                        });
+                                                        nameS = nameArr.join(', ');
+                                                        idS = idsArr.join(',');
+                                                        $('textarea[name=send_to]').val(nameS);
+                                                    }
+                                                }
+                                                if (queries.fields !== undefined) {
+                                                    fields = JSON.parse(decodeURIComponent(queries.fields));
+                                                    if ($.isPlainObject(fields)) {
+                                                        message = $('textarea[name="message"]').val(fields.txt_msg);
+                                                        //send_on = $('input[name="send_on"]').val(fields.send_at.date);
+                                                        //send_at = $('input[name="send_at"]').val(fields.send_at.time);
+                                                        dateArray = fields.send_at.date.split('-');
+                                                        console.log(fields.send_at);
+                                                        $('input[name="send_at[yyyy]"]').val(dateArray[0]);
+                                                        $('select[name="send_at[mm]"]').val(dateArray[1]);
+                                                        $('select[name="send_at[dd]"]').val(dateArray[2]);
+                                                        timeArray = fields.send_at.time.split(':');
+                                                        $('input[name="send_at[thh]"]').val(timeArray[0]);
+                                                        $('input[name="send_at[tmm]"]').val(timeArray[1]);
+                                                        $('input[name="send_at[tss]"]').val(timeArray[2]);
+                                                    }
+                                                }
 
-                if (user === undefined || user === null || sess_data === undefined || sess_data === null) {
-                    window.location.href = 'login.html';
-                }
+                                                if (user === undefined || user === null || sess_data === undefined || sess_data === null) {
+                                                    window.location.href = 'login.html';
+                                                }
 
-                // Load left menu
-                if ($('.navbar').find('#lmenu')) {
-                    $('#lmenu').load('menu.html');
-                }
+                                                // Load left menu
+                                                if ($('.navbar').find('#lmenu')) {
+                                                    $('#lmenu').load('menu.html');
+                                                }
 
-                //datepicker
-                $.fn.datepicker.defaults.format = "mm/dd/yyyy";
-                /*
-                 $('.datepicker').datepicker({
-                 //startDate: '-3d',
-                 autoclose: true
-                 });
-                 */
+                                                //datepicker
+                                                $.fn.datepicker.defaults.format = "mm/dd/yyyy";
+                                                /*
+                                                 $('.datepicker').datepicker({
+                                                 //startDate: '-3d',
+                                                 autoclose: true
+                                                 });
+                                                 */
 
-                //Datemask2 mm/dd/yyyy
-                $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-                $(".timemask").inputmask("hh:mm:ss", {
-                    placeholder: "HH:MM:SS",
-                    insertMode: false,
-                    showMaskOnHover: true,
-                    hourFormat: 12
-                });
+                                                //Datemask2 mm/dd/yyyy
+//                $(".datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+//                $(".timemask").inputmask("hh:mm:ss", {
+//                    placeholder: "HH:MM:SS",
+//                    insertMode: false,
+//                    showMaskOnHover: true,
+//                    hourFormat: 12
+//                });
 
-                $('textarea[name="send_to"]').on('click', function (e) {
-                    e.preventDefault();
-                    if ($.isArray(selected)) {
-                        selected = encodeURIComponent(JSON.stringify(selected));
-                    }
+                                                $(".datemask_year").inputmask("y", {"placeholder": "yyyy", insertMode: false, showMaskOnHover: true});
+                                                $(".timemask_hh").inputmask("h", {"placeholder": "HH", insertMode: false, showMaskOnHover: true});
+                                                $(".timemask_mm").inputmask("s", {"placeholder": "MM", insertMode: false, showMaskOnHover: true});
+                                                $(".timemask_ss").inputmask("s", {"placeholder": "SS", insertMode: false, showMaskOnHover: true});
 
-                    message = $('textarea[name="message"]').val();
-                    send_on = $('input[name="send_on"]').val();
-                    send_at = $('input[name="send_at"]').val();
-                    send_dt = {date: send_on, time: send_at};
-                    pdata = {send_at: send_dt, txt_msg: message};
-                    fields = encodeURIComponent(JSON.stringify(pdata));
-                    window.location.href = 'friends_select_combo.html?back_to=ft_direct_form.html&selected=' + selected + '&fields=' + fields;
-                });
+                                                $('textarea[name="send_to"]').on('click', function (e) {
+                                                    e.preventDefault();
+                                                    if ($.isArray(selected)) {
+                                                        selected = encodeURIComponent(JSON.stringify(selected));
+                                                    }
 
-                $('.msg_button').on('click', function (e) {
-                    e.preventDefault();
-                    message = $('textarea[name="message"]').val();
-                    //send_to = $('textarea[name="send_to"]').val();
-                    send_on = $('input[name="send_on"]').val();
-                    send_at = $('input[name="send_at"]').val();
-                    send_to = idsArr;
+                                                    message = $('textarea[name="message"]').val();
+                                                    //send_on = $('input[name="send_on"]').val();
+                                                    //send_at = $('input[name="send_at"]').val();
+                                                    send_on = $('input[name="send_at[yyyy]"]').val() + '-' + $('select[name="send_at[mm]"]').val() + '-' + $('select[name="send_at[dd]"]').val();
+                                                    send_at = $('input[name="send_at[thh]"]').val() + ':' + $('input[name="send_at[tmm]"]').val() + ':' + $('input[name="send_at[tss]"]').val();
+                                                    send_dt = {date: send_on, time: send_at};
+                                                    pdata = {send_at: send_dt, txt_msg: message};
+                                                    fields = encodeURIComponent(JSON.stringify(pdata));
+                                                    window.location.href = 'friends_select_combo.html?back_to=ft_direct_form.html&selected=' + selected + '&fields=' + fields;
+                                                });
 
-                    send_dt = {date: send_on, time: send_at};
-                    pdata = {send_at: send_dt, txt_msg: message, send_to: send_to};
-                    //pdata = 'msg[send_to]=' + send_to + '&msg[txt_msg]=' + message + '&msg[send_at]=' + send_at;
-                    //console.log(pdata);
-                    
-                    $('.loading-mask').removeClass('stop-loading');
-                    $.ajax({
-                        url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/compose?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
-                        method: 'post',
-                        //data: 'auth_id=' + user.auth_id + '&auth_type=2&' + pdata,
-                        data: {auth_id: user.auth_id, auth_type: '2', secret_key: secret_key, msg: pdata},
-                        dataType: 'json',
-                        success: function (vals) {
-                    $('.loading-mask').addClass('stop-loading');
-                            //console.log(vals);
-                            if (vals.flash_data !== undefined || vals.flash_data !== null) {
-                                if (vals.flash_data.success === 1) {
+                                                $('.msg_button').on('click', function (e) {
+                                                    e.preventDefault();
+                                                    message = $('textarea[name="message"]').val();
+                                                    //send_to = $('textarea[name="send_to"]').val();
+                                                    //send_on = $('input[name="send_on"]').val();
+                                                    //send_at = $('input[name="send_at"]').val();
+                                                    send_on = $('input[name="send_at[yyyy]"]').val() + '-' + $('select[name="send_at[mm]"]').val() + '-' + $('select[name="send_at[dd]"]').val();
+                                                    send_at = $('input[name="send_at[thh]"]').val() + ':' + $('input[name="send_at[tmm]"]').val() + ':' + $('input[name="send_at[tss]"]').val();
+                                                    send_to = idsArr;
 
-                                    // Setting value
-                                    //localStorage.setItem('user', JSON.stringify(vals.user_data));
-                                    // Setting value
-                                    //localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
+                                                    send_dt = {date: send_on, time: send_at};
+                                                    pdata = {send_at: send_dt, txt_msg: message, send_to: send_to};
+                                                    //pdata = 'msg[send_to]=' + send_to + '&msg[txt_msg]=' + message + '&msg[send_at]=' + send_at;
+                                                    //console.log(pdata);
 
-                                    $("body").cftoaster({content: vals.flash_data.msg});
-                                    setTimeout(function () {
-                                        window.location.href = 'future_thoughts.html';
-                                    }, 2000);
-                                } else {
-                                    $("body").cftoaster({content: vals.flash_data.msg});
-                                }
-                            } else {
-                                $("body").cftoaster({content: 'Cannot read properly.'});
-                            }
-                        }
-                    });
-                });
+                                                    $('.loading-mask').removeClass('stop-loading');
+                                                    $.ajax({
+                                                        url: 'http://' + confs.site_addr + '/admin.php/future_thoughts/compose?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                                                        method: 'post',
+                                                        //data: 'auth_id=' + user.auth_id + '&auth_type=2&' + pdata,
+                                                        data: {auth_id: user.auth_id, auth_type: '2', secret_key: secret_key, msg: pdata},
+                                                        dataType: 'json',
+                                                        success: function (vals) {
+                                                            $('.loading-mask').addClass('stop-loading');
+                                                            //console.log(vals);
+                                                            if (vals.flash_data !== undefined || vals.flash_data !== null) {
+                                                                if (vals.flash_data.success === 1) {
 
-                /*
-                 $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
-                 //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
-                 slide_auto_pos = $('.slide-auto').offset().top;
-                 slide_vw_pos = $('.slide-vw').offset().top;
-                 child_curr_pos = $(this).offset().top;
-                 extra_top = 160;
-                 newtop = child_curr_pos - slide_auto_pos - extra_top;
-                 //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
-                 $('.slide-vw').css({'top':'-'+newtop+'px'});
-                 });
-                 $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
-                 slide_auto_pos = $('.slide-auto').offset().top;
-                 $('.slide-vw').css({'top':'0px'});
-                 });
-                 */
+                                                                    // Setting value
+                                                                    //localStorage.setItem('user', JSON.stringify(vals.user_data));
+                                                                    // Setting value
+                                                                    //localStorage.setItem('sess_data', JSON.stringify(vals.login_session));
 
-                $('input[type="text"],input[type="password"],select,textarea').on('click', function (e) {
-                    $('.slide-body').scrollTop($(this).offset().top);
-                });
+                                                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                                                    setTimeout(function () {
+                                                                        window.location.href = 'future_thoughts.html';
+                                                                    }, 2000);
+                                                                } else {
+                                                                    $("body").cftoaster({content: vals.flash_data.msg});
+                                                                }
+                                                            } else {
+                                                                $("body").cftoaster({content: 'Cannot read properly.'});
+                                                            }
+                                                        }
+                                                    });
+                                                });
 
-                function onSoftKeyUp(body_height) {
-                    $('.slide-body').css({'overflow-y': 'scroll', 'height': body_height + 'px'});
-                }
-                //onSoftKeyUp(400);
-                function onSoftKeyDown() {
-                    $('.slide-body').css({'overflow-y': 'auto', 'height': 'auto'});
-                }
-                //setTimeout(onSoftKeyDown, 10000);
+                                                /*
+                                                 $('input[type="text"],select,textarea,.note-editable').on('click', function (e) {
+                                                 //console.log('A : '+e.type.toLowerCase() + ' N :'+e.currentTarget.nodeName + ' T :'+e.target.nodeName);
+                                                 slide_auto_pos = $('.slide-auto').offset().top;
+                                                 slide_vw_pos = $('.slide-vw').offset().top;
+                                                 child_curr_pos = $(this).offset().top;
+                                                 extra_top = 160;
+                                                 newtop = child_curr_pos - slide_auto_pos - extra_top;
+                                                 //console.log(slide_auto_pos +' '+ slide_vw_pos +' '+ child_curr_pos +' '+ newtop);
+                                                 $('.slide-vw').css({'top':'-'+newtop+'px'});
+                                                 });
+                                                 $('input[type="text"],select,textarea,.note-editable').on('focusout', function (e) {
+                                                 slide_auto_pos = $('.slide-auto').offset().top;
+                                                 $('.slide-vw').css({'top':'0px'});
+                                                 });
+                                                 */
 
-                function keyboardShowHandler(e) {
-                    wHeight = window.innerHeight;
-                    kHeight = e.keyboardHeight;
-                    extraHeight = 0; //header + inputbox
-                    //alert('IONIC Keyboard height is: ' + e.keyboardHeight);
-                    onSoftKeyUp(wHeight - kHeight - extraHeight);
-                }
-                function keyboardHideHandler(e) {
-                    //alert('Goodnight, sweet prince');
-                    onSoftKeyDown();
-                }
+                                                $('input[type="text"],input[type="password"],select,textarea').on('click', function (e) {
+                                                    $('.slide-body').scrollTop($(this).offset().top);
+                                                });
 
-                document.addEventListener("deviceready", onDeviceReady, false);
+                                                function onSoftKeyUp(body_height) {
+                                                    $('.slide-body').css({'overflow-y': 'scroll', 'height': body_height + 'px'});
+                                                }
+                                                //onSoftKeyUp(400);
+                                                function onSoftKeyDown() {
+                                                    $('.slide-body').css({'overflow-y': 'auto', 'height': 'auto'});
+                                                }
+                                                //setTimeout(onSoftKeyDown, 10000);
 
-                function onDeviceReady() {
-                    window.addEventListener('native.keyboardshow', keyboardShowHandler);
-                    window.addEventListener('native.keyboardhide', keyboardHideHandler);
-                }
+                                                function keyboardShowHandler(e) {
+                                                    wHeight = window.innerHeight;
+                                                    kHeight = e.keyboardHeight;
+                                                    extraHeight = 0; //header + inputbox
+                                                    //alert('IONIC Keyboard height is: ' + e.keyboardHeight);
+                                                    onSoftKeyUp(wHeight - kHeight - extraHeight);
+                                                }
+                                                function keyboardHideHandler(e) {
+                                                    //alert('Goodnight, sweet prince');
+                                                    onSoftKeyDown();
+                                                }
 
-                $('body').find('#message').summernote({
-                    height: 200,
-                    toolbar: [
-                        // [groupName, [list of button]]
-                        ['style', ['bold', 'italic', 'underline']],
-                        ['font', ['strikethrough', 'superscript', 'subscript']],
-                        ['fontsize', ['fontsize']],
-                        //['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        //['height', ['height']],
-                        ['insert', ['link', 'unlink','picture', 'video', 'hr']]
-                    ],
-                    placeholder: 'Write your text...',
-                    callbacks: {
-                        onImageUpload: function (image) {
-                            sendFile(image[0]);
-                        }
-                    }
-                });
+                                                document.addEventListener("deviceready", onDeviceReady, false);
 
-                function sendFile(file, editor, welEditable) {
-                    data = new FormData();
-                    data.append("file", file);//You can append as many data as you want. Check mozilla docs for this
-                    data.append('auth_id=', user.auth_id);
-                    data.append("auth_type", "2");
-                    data.append("secret_key", secret_key);
-                    $('.loading-mask').removeClass('stop-loading');
-                    $.ajax({
-                        data: data,
-                        type: "POST",
-                        url: 'http://' + confs.site_addr + '/admin.php/messages/upload_file?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        dataType: 'json',
-                        success: function (result) {
-                            $('.loading-mask').addClass('stop-loading');
-                            console.log(result);
-                            if (result.status == '1') {
-                                $('#message').summernote("insertImage", result.url);
-                            }
-                        }
-                    });
-                }
+                                                function onDeviceReady() {
+                                                    window.addEventListener('native.keyboardshow', keyboardShowHandler);
+                                                    window.addEventListener('native.keyboardhide', keyboardHideHandler);
+                                                }
 
-            });
+                                                $('body').find('#message').summernote({
+                                                    height: 200,
+                                                    toolbar: [
+                                                        // [groupName, [list of button]]
+                                                        ['style', ['bold', 'italic', 'underline']],
+                                                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                                                        ['fontsize', ['fontsize']],
+                                                        //['color', ['color']],
+                                                        ['para', ['ul', 'ol', 'paragraph']],
+                                                        //['height', ['height']],
+                                                        ['insert', ['link', 'unlink', 'picture', 'video', 'hr']]
+                                                    ],
+                                                    placeholder: 'Write your text...',
+                                                    callbacks: {
+                                                        onImageUpload: function (image) {
+                                                            sendFile(image[0]);
+                                                        }
+                                                    }
+                                                });
+
+                                                function sendFile(file, editor, welEditable) {
+                                                    data = new FormData();
+                                                    data.append("file", file);//You can append as many data as you want. Check mozilla docs for this
+                                                    data.append('auth_id=', user.auth_id);
+                                                    data.append("auth_type", "2");
+                                                    data.append("secret_key", secret_key);
+                                                    $('.loading-mask').removeClass('stop-loading');
+                                                    $.ajax({
+                                                        data: data,
+                                                        type: "POST",
+                                                        url: 'http://' + confs.site_addr + '/admin.php/messages/upload_file?ma=1&sessN=' + sess_data.session_id + '&ua=' + sess_data.user_agent,
+                                                        cache: false,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        dataType: 'json',
+                                                        success: function (result) {
+                                                            $('.loading-mask').addClass('stop-loading');
+                                                            console.log(result);
+                                                            if (result.status == '1') {
+                                                                $('#message').summernote("insertImage", result.url);
+                                                            }
+                                                        }
+                                                    });
+                                                }
+
+                                            });
         </script>
         <script type="text/javascript" src="template/js/modernizr.js"></script>
         <script type="text/javascript" src="template/js/framework.js"></script>
